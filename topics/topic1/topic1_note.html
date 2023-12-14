@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../assets/css/topic_note.css">
+    <title>筆記</title>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li onclick="loadHTML('./notes/unit1.html')">1.1 定義和術語</li>
+                <li onclick="loadHTML('./notes/unit2.html')">1.2 初始值問題</li>
+                <li onclick="loadHTML('./notes/unit3.html')">1.3 數學模型之微分方程式</li>
+				<li onclick="loadHTML('./notes/unit4.html')">第1章複習</li>
+            </ul>
+        </div>
+        <div class="content">
+            <iframe id="htmlFrame" frameborder="0" width="100%" height="100%"></iframe>
+        </div>
+		<div class="bottom-left">
+			<button onclick="navigateToAnotherPage()">筆記</button>
+		</div>
+    </div>
+
+    <script src="../../assets/js/topic_note.js"></script>
+</body>
+</html>

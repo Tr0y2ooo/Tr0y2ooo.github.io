@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>选择单元显示HTML</title>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li onclick="loadHTML('unit1.html')">单元1</li>
+                <li onclick="loadHTML('unit2.html')">单元2</li>
+                <li onclick="loadHTML('unit3.html')">单元3</li>
+            </ul>
+        </div>
+        <div class="content">
+            <iframe id="htmlFrame" frameborder="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
