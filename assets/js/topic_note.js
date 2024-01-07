@@ -21,3 +21,7 @@ var newFilename = toggleNoteProblem(fileName);
 function navigateToAnotherPage() {
     window.location.href = './'+newFilename; // 替换为你想要跳转的页面的文件名
 }
+
+function navigateToChapterReview() {
+            window.location.href = '../../index.html'; // 替換 'your_target_url' 為你想要跳轉的URL
+        }
