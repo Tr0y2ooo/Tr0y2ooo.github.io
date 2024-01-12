@@ -21,3 +21,14 @@ var newFilename = toggleNoteProblem(fileName);
 function navigateToAnotherPage() {
     window.location.href = './'+newFilename; // 替换为你想要跳转的页面的文件名
 }
+
+function showRandomProblem() {
+    // 隨機選擇問題編號（1到4之間的數字）
+    var randomProblemNumber = Math.floor(Math.random() * 4) + 1;
+
+    // 構建問題文件的路徑
+    var problemPath = './problems/q' + randomProblemNumber + '.html';
+
+    // 載入隨機選擇的問題
+    loadHTML(problemPath);
+}
