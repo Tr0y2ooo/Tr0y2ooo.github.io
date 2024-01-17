@@ -23,8 +23,8 @@ function navigateToAnotherPage() {
 }
 
 function showRandomProblem() {
-    // 隨機選擇問題編號（1到4之間的數字）
-    var randomProblemNumber = Math.floor(Math.random() * 4) + 1;
+    // 隨機選擇問題編號（1到15之間的數字）
+    var randomProblemNumber = Math.floor(Math.random() * 15) + 1;
 
     // 構建問題文件的路徑
     var problemPath = './problems/q' + randomProblemNumber + '.html';

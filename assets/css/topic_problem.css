@@ -14,11 +14,13 @@ body, html {
     width: 20%;
     background: #2c3e50;
     color: #ecf0f1;
+    overflow-y: auto; /* 添加纵向滚动条 */
 }
 
 .sidebar ul {
     list-style: none;
     padding: 0;
+    margin: 0; /* 去除默认的列表边距 */
 }
 
 .sidebar li {
@@ -48,7 +50,6 @@ iframe {
     background: #3498db;
 }
 
-
 .bottom-left {
     position: fixed;
     bottom: 20px;
@@ -64,8 +65,8 @@ iframe {
     border: none;
     cursor: pointer;
     font-size: 16px;
-	color: black;
-	font-weight: bold;
+    color: black;
+    font-weight: bold;
 }
 
 .bottom-left button:hover {
