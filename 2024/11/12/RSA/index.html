@@ -13,18 +13,30 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/archives/2024/"/>
+    <link rel="canonical" href="http://example.com/2024/11/12/rsa/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/2024/index.html">
+        <meta name="description" content="tags: CryptograghyRSAresourse:影片from Olien  What is RSA?RSA-&gt;一種非對稱加密演算法 名詞及代號: 公鑰 私鑰 加密訊息 解密訊息 密文 phi(N)r  實作方法: 選擇兩個大的質數p和q(p!&#x3D;q) -&gt;得到 N &#x3D; p*q  求得r &#x3D; phi(N) &#x3D;  (p-1) * (q-1)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RSA基本原理">
+<meta property="og:url" content="http://example.com/2024/11/12/RSA/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="tags: CryptograghyRSAresourse:影片from Olien  What is RSA?RSA-&gt;一種非對稱加密演算法 名詞及代號: 公鑰 私鑰 加密訊息 解密訊息 密文 phi(N)r  實作方法: 選擇兩個大的質數p和q(p!&#x3D;q) -&gt;得到 N &#x3D; p*q  求得r &#x3D; phi(N) &#x3D;  (p-1) * (q-1)">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/qcanVRl.png">
+<meta property="og:image" content="https://i.imgur.com/oTIiOK9.png">
+<meta property="og:image" content="https://i.imgur.com/fYKrORX.png">
+<meta property="og:image" content="https://i.imgur.com/Yswc3Jl.png">
+<meta property="og:image" content="https://i.imgur.com/W9VpAQw.png">
+<meta property="og:image" content="https://i.imgur.com/w23HjPB.png">
+<meta property="article:published_time" content="2024-11-12T04:18:00.000Z">
+<meta property="article:modified_time" content="2024-11-12T04:24:28.962Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="RSA">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/qcanVRl.png">
     
     
     <!--- Icon Part-->
@@ -36,7 +48,7 @@
     
     <title>
         
-            Archive: 2024 | Tr0y2ooo in the house
+            RSA基本原理 | Tr0y2ooo in the house
         
     </title>
 
@@ -225,75 +237,319 @@
             <div class="main-content">
 
                 
-                    <div class="archive-container shadow-none hover:shadow-none sm:shadow-redefine sm:hover:shadow-redefine-hover">
-    
-<div class="archive-list-container">
-    
-        <section class="archive-item mb-spacing-unit last:mb-0">
-            <div class="archive-item-header flex flex-row items-center mb-2">
-                <span class="archive-year font-semibold text-3xl mr-2">2024</span>
-                <span class="archive-year-post-count text-xs md:text-sm font-bold rounded-small bg-third-background-color py-[2px] px-[10px] border border-border-color">6</span>
-            </div>
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
             
-            <ul class="article-list pl-0 md:pl-8 text-lg leading-[1.5]">
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">RSA基本原理</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/null">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Tr0y2ooo</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv1</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-11-12 12:18</span>
+        <span class="mobile">2024-11-12 12:18</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-11-12 12:24:28</span>
+            <span class="mobile">2024-11-12 12:24:28</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
                 
-                    
-                    
-                         <!-- Close the previous LI if not the first item -->
-                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='11-12'>
-                    
-                    <a href="/2024/11/12/XSS%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" class="block w-fit">
-                        <span class="article-title my-0.5 text-2xl">練習XSS</span>
-                    </a>
-                    
                 
-                    
-                    
-                    <a href="/2024/11/12/ECC%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" class="block w-fit">
-                        <span class="article-title my-0.5 text-2xl">ECC基本原理</span>
-                    </a>
-                    
-                
-                    
-                    
-                    <a href="/2024/11/12/RSA/" class="block w-fit">
-                        <span class="article-title my-0.5 text-2xl">RSA基本原理</span>
-                    </a>
-                    
-                
-                    
-                    
-                    <a href="/2024/11/12/Python%E5%9F%BA%E6%9C%AC%E6%95%99%E5%AD%B8/" class="block w-fit">
-                        <span class="article-title my-0.5 text-2xl">Python基本教學</span>
-                    </a>
-                    
-                
-                    
                     
                         
-                            </li>
-                         <!-- Close the previous LI if not the first item -->
-                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='11-11'>
+                        <li>
+                            <a href="/categories/note/">note</a>&nbsp;
+                        </li>
                     
-                    <a href="/2024/11/11/%E5%AE%9C%E8%98%AD%E6%96%B0%E6%9C%88%E9%99%B6%E6%9D%BF%E5%B1%8B%E6%89%93%E5%B7%A5%E7%B6%93%E9%A9%97/" class="block w-fit">
-                        <span class="article-title my-0.5 text-2xl">陶板屋打工</span>
-                    </a>
                     
                 
                     
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/note/Cryptograghy/">Cryptograghy</a>&nbsp;
+                        </li>
                     
-                    <a href="/2024/11/11/hello-world/" class="block w-fit">
-                        <span class="article-title my-0.5 text-2xl">Hello World</span>
-                    </a>
                     
                 
-                </li> <!-- Ensure the last item is properly closed -->
             </ul>
-        </section>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/RSA/">RSA</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
     
 </div>
 
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h6 id="tags-Cryptograghy"><a href="#tags-Cryptograghy" class="headerlink" title="tags: Cryptograghy"></a>tags: <code>Cryptograghy</code></h6><h1 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a><strong>RSA</strong></h1><p>resourse:<br><a class="link"   target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=NeJStD8LO_0" >影片from Olien <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>What is RSA?<br>RSA-&gt;一種非對稱加密演算法</p>
+<h3 id="名詞及代號"><a href="#名詞及代號" class="headerlink" title="名詞及代號:"></a>名詞及代號:</h3><ul>
+<li>公鑰<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/qcanVRl.png"
+                     
+                ></li>
+<li>私鑰<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/oTIiOK9.png"
+                     
+                ></li>
+<li>加密訊息<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/fYKrORX.png"
+                     
+                ></li>
+<li>解密訊息<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/Yswc3Jl.png"
+                     
+                ></li>
+<li>密文<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/W9VpAQw.png"
+                     
+                ></li>
+<li>phi(N)r</li>
+</ul>
+<h3 id="實作方法"><a href="#實作方法" class="headerlink" title="實作方法:"></a>實作方法:</h3><ol>
+<li><p>選擇兩個大的質數p和q(p!&#x3D;q) -&gt;得到 N &#x3D; p*q</p>
+</li>
+<li><p>求得r &#x3D; phi(N) &#x3D;  (p-1) * (q-1) -&gt;(歐拉函數)</p>
+</li>
+<li><p>選擇一個小於r的數e，使e與r互質。得e關於r的模反元素d -&gt;得到e和r的模反元素d<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/w23HjPB.png"
+                     
+                ></p>
+</li>
+<li><p>finish(喝可樂 d_owo_b!!!)</p>
+</li>
+</ol>
+<h3 id="題目"><a href="#題目" class="headerlink" title="題目"></a>題目</h3><p>What’s more?<br><a class="link"   target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%A7%80%E7%88%BE%E6%BC%94%E7%AE%97%E6%B3%95" >shor encryption <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<!-- CSS -->
+<style>
+    .navbar-brand:before {
+        content: 'Magic_Chihua × ' !important;
+        padding-left: 2em;
+        background-image: url(https://i.imgur.com/BWXp8py.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+    .navbar-brand > .fa-file-text {
+        display: none;
+    }
+    .red{
+        color:#F00;
+        font-weight: bold;
+    }
+</style>
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> RSA基本原理</li>
+        <li><strong>Author:</strong> Tr0y2ooo</li>
+        <li><strong>Created at
+                :</strong> 2024-11-12 12:18:00</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-11-12 12:24:28
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://tr0y2ooo.github.io/2024/11/12/RSA/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
 </div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/RSA/">#RSA</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2024/11/12/ECC%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">ECC基本原理</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2024/11/12/Python%E5%9F%BA%E6%9C%AC%E6%95%99%E5%AD%B8/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Python基本教學</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">RSA基本原理</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RSA"><span class="nav-text">RSA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8D%E8%A9%9E%E5%8F%8A%E4%BB%A3%E8%99%9F"><span class="nav-text">名詞及代號:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C%E6%96%B9%E6%B3%95"><span class="nav-text">實作方法:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%8C%E7%9B%AE"><span class="nav-text">題目</span></a></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
 
                 
 
@@ -375,6 +631,27 @@
         </div>
     </div>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
     
 
     <div class="right-side-tools-container">
