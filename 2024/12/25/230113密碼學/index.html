@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Tr0y2ooo">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2024/12/25/230113密碼學/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="2023 0113 密碼學Symmetric Encryption 加解密都用同一把key 區塊密碼 串流密碼    區塊密碼 費斯妥結構(Feistel structure) 加解密操作相似 逆轉key的順序就可以加解密 F可以是純函式，不必是可逆的 Ex：SPN、Hash、Neural Network … 應用用C++實際操作一次12345678910111213141516171819202">
+<meta property="og:type" content="article">
+<meta property="og:title" content="230113密碼學">
+<meta property="og:url" content="http://example.com/2024/12/25/230113%E5%AF%86%E7%A2%BC%E5%AD%B8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="2023 0113 密碼學Symmetric Encryption 加解密都用同一把key 區塊密碼 串流密碼    區塊密碼 費斯妥結構(Feistel structure) 加解密操作相似 逆轉key的順序就可以加解密 F可以是純函式，不必是可逆的 Ex：SPN、Hash、Neural Network … 應用用C++實際操作一次12345678910111213141516171819202">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/SUUBbtV.png">
+<meta property="og:image" content="https://i.imgur.com/Cy3J0ER.png">
+<meta property="og:image" content="https://i.imgur.com/2EMP8Nn.png">
+<meta property="og:image" content="https://i.imgur.com/f8QS580.png">
+<meta property="og:image" content="https://i.imgur.com/BaAgL8E.png">
+<meta property="og:image" content="https://i.imgur.com/d626ZOI.png">
+<meta property="og:image" content="https://i.imgur.com/XlGddRx.png">
+<meta property="og:image" content="https://i.imgur.com/9WpSr6T.png">
+<meta property="article:published_time" content="2024-12-24T18:03:00.000Z">
+<meta property="article:modified_time" content="2024-12-24T18:03:35.364Z">
+<meta property="article:author" content="Troy">
+<meta property="article:tag" content="Crypto">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/SUUBbtV.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/null" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/null">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/null">
+    <!--- Page Info-->
+    
+    <title>
+        
+            230113密碼學 | Tr0y2ooo in the house
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/rem.jpg","dark":"/images/rem_dark.jpg"},"title":"‎‎‎‏‎‏‎‏","subtitle":{"text":null,"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"幹你娘","artist":"DJ Jerry","url":"https://ssl-pixnet-tv.pixfs.net/user/leo4/1231657490.m4a","cover":"https://media.discordapp.net/attachments/850438898093785128/1262046151520161835/1720574532076.gif?ex=67340852&is=6732b6d2&hm=a84a4a8bdeae5d7d34f0a8a1ccc339a001a624eb6ff490d5fd18cb35e0a49b84&=","lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.3","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"tags":{"path":"/tags/","icon":"fa-solid fa-tags"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/EvanNotFound/hexo-theme-redefine","Blog":"https://ohevan.com"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3,"Tags":null,"icon":"fa-solid fa-tags","path":"/tags/"}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container flex flex-col justify-between min-h-dvh">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Tr0y2ooo in the house
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    TAGS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://ohevan.com">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                TAGS
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://ohevan.com">BLOG</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">14</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">230113密碼學</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/personal.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Troy</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-12-25 02:03</span>
+        <span class="mobile">2024-12-25 02:03</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-12-25 02:03:35</span>
+            <span class="mobile">2024-12-25 02:03:35</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/note/">note</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Crypto/">Crypto</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="2023-0113-密碼學"><a href="#2023-0113-密碼學" class="headerlink" title="2023 0113 密碼學"></a>2023 0113 密碼學</h1><h2 id="Symmetric-Encryption"><a href="#Symmetric-Encryption" class="headerlink" title="Symmetric Encryption"></a>Symmetric Encryption</h2><ul>
+<li>加解密都用同一把key<ul>
+<li>區塊密碼</li>
+<li>串流密碼<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/SUUBbtV.png"
+                     
+                ></li>
+</ul>
+</li>
+</ul>
+<h3 id="區塊密碼"><a href="#區塊密碼" class="headerlink" title="區塊密碼"></a>區塊密碼</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/Cy3J0ER.png"
+                     
+                ></p>
+<h4 id="費斯妥結構-Feistel-structure"><a href="#費斯妥結構-Feistel-structure" class="headerlink" title="費斯妥結構(Feistel structure)"></a>費斯妥結構(Feistel structure)</h4><ul>
+<li>加解密操作相似</li>
+<li>逆轉key的順序就可以加解密</li>
+<li>F可以是純函式，不必是可逆的</li>
+<li>Ex：SPN、Hash、Neural Network …</li>
+<li>應用<br>用C++實際操作一次<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">char</span>* <span class="title">Xor</span><span class="params">(string ,string)</span></span>;</span><br><span class="line"><span class="comment">//xor operation</span></span><br><span class="line"><span class="function"><span class="type">char</span>* <span class="title">f0</span><span class="params">(string ,string)</span></span>;</span><br><span class="line"><span class="function"><span class="type">char</span>* <span class="title">f1</span><span class="params">(string ,string)</span></span>;</span><br><span class="line"><span class="function"><span class="type">char</span>* <span class="title">f2</span><span class="params">(string ,string)</span></span>;</span><br><span class="line"><span class="comment">//function to encrypt</span></span><br><span class="line"><span class="type">char</span>* str3 = <span class="keyword">new</span> <span class="type">char</span>[<span class="number">40</span>];</span><br><span class="line"><span class="comment">//var used to return string</span></span><br><span class="line">string plaintext=<span class="string">&quot;pekora_i_love_you!&quot;</span>;</span><br><span class="line"><span class="comment">//plaintext</span></span><br><span class="line">string cipertext=<span class="string">&quot;&quot;</span>;</span><br><span class="line"><span class="comment">//cipertext</span></span><br><span class="line">string L0 = plaintext.<span class="built_in">substr</span>(<span class="number">0</span>,plaintext.<span class="built_in">size</span>()/<span class="number">2</span>);</span><br><span class="line">string R0 = plaintext.<span class="built_in">substr</span>(plaintext.<span class="built_in">size</span>()/<span class="number">2</span>,<span class="number">17</span>);</span><br><span class="line"><span class="comment">//separate the plaintext into two pieces</span></span><br><span class="line">string k0 = <span class="string">&quot;watame&quot;</span>;</span><br><span class="line">string k1 = <span class="string">&quot;rem&quot;</span>;</span><br><span class="line">string k2 = <span class="string">&quot;suifeng0214&quot;</span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cipertext = <span class="built_in">f0</span>(R0,k0);</span><br><span class="line">    cipertext = <span class="built_in">Xor</span>(cipertext,L0);</span><br><span class="line">    <span class="comment">//first layer</span></span><br><span class="line">    cipertext = <span class="built_in">f1</span>(cipertext,k1);</span><br><span class="line">    cipertext = <span class="built_in">Xor</span>(cipertext,R0);</span><br><span class="line">    <span class="comment">//second layer</span></span><br><span class="line">    cipertext = <span class="built_in">f2</span>(cipertext,k2);</span><br><span class="line">    cipertext = <span class="built_in">Xor</span>(cipertext,L0);</span><br><span class="line">    <span class="comment">//third layer</span></span><br><span class="line">    cout&lt;&lt;cipertext;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">char</span>* <span class="title">Xor</span><span class="params">(string str1,string str2)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;str<span class="number">1.</span><span class="built_in">size</span>();i++)&#123;</span><br><span class="line">        str3[i] = str1[i]^str2[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> str3;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//xor function</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">char</span>* <span class="title">f0</span><span class="params">(string str1,string str2)</span></span>&#123;</span><br><span class="line">    <span class="type">char</span>* str3 = <span class="keyword">new</span> <span class="type">char</span>[<span class="number">40</span>];</span><br><span class="line">    <span class="built_in">reverse</span>(str<span class="number">1.</span><span class="built_in">begin</span>(),str<span class="number">1.</span><span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;str<span class="number">1.</span><span class="built_in">size</span>();i++) str3[i]=str1[i];</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;str<span class="number">2.</span><span class="built_in">size</span>();i++) str3[i+str<span class="number">1.</span><span class="built_in">size</span>()]=str2[i];</span><br><span class="line">    <span class="keyword">return</span> str3;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//function f0</span></span><br><span class="line"><span class="comment">//reverse str1 and then combine with str2</span></span><br><span class="line"><span class="function"><span class="type">char</span>* <span class="title">f1</span><span class="params">(string str1,string str2)</span></span>&#123;</span><br><span class="line">    <span class="type">char</span>* str3 = <span class="keyword">new</span> <span class="type">char</span>[<span class="number">40</span>];</span><br><span class="line">    <span class="built_in">reverse</span>(str<span class="number">2.</span><span class="built_in">begin</span>(),str<span class="number">2.</span><span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;str<span class="number">1.</span><span class="built_in">size</span>();i++) str3[i]=str1[i];</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;str<span class="number">2.</span><span class="built_in">size</span>();i++) str3[i+str<span class="number">1.</span><span class="built_in">size</span>()]=str2[i];</span><br><span class="line">    <span class="keyword">return</span> str3;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//function f1</span></span><br><span class="line"><span class="comment">//reverse str2 and then combine with str1</span></span><br><span class="line"><span class="function"><span class="type">char</span>* <span class="title">f2</span><span class="params">(string str1,string str2)</span></span>&#123;</span><br><span class="line">    <span class="type">char</span>* str3 = <span class="keyword">new</span> <span class="type">char</span>[<span class="number">40</span>];</span><br><span class="line">    <span class="built_in">reverse</span>(str<span class="number">1.</span><span class="built_in">begin</span>(),str<span class="number">1.</span><span class="built_in">end</span>());</span><br><span class="line">    <span class="built_in">reverse</span>(str<span class="number">2.</span><span class="built_in">begin</span>(),str<span class="number">2.</span><span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;str<span class="number">1.</span><span class="built_in">size</span>();i++) str3[i]=str1[i];</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;str<span class="number">2.</span><span class="built_in">size</span>();i++) str3[i+str<span class="number">1.</span><span class="built_in">size</span>()]=str2[i];</span><br><span class="line">    <span class="keyword">return</span> str3;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//function f2</span></span><br><span class="line"><span class="comment">//reverse both and then combine</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<a class="link"   target="_blank" rel="noopener" href="http://iamahan.blogspot.com/2009/05/c-functionstring.html" >小坑:函式回傳string <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h4 id="DES"><a href="#DES" class="headerlink" title="DES"></a>DES</h4><pre><code>* Block size：64 bits(8bytes)
+* keyspace：56 bits
+* 較不安全
+* 已被3DES取代
+</code></pre>
+<h4 id="3DES"><a href="#3DES" class="headerlink" title="3DES"></a>3DES</h4><pre><code>* Block size：64 bits(8bytes)
+* keyspace：112 bits
+* 加密-&gt;解密-&gt;加密
+* 暴力破解需要運算2^112次
+* 較安全
+</code></pre>
+<ul>
+<li>DES的費斯妥結構<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/2EMP8Nn.png"
+                     
+                ><br>首先會先進到F裡面R0跟key0先做一次function(如上述)，function實際上會經過四個階段：</li>
+</ul>
+<ol>
+<li>E(Expand)<br>-&gt; 把輸入的32 bits擴展成48 bits</li>
+<li>XOR<br>-&gt; 把擴展完的輸入和key(48 bits)做XOR</li>
+<li>Sbox(Substitution box)<br>-&gt; 6變4,把XOR完的結果6個一組變成4個一組</li>
+<li>Pbox(Permutation box)<br>-&gt; 混淆bits</li>
+</ol>
+<ul>
+<li><p>Sbox(Substitution box)<br>-&gt; 這邊以4進4出為例：可以看到Sbox[0]是14，所以上面x1,x2,x3,x4都輸入0下面會跑出1,1,1,0，因為14的二進制是1110<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/f8QS580.png"
+                     
+                ></p>
+</li>
+<li><p>Pbox(Permutation box)<br>-&gt; 8 bytes每個byte會有8個bits，平均分配到下面的8 bytes，做一個簡單的混淆<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/BaAgL8E.png"
+                     
+                ></p>
+</li>
+<li><p>AES<br><a class="link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard" >看過就好 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
+</ul>
+<h4 id="填充模式-Padding-Mode"><a href="#填充模式-Padding-Mode" class="headerlink" title="填充模式(Padding Mode)"></a>填充模式(Padding Mode)</h4><p>當要加密的明文bits數剛好不是16的倍數，例如30 bits的明文要加密就會被切成16 + (14+2)，其中的2就是填充的bits</p>
+<ul>
+<li>PKCS#7 Padding<br>  ac ab ad 9a ya LL en <font color="blue">01</font><br>  ac ab ad 9a ya LL <font color="blue">02 02</font><br>  ac ab ad 9a ya <font color="blue">03 03 03</font><br>  ac ab ad 9a <font color="blue">04 04 04 04</font><br>  ac ab ad <font color="blue">05 05 05 05 05</font><br>  ac ab <font color="blue">06 06 06 06 06 06</font><br>  ac <font color="blue">07 07 07 07 07 07 07</font><br>  <font color="#FF0000">08 08 08 08 08 08 08 08</font></li>
+</ul>
+<p><font color="blue">大概是這樣填充的，差1 bit就填一個01，差兩個就填兩個02</font></p>
+<p><font color="#FF0000">即使是剛好是8 bits的倍數也要填入八個08讓他知道，有點類似於\x00終止符號的意思</font></p>
+<ul>
+<li>ECB(Electronic codebook)<ul>
+<li>上面說的直接把明文切一塊一塊的</li>
+<li>當明文越多就會顯現出缺點<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/d626ZOI.png"
+                     
+                ></li>
+<li>經典企鵝圖，可以看出加密後還是有企鵝的輪廓，沒辦法真正的加密明文</li>
+</ul>
+</li>
+<li>CBC(Cipher-block chaining)<br>CBC則是會先要你輸入一個初始向量(IV，Initial Vector)，把IV跟明文做XOR，再去做加密，得到的密文當作下一段的IV，一直做到底。</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/XlGddRx.png"
+                     
+                ></p>
+<p>解密則是反過來做，要注意解密時要記得當初加密的IV是多少，否則最後一塊永遠解不出來，有些網站會把IV存在cookie、database，如果你拿不出來IV值就會被黑名單或是強制登出…</p>
+<p>[LAB]CBC bit-flipping<br>題目大致上的意思是會把AAAAAA加密，然後用CBC的模式，那要怎麼拿到flag呢?<br>只要把密文改成CTFGOGOGO題目就會自己噴flag了。</p>
+<p>:::info<br>題目正常加密：</p>
+<p>明文：XXXXXXXX AAAAAAAA AAAAAAAA</p>
+<p>密文：XXXXXXXX XXXXXXXX XXXXXXXX</p>
+<p>他收到的密文：XXXXXXX…(不知道是什麼，反正不會是CTFGOGOGO)<br>:::<br>:::success<br>我們要做的：<br>明文：XXXXXXXX AAAAAAAA AAAAAAAA</p>
+<p>XOR：AAAAAAAA ^ CTFGOGOGO\x00\x00</p>
+<p>密文：XXXXXXXX CTFGOGOGO XXXXXXXX</p>
+<p>他收到的密文：CTFGOGOGOXXXXXXXXXXXXX…</p>
+<p>把明文的IV XOR “AAAAAAAA”，就可以把原本的明文變成16個null bytes，再XOR “CTFGOGOGO”就可以變成”CTFGOGOGO”了<br>:::<br>註：第一列是IV，第二列是內容，第三列是padding</p>
+<p>那要改內容要注意不能改到Padding，否則到AES加密的時候會失敗</p>
+<p>Solution：<br>題目有給明文是”AAAAAAAA”<br>解題思路就是把IV的部分先XOR “AAAAAAAA”，這時候就會變成null bytes，然後再把null bytes XOR “CTFGOGOGO”就可以把原本的”AAAAAAAA”加密成”CTFGOGOGO”。</p>
+<p>code：</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="comment"># 使用pwntool去跟題目連線</span></span><br><span class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> b64decode <span class="keyword">as</span> b64d</span><br><span class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> b64encode <span class="keyword">as</span> b64e</span><br><span class="line"><span class="comment"># 題目會把密文做base64 encode，等等會用到</span></span><br><span class="line"></span><br><span class="line">r = remote(<span class="string">&#x27;120.114.62.212&#x27;</span>,<span class="number">4120</span>)</span><br><span class="line"><span class="comment"># 連線題目</span></span><br><span class="line">b64_cipher = r.recvline().strip()</span><br><span class="line"><span class="comment"># 取得密文</span></span><br><span class="line">cipher = b64d(b64_cipher)</span><br><span class="line"></span><br><span class="line">iv = cipher[:<span class="number">16</span>]</span><br><span class="line">context = cipher[<span class="number">16</span>:]</span><br><span class="line"><span class="comment"># iv就是前16個字元</span></span><br><span class="line"><span class="comment"># context是後面的padding</span></span><br><span class="line">a = xor(iv,(<span class="string">b&#x27;A&#x27;</span> * <span class="number">16</span>))</span><br><span class="line">b = xor(a,(<span class="string">b&#x27;CTFGOGOGO&#x27;</span>))</span><br><span class="line"><span class="comment"># 依照solution說的，先把IV和16個A XOR，然後再跟CTFGOGOGO XOR</span></span><br><span class="line">payload = b64e(b+context)</span><br><span class="line"><span class="comment"># 把改好的IV(&quot;CTFGOGOGO&quot;)加上後面的padding一起做base64 encode</span></span><br><span class="line">r.sendline(payload)</span><br><span class="line"><span class="comment"># 送出payload</span></span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li>CBC問題(Padding Oracle)<br>當伺服器用CBC的串接方式、Padding使用PKCS#7的時候就可以用這個攻擊去打伺服器<br>需要伺服器戶回傳padding正確或是錯誤</li>
+</ul>
+<p>前面有提到PKCS#7的填充規則，這時候去攪動密文的最後一個byte然後根據伺服器回傳的正確或是錯誤就可以猜出正確的明文是什麼，試256次就能找出答案了</p>
+<p>Plaintxt[-1] xor 7 &#x3D;&gt; 1<br>Plaintxt[-1] &#x3D; 7 xor 1<br>Plaintxt[-1] &#x3D; 6<br>這時候知道最後一個byte是多少，如果最後一byte是06，根據PKCS#7的規則可以推出，倒數6個byte應該都會是06<br>X X X X X X X 06  &#x3D;&#x3D;可以推出&#x3D;&#x3D;&gt;  X X 06 06 06 06 06 06<br>那要如何求出前面的X呢?<br>把全部的06都xor 1，把它變成07，一樣的手法就能推出第二個byte是什麼了<br>X X 06 06 06 06 06 06 &#x3D;&#x3D;xor1&#x3D;&#x3D;&gt; X X 07 07 07 07 07 07<br>Plaintxt[-1] xor 0x62 &#x3D;&gt;7<br>Plaintxt[-1] &#x3D; 0x62 xor 7<br>Plaintxt[-1] &#x3D;’e’<br>可以求出第二個byte明文是’e’</p>
+<p>這邊要注意要是沒有IV的話就解不開第一格block</p>
+<p>[LAB]Padding Oracle</p>
+<h2 id="Asymmetric-Encryption"><a href="#Asymmetric-Encryption" class="headerlink" title="Asymmetric Encryption"></a>Asymmetric Encryption</h2><ul>
+<li>加解密用不同的key</li>
+<li>常見的公開金鑰演算法<ul>
+<li>RSA</li>
+<li>Diffie-Hellman key exchange(DH)</li>
+<li>DSA(Digital Signature Algorithm)</li>
+<li>橢圓曲線密碼學(Elliptic Curve Cryptography - ECC)</li>
+</ul>
+</li>
+</ul>
+<h4 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h4><p>有公、私鑰<br>公鑰：可以公開且任意發布<br>私鑰：不公開且必須嚴格秘密保管</p>
+<p>有兩種方式可以加密<br>明文透過公鑰加密，私鑰解密<br>明文透過私鑰加密，公鑰解密<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/9WpSr6T.png"
+                     
+                ></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 230113密碼學</li>
+        <li><strong>Author:</strong> Troy</li>
+        <li><strong>Created at
+                :</strong> 2024-12-25 02:03:00</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-12-25 02:03:35
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://tr0y2ooo.github.io/2024/12/25/230113密碼學/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Crypto/">#Crypto</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2024/12/25/a/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">威脅情資實務分析</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2024/12/25/Operating-System/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Operating System</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">230113密碼學</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2023-0113-%E5%AF%86%E7%A2%BC%E5%AD%B8"><span class="nav-text">2023 0113 密碼學</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Symmetric-Encryption"><span class="nav-text">Symmetric Encryption</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%80%E5%A1%8A%E5%AF%86%E7%A2%BC"><span class="nav-text">區塊密碼</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Asymmetric-Encryption"><span class="nav-text">Asymmetric Encryption</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Tr0y2ooo</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        21 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.7.3</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+    <div id="aplayer"></div>
+
+<script src="/js/libs/APlayer.min.js"></script>
+
+
+<script src="/js/plugins/aplayer.js"></script>
+
+
+</body>
+</html>

