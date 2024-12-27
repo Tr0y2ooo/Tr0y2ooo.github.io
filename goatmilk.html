@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>嘉南羊乳配送資訊</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #000000;
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 30px;
+        color: #f9f9f9;
+    }
+
+    #fileInput {
+        display: block;
+        margin: 20px auto;
+        padding: 10px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    #fileInput:hover {
+        background-color: #0056b3;
+    }
+
+    table {
+        width: 90%;
+        margin: 30px auto;
+        border-collapse: collapse;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        background-color: black;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+		color: white;
+    }
+
+    th {
+        background-color: #007BFF;
+        color: white;
+        font-weight: bold;
+    }
+
+    td {
+        background-color: black;
+		
+    }
+
+    td button {
+        padding: 6px 12px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    td button:hover {
+        background-color: #218838;
+    }
+
+    td button:disabled {
+        background-color: #ddd;
+        cursor: not-allowed;
+    }
+	.copy-button {
+        background-color: #17a2b8;
+        margin-left: 10px;
+    }
+
+    .copy-button:hover {
+        background-color: #138496;
+    }
+    /* 設置響應式樣式 */
+    @media (max-width: 768px) {
+        table {
+            width: 100%;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 8px;
+        }
+
+        #fileInput {
+            width: 80%;
+            font-size: 14px;
+        }
+    }
+</style>
+
+</head>
+<body>
+    <h1>嘉南羊乳每日配送資訊</h1>
+    <input type="file" id="fileInput" accept=".xls,.xlsx">
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>編號</th>
+                <th>地址</th>
+                <th>口味</th>
+                <th>導航</th>
+				<th>複製</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const dataTable = document.getElementById('dataTable').querySelector('tbody');
+
+        fileInput.addEventListener('change', async (event) => {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const data = await file.arrayBuffer();
+            const workbook = XLSX.read(data, { type: 'array' });
+
+            // 假設我們只讀取第一個工作表
+            const firstSheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[firstSheetName];
+
+            // 將工作表轉換為 JSON
+            const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+			
+			
+
+            // 清空表格內容
+            dataTable.innerHTML = '';
+
+            // 解析數據，從第二行開始 (跳過標題)
+            rows.slice(4).forEach((row, index) => {
+				const filteredRow = row.filter((_, colIndex) => colIndex !== 2 );
+
+                const [編號, 地址, 口味, 衛星定位] = filteredRow;
+
+                // 創建表格列
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${index + 1}</td>
+					<td>${編號 || ''}</td>
+                    <td>${地址 || ''}</td>
+                    <td><button onclick="navigateTo('${口味}')">導航</button></td>
+					<td><button class="copy-button" onclick="copyAddress('${編號}')">複製</button></td>
+                `;
+                dataTable.appendChild(tr);
+            });
+        });
+
+        // 導航功能
+        function navigateTo(gps) {
+            if (!gps) {
+                alert('GPS 資料無效');
+                return;
+            }
+            const url = `https://www.google.com/maps?q=${gps}`;
+            window.open(url, '_blank');
+        }
+		 // 複製地址到剪貼簿
+        function copyAddress(address) {
+            if (!address) {
+                alert('地址無效');
+                return;
+            }
+            navigator.clipboard.writeText(address).then(() => {
+                alert('地址已複製到剪貼簿');
+            }).catch(err => {
+                alert('複製失敗: ' + err);
+            });
+        }
+    </script>
+</body>
+</html>
