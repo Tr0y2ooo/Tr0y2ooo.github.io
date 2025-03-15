@@ -1,0 +1,110 @@
+/* 設定全屏黑色背景 */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* 初始畫面：按鈕置中 */
+#start-screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 按鈕樣式 */
+#trust-button {
+    font-size: 2rem;
+    padding: 15px 30px;
+    background-color: white;
+    color: black;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+/* 按鈕點擊時縮小 */
+#trust-button:active {
+    transform: scale(0.9);
+}
+
+/* 隱藏主畫面內容，等待按鈕點擊後顯示 */
+#main-content {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+/* 背景變色動畫 */
+@keyframes bg-color-change {
+    0% { background-color: red; }
+    25% { background-color: blue; }
+    50% { background-color: green; }
+    75% { background-color: yellow; }
+    100% { background-color: purple; }
+}
+
+/* 中心 GIF */
+#center-gif {
+    width: 200px;
+    height: auto;
+}
+
+/* 飛進來的 GIF */
+.flying-gif {
+    position: absolute;
+    width: 150px;
+    height: auto;
+    opacity: 0; /* 一開始隱藏 */
+    animation: fly-in 3s linear forwards;
+}
+
+/* 飛行動畫 */
+@keyframes fly-in {
+    0% {
+        opacity: 1;
+        transform: translateX(0) translateY(0) rotate(0deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(calc(100vw * var(--dir))) translateY(calc(50px - 100px * var(--randY))) rotate(360deg);
+    }
+}
+
+/* 文字震動 */
+#title {
+    font-size: 3rem;
+    font-weight: bold;
+    animation: shake 0.3s infinite alternate;
+}
+
+@keyframes shake {
+    0% { transform: translateX(-5px) rotate(-2deg); }
+    50% { transform: translateX(5px) rotate(2deg); }
+    100% { transform: translateX(-5px) rotate(-2deg); }
+}
+
+/* 🌟 響應式設計 - 手機版 */
+@media (max-width: 768px) {
+    #center-gif {
+        width: 150px;  /* 手機版縮小中心 GIF */
+    }
+
+    .flying-gif {
+        width: 80px;  /* 手機版飛入的 GIF 變小 */
+    }
+}
