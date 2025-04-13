@@ -1,190 +1,429 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>嘉南羊乳配送資訊</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>嘉南羊乳配送資訊與統計</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <style>
     body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #000000;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+      margin: 0;
+      padding: 0;
     }
 
     h1 {
-        text-align: center;
-        margin-top: 30px;
-        color: #f9f9f9;
+      text-align: center;
+      margin-top: 20px;
+      color: #f9f9f9;
+    }
+
+    #fileInput, #calculateButton {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
     }
 
     #fileInput {
-        display: block;
-        margin: 20px auto;
-        padding: 10px;
-        background-color: #007BFF;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        font-size: 16px;
-        cursor: pointer;
+      background-color: #007BFF;
+      color: white;
     }
 
     #fileInput:hover {
-        background-color: #0056b3;
+      background-color: #0056b3;
+    }
+
+    #calculateButton {
+      background-color: #28a745;
+      color: white;
+      display: none;
+    }
+
+    #calculateButton:hover {
+      background-color: #218838;
     }
 
     table {
-        width: 90%;
-        margin: 30px auto;
-        border-collapse: collapse;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        background-color: black;
+      width: 90%;
+      margin: 30px auto;
+      border-collapse: collapse;
+      background-color: black;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     }
 
     th, td {
-        border: 1px solid #ddd;
-        padding: 12px;
-        text-align: left;
-		color: white;
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
     }
 
     th {
-        background-color: #007BFF;
-        color: white;
-        font-weight: bold;
+      background-color: #007BFF;
+      color: white;
     }
 
     td {
-        background-color: black;
-		
+      color: white;
     }
 
-    td button {
-        padding: 6px 12px;
-        background-color: #28a745;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 14px;
+    button.copy-button {
+      background-color: #17a2b8;
     }
 
-    td button:hover {
-        background-color: #218838;
+    button.copy-button:hover {
+      background-color: #138496;
     }
 
-    td button:disabled {
-        background-color: #ddd;
-        cursor: not-allowed;
-    }
-	.copy-button {
-        background-color: #17a2b8;
-        margin-left: 10px;
+    .action-menu {
+      position: absolute;
+      background-color: #333;
+      border: 1px solid #888;
+      padding: 10px;
+      z-index: 1000;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
     }
 
-    .copy-button:hover {
-        background-color: #138496;
+    .action-menu button {
+      display: block;
+      width: 100%;
+      margin: 5px 0;
+      background-color: #444;
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 5px;
     }
-    /* 設置響應式樣式 */
+
+    .action-menu button:hover {
+      background-color: #555;
+    }
+
     @media (max-width: 768px) {
-        table {
-            width: 100%;
-            font-size: 14px;
-        }
+      table {
+        font-size: 14px;
+      }
 
-        th, td {
-            padding: 8px;
-        }
-
-        #fileInput {
-            width: 80%;
-            font-size: 14px;
-        }
+      #fileInput, #calculateButton {
+        width: 80%;
+        font-size: 14px;
+      }
     }
-</style>
+
+    #flavorSummary {
+      width: 90%;
+      margin: 30px auto;
+    }
+
+    #flavorSummary h2 {
+      color: #f9f9f9;
+    }
+	.action-menu {
+  position: absolute;
+  background-color: #222;
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 8px;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.7);
+}
+
+.action-menu button {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  margin: 4px 0;
+  font-size: 14px;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.action-menu button:hover {
+  background-color: #666;
+}
+
+.navigate-button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.navigate-button:hover {
+  background-color: #0056b3;
+}
+
+
+  </style>
+  <!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 </head>
 <body>
-    <h1>嘉南羊乳每日配送資訊</h1>
-    <input type="file" id="fileInput" accept=".xls,.xlsx">
-    <table id="dataTable">
-        <thead>
-            <tr>
-                <th>編號</th>
-                <th>地址</th>
-                <th>口味</th>
-                <th>導航</th>
-				<th>複製</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+<div id="flavorSummary"></div>
+<div id="map" style="height: 500px; width: 90%; margin: 30px auto; border: 1px solid #ccc;"></div>
 
-    <script>
-        const fileInput = document.getElementById('fileInput');
-        const dataTable = document.getElementById('dataTable').querySelector('tbody');
+  <h1>嘉南羊乳每日配送資訊與口味統計</h1>
+  <input type="file" id="fileInput" accept=".xls,.xlsx">
 
-        fileInput.addEventListener('change', async (event) => {
-            const file = event.target.files[0];
-            if (!file) return;
+  <table id="dataTable">
+    <thead>
+      <tr>
+        <th>編號</th>
+        <th>地址</th>
+        <th>備註</th>
+        <th>口味</th>
+        <th>導航</th>
+        <th>複製</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
 
-            const data = await file.arrayBuffer();
-            const workbook = XLSX.read(data, { type: 'array' });
+  <script>
+    let rowsData = [];
+    const actions = ['新戶拍照', '收到錢', '紙條拍照', '客戶沒喝', 'gps更新', '備註更新'];
 
-            // 假設我們只讀取第一個工作表
-            const firstSheetName = workbook.SheetNames[0];
-            const worksheet = workbook.Sheets[firstSheetName];
+    document.getElementById('fileInput').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+  if (!file) return;
 
-            // 將工作表轉換為 JSON
-            const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-			
-			
+  const data = await file.arrayBuffer();
+  const workbook = XLSX.read(data, { type: 'array' });
+  const sheet = workbook.Sheets[workbook.SheetNames[0]];
+  rowsData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
-            // 清空表格內容
-            dataTable.innerHTML = '';
+  const tbody = document.querySelector('#dataTable tbody');
+  tbody.innerHTML = '';
 
-            // 解析數據，從第二行開始 (跳過標題)
-            rows.slice(4).forEach((row, index) => {
-				const filteredRow = row.filter((_, colIndex) => colIndex !== 2 );
+  initLeafletMap(); // 在這裡初始化地圖，避免重複調用
 
-                const [編號, 地址, 口味, 衛星定位] = filteredRow;
+  rowsData.slice(4).forEach((row, index) => {
+    const [address, note, flavor, sum, gps] = row;
 
-                // 創建表格列
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${index + 1}</td>
-					<td>${編號 || ''}</td>
-                    <td>${地址 || ''}</td>
-                    <td><button onclick="navigateTo('${口味}')">導航</button></td>
-					<td><button class="copy-button" onclick="copyAddress('${編號}')">複製</button></td>
-                `;
-                dataTable.appendChild(tr);
+    if (gps) {
+      addLeafletMarker(gps, `${index + 1}. ${address}`);
+    }
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${index + 1}</td>
+      <td class="clickable-address" onclick="showActionMenu('${address}', this, this.parentElement.querySelector('.copy-button'))">${address || ''}</td>
+      <td>${note || ''}</td>
+      <td>${flavor || ''}</td>
+      <td><button class="navigate-button" onclick="navigateTo('${gps}', this)">導航</button></td>
+      <td><button class="copy-button" data-clip="${address}" onclick="copyCustom(this)">複製</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+        
+
+      const flavorCounts = {
+        '鮮': 0, '甜': 0, '巧': 0, '麥': 0, '堅': 0, '卵': 0, '莓': 0, '低': 0,
+        '冰鮮': 0, '冰甜': 0, '冰巧': 0, '冰麥': 0, '冰堅': 0, '冰卵': 0, '冰莓': 0, '冰低': 0,
+        '冰原優': 0, '冰莓優': 0, '冰大鮮': 0, '冰大優': 0
+      };
+
+      let totalFlavors = 0, iceFlavors = 0, hotFlavors = 0;
+
+      rowsData.slice(4).forEach(row => {
+        const flavorCell = row[2];
+        if (flavorCell) {
+          const matches = flavorCell.match(/([一-龥冰優]+)(\d+)/g);
+          if (matches) {
+            matches.forEach(item => {
+              const match = item.match(/^([一-龥冰優]+)(\d+)$/);
+              if (match) {
+                const flavor = match[1];
+                const count = parseInt(match[2]);
+                if (flavorCounts.hasOwnProperty(flavor)) {
+                  flavorCounts[flavor] += count;
+                  totalFlavors += count;
+                  if (flavor.startsWith('冰')) {
+                    iceFlavors += count;
+                  } else {
+                    hotFlavors += count;
+                  }
+                }
+              }
             });
+          }
+        }
+      });
+
+      const sortedFlavors = Object.keys(flavorCounts).sort((a, b) => {
+        if (a === '冰鮮') return -1;
+        if (b === '冰鮮') return 1;
+        if (a === '巧') return 1;
+        if (b === '巧') return -1;
+        return a.localeCompare(b);
+      });
+
+      const container = document.getElementById('flavorSummary');
+      container.innerHTML = '<h2>口味總數</h2>';
+      const table = document.createElement('table');
+
+      const header = document.createElement('tr');
+      header.innerHTML = '<th>口味</th><th>總數</th><th>冰</th><th>熱</th>';
+      table.appendChild(header);
+
+      const totalRow = document.createElement('tr');
+      totalRow.innerHTML = `<td>小計</td><td>${totalFlavors}</td><td>${iceFlavors}</td><td>${hotFlavors}</td>`;
+      table.appendChild(totalRow);
+
+      sortedFlavors.forEach(flavor => {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${flavor}</td><td colspan="3">${flavorCounts[flavor]}</td>`;
+        table.appendChild(row);
+      });
+
+      container.appendChild(table);
+    });
+
+const clickedNavButtons = new Set(); // 用來記錄按過的按鈕
+
+function navigateTo(gps, button) {
+  if (!gps) {
+    alert('GPS 資料無效');
+    return;
+  }
+
+  window.open(`https://www.google.com/maps?q=${gps}`, '_blank');
+
+  // 把目前這個按鈕加進已點過的 Set
+  clickedNavButtons.add(button);
+
+  // 所有導航按鈕根據狀態設定顏色
+  document.querySelectorAll('button.navigate-button').forEach(btn => {
+    if (btn === button) {
+      btn.style.backgroundColor = '#dc3545'; // 紅色
+    } else if (clickedNavButtons.has(btn)) {
+      btn.style.backgroundColor = '#28a745'; // 綠色
+    } else {
+      btn.style.backgroundColor = '#007BFF'; // 預設藍色
+    }
+  });
+}
+
+
+
+    function copyCustom(btn) {
+      const content = btn.getAttribute('data-clip') || '';
+      if (!content) {
+        alert('請先點地址選擇操作');
+        return;
+      }
+      navigator.clipboard.writeText(content).then(() => {
+        alert(`已複製：${content}`);
+      });
+    }
+
+    function showActionMenu(address, cell, copyButton) {
+  // 移除其他已開啟的選單
+  document.querySelectorAll('.action-menu').forEach(el => el.remove());
+
+  const menu = document.createElement('div');
+  menu.className = 'action-menu';
+
+  const actions = ['新戶拍照', '收到錢', '紙條拍照', '客戶沒喝', 'gps更新', '備註更新'];
+
+actions.forEach(action => {
+  const btn = document.createElement('button');
+  btn.textContent = action;
+  btn.onclick = () => {
+    if (action === 'gps更新') {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          const lat = position.coords.latitude.toFixed(6);
+          const lon = position.coords.longitude.toFixed(6);
+          const fullText = `${address} GPS: ${lat},${lon}`;
+          copyButton.setAttribute('data-clip', fullText);
+          cell.innerHTML = `${address} (${action})`;
+          menu.remove();
+          alert(`已複製文字: ${fullText}`);
+        }, () => {
+          alert('無法取得 GPS 位置');
         });
+      } else {
+        alert('此裝置不支援 GPS');
+      }
+    } else {
+      const fullText = `${address}${action}`;
+      copyButton.setAttribute('data-clip', fullText);
+      cell.innerHTML = `${address} (${action})`;
+      menu.remove();
+    }
+  };
+  menu.appendChild(btn);
+});
 
-        // 導航功能
-        function navigateTo(gps) {
-            if (!gps) {
-                alert('GPS 資料無效');
-                return;
-            }
-            const url = `https://www.google.com/maps?q=${gps}`;
-            window.open(url, '_blank');
-        }
-		 // 複製地址到剪貼簿
-        function copyAddress(address) {
-            if (!address) {
-                alert('地址無效');
-                return;
-            }
-            navigator.clipboard.writeText(address).then(() => {
-                alert('地址已複製到剪貼簿');
-            }).catch(err => {
-                alert('複製失敗: ' + err);
-            });
-        }
-    </script>
+
+  // 加入紅色清除按鈕
+  const clearBtn = document.createElement('button');
+  clearBtn.textContent = '清除';
+  clearBtn.style.backgroundColor = '#dc3545'; // 紅色背景
+  clearBtn.style.color = 'white';
+  clearBtn.onclick = () => {
+    copyButton.setAttribute('data-clip', address);
+    cell.innerHTML = `<span class="clickable-address" onclick="showActionMenu('${address}', this, this.parentElement.querySelector('.copy-button'))">${address}</span>`;
+    menu.remove();
+  };
+  menu.appendChild(clearBtn);
+
+  // 設定選單位置並加入畫面
+  const rect = cell.getBoundingClientRect();
+  menu.style.left = `${rect.left}px`;
+  menu.style.top = `${rect.bottom + window.scrollY}px`;
+  document.body.appendChild(menu);
+}
+
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.action-menu') && !e.target.classList.contains('clickable-address')) {
+        document.querySelectorAll('.action-menu').forEach(el => el.remove());
+      }
+    });
+	let map;
+let leafletMarkers = [];
+
+function initLeafletMap() {
+  if (!map) {
+    map = L.map('map').setView([24.732613, 121.764034], 14); // 台灣中心
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap'
+    }).addTo(map);
+  }
+
+  // 清除舊標記
+  leafletMarkers.forEach(marker => map.removeLayer(marker));
+  leafletMarkers = [];
+}
+
+function addLeafletMarker(gps, label) {
+  const [latStr, lngStr] = gps.split(',');
+  const lat = parseFloat(latStr);
+  const lng = parseFloat(lngStr);
+  if (!isNaN(lat) && !isNaN(lng)) {
+    const marker = L.marker([lat, lng]).addTo(map).bindPopup(label);
+    leafletMarkers.push(marker);
+  }
+}
+
+  </script>
 </body>
 </html>
