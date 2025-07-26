@@ -6,6 +6,116 @@
     <meta name="keywords" content="Hexo Theme Redefine">
     
     <meta name="author" content="Tr0y2ooo">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
     <!-- preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,6 +128,9 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
+    
+    
+        
         <meta name="description" content="tags: C++How to C++寫程式要幹嘛?目前資訊領域大概有:網頁設計師網頁工程師資訊安全AI工程師物聯網大數據分析師資料庫維護東太平洋漁場時價分析師…目前是一個資訊大爆炸的時代，所以說扯到電子產品的工作都需要會寫程式的人。我們統稱這些人叫IT人。 那我為什麼要學?上面提到，現在是一個資訊大爆炸的時代，雖然不是說不會寫程式將來就沒路用，但是多學一項技能他不香嗎?目前教育部也有給對寫程式很">
 <meta property="og:type" content="article">
 <meta property="og:title" content="How to C++">
@@ -76,7 +189,7 @@
 
     
         
-<link rel="stylesheet" href="/assets/build/styles.css">
+<link rel="stylesheet" href="/css/build/tailwind.css">
 
     
 
@@ -96,7 +209,7 @@
 
     <script id="hexo-configurations">
     window.config = {"hostname":"example.com","root":"/","language":"en"};
-    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/rem.jpg","dark":"/images/rem_dark.jpg"},"title":"‎‎‎‏‎‏‎‏","subtitle":{"text":null,"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"幹你娘","artist":"DJ Jerry","url":"https://ssl-pixnet-tv.pixfs.net/user/leo4/1231657490.m4a","cover":"https://media.discordapp.net/attachments/850438898093785128/1262046151520161835/1720574532076.gif?ex=67340852&is=6732b6d2&hm=a84a4a8bdeae5d7d34f0a8a1ccc339a001a624eb6ff490d5fd18cb35e0a49b84&=","lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.3","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"tags":{"path":"/tags/","icon":"fa-solid fa-tags"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/EvanNotFound/hexo-theme-redefine","Blog":"https://ohevan.com"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3,"Tags":null,"icon":"fa-solid fa-tags","path":"/tags/"}},"footerStart":"2022/8/17 11:45:14"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/rem.jpg","dark":"/images/rem_dark.jpg"},"title":"‎‎‎‏‎‏‎‏","subtitle":{"text":null,"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"幹你娘","artist":"DJ Jerry","url":"https://ssl-pixnet-tv.pixfs.net/user/leo4/1231657490.m4a","cover":"https://media.discordapp.net/attachments/850438898093785128/1262046151520161835/1720574532076.gif?ex=67340852&is=6732b6d2&hm=a84a4a8bdeae5d7d34f0a8a1ccc339a001a624eb6ff490d5fd18cb35e0a49b84&=","lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"tags":{"path":"/tags/","icon":"fa-solid fa-tags"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/EvanNotFound/hexo-theme-redefine","Blog":"https://ohevan.com"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3,"Tags":null,"icon":"fa-solid fa-tags","path":"/tags/"}},"footerStart":"2022/8/17 11:45:14"};
     window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
     window.data = {"masonry":false};
   </script>
@@ -121,29 +234,26 @@
 <meta name="generator" content="Hexo 7.3.0"></head>
 
 
+
 <body>
-<div class="progress-bar-container">
-    
+	<div class="progress-bar-container">
+	
 
-    
-        <span class="pjax-progress-bar"></span>
-<!--        <span class="swup-progress-icon">-->
-<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
-<!--        </span>-->
-    
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
 </div>
-
-
 
 <main class="page-container" id="swup">
 
-    
+	
 
-    <div class="main-content-container flex flex-col justify-between min-h-dvh">
-
-
-        <div class="main-content-header">
-            <header class="navbar-container px-6 md:px-12">
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
     <div class="navbar-content transition-navbar ">
         <div class="left">
             
@@ -414,40 +524,37 @@
 </header>
 
 
-        </div>
+		</div>
 
-        <div class="main-content-body">
+		<div class="main-content-body transition-fade-up">
+			
 
-            
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
 
-            <div class="main-content">
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">How to C++</h1>
+			</div>
+			
+		</div>
 
-                
-                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
-    <div class="article-content-container">
-
-        <div class="article-title relative w-full">
-            
-                <div class="w-full flex items-center pt-6 justify-start">
-                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">How to C++</h1>
-                </div>
-            
-            </div>
-
-        
-            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
-                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
-                    <img src="/images/personal.jpg">
-                </div>
-                <div class="info flex flex-col justify-between">
-                    <div class="author flex items-center">
-                        <span class="name text-default-text-color text-lg font-semibold">Troy</span>
-                        
-                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
-                        
-                    </div>
-                    <div class="meta-info">
-                        <div class="article-meta-info">
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/personal.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Troy</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
         <span class="desktop">2024-12-24 15:04</span>
@@ -503,16 +610,16 @@
     
 </div>
 
-                    </div>
-                </div>
-            </div>
-        
+				</div>
+			</div>
+		</div>
+		
 
-        
+		
 
 
-        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h6 id="tags-C"><a href="#tags-C" class="headerlink" title="tags: C++"></a>tags: <code>C++</code></h6><h1 id="How-to-C"><a href="#How-to-C" class="headerlink" title="How to C++"></a>How to C++</h1><h2 id="寫程式要幹嘛"><a href="#寫程式要幹嘛" class="headerlink" title="寫程式要幹嘛?"></a>寫程式要幹嘛?</h2><p>目前資訊領域大概有:<br>網頁設計師<br>網頁工程師<br>資訊安全<br>AI工程師<br>物聯網<br>大數據分析師<br>資料庫維護<br><del>東太平洋漁場時價分析師</del><br>…<br>目前是一個資訊大爆炸的時代，所以說扯到電子產品的工作都需要會寫程式的人。<br>我們統稱這些人叫IT人。</p>
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h6 id="tags-C"><a href="#tags-C" class="headerlink" title="tags: C++"></a>tags: <code>C++</code></h6><h1 id="How-to-C"><a href="#How-to-C" class="headerlink" title="How to C++"></a>How to C++</h1><h2 id="寫程式要幹嘛"><a href="#寫程式要幹嘛" class="headerlink" title="寫程式要幹嘛?"></a>寫程式要幹嘛?</h2><p>目前資訊領域大概有:<br>網頁設計師<br>網頁工程師<br>資訊安全<br>AI工程師<br>物聯網<br>大數據分析師<br>資料庫維護<br><del>東太平洋漁場時價分析師</del><br>…<br>目前是一個資訊大爆炸的時代，所以說扯到電子產品的工作都需要會寫程式的人。<br>我們統稱這些人叫IT人。</p>
 <h2 id="那我為什麼要學"><a href="#那我為什麼要學" class="headerlink" title="那我為什麼要學?"></a>那我為什麼要學?</h2><p>上面提到，現在是一個資訊大爆炸的時代，雖然不是說不會寫程式將來就沒路用，但是多學一項技能他不香嗎?<br>目前教育部也有給對寫程式很有興趣的人很多管道去升學(特殊選材)。</p>
 <h2 id="廢言說完了，來介紹程式"><a href="#廢言說完了，來介紹程式" class="headerlink" title="廢言說完了，來介紹程式"></a>廢言說完了，來介紹程式</h2><p>首先在電腦桌面會看到好多圖片<br><img  
                      lazyload
@@ -542,7 +649,7 @@
                      
                 ></p>
 <h2 id="終於要開始瞜"><a href="#終於要開始瞜" class="headerlink" title="終於要開始瞜"></a>終於要開始瞜</h2><p>寫程式當然要先下載IDE<br>IDE是三小?</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">整合開發環境（Integrated Development Environment，簡稱IDE，也稱為Integration Design Environment、Integration Debugging Environment）是一種輔助程式開發人員開發軟體的應用軟體，在開發工具內部就可以輔助編寫原始碼文字、並編譯打包成為可用的程式，有些甚至可以設計圖形介面。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">整合開發環境（Integrated Development Environment，簡稱IDE，也稱為Integration Design Environment、Integration Debugging Environment）是一種輔助程式開發人員開發軟體的應用軟體，在開發工具內部就可以輔助編寫原始碼文字、並編譯打包成為可用的程式，有些甚至可以設計圖形介面。</span><br></pre></td></tr></table></figure></div>
 <p>就是讓你寫程式的程式。<br>編譯器是三小?<br>眾所周知電腦是由01組成的聽過這句話吧<br>正確來說，電腦只讀得懂0和1<br><img  
                      lazyload
                      src="/images/loading.svg"
@@ -571,47 +678,47 @@
                      
                 ><br>會發現旁邊的線變綠色ㄌ，那就可以開始寫瞜</p>
 <h2 id="真的要寫程式了拉"><a href="#真的要寫程式了拉" class="headerlink" title="真的要寫程式了拉"></a>真的要寫程式了拉</h2><p>一開始要先用#include &lt;”libraryname”&gt;<br>library是三小?<br>概念就像萬能阿曼的工具箱，裡面放著各式各樣的情趣用品，根據你的癖好用哪個工具箱。<br>🌰:<br>今天你到了麥當當，<br>點了大薯，麥克雞塊，你會需要番茄醬和糖醋醬嘛。<br>點了玉米濃湯，鬆餅，你會需要湯匙和叉子。<br>程式:</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;醬料&gt;</span></span></span><br><span class="line"><span class="string">&quot;番茄醬&quot;</span>沾薯條</span><br><span class="line"><span class="string">&quot;糖醋醬&quot;</span>沾麥克雞塊</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;醬料&gt;</span></span></span><br><span class="line"><span class="string">&quot;番茄醬&quot;</span>沾薯條</span><br><span class="line"><span class="string">&quot;糖醋醬&quot;</span>沾麥克雞塊</span><br></pre></td></tr></table></figure></div>
 
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;餐具&gt;</span></span></span><br><span class="line">用<span class="string">&quot;湯匙&quot;</span>喝玉米濃湯</span><br><span class="line">用<span class="string">&quot;叉子&quot;</span>吃鬆餅</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;餐具&gt;</span></span></span><br><span class="line">用<span class="string">&quot;湯匙&quot;</span>喝玉米濃湯</span><br><span class="line">用<span class="string">&quot;叉子&quot;</span>吃鬆餅</span><br></pre></td></tr></table></figure></div>
 <p>:::info<br>意思就是要用什麼要先講。<br>這個的專有名詞叫做標頭檔<br><strong>記得前面要加”#”很多人錯這邊忘記加”#”<br>然後字要拼對”i n c l u d e”</strong><br>:::<br>今天暫時還不用什麼奇怪的工具，所以就先引入基本款<iostream></p>
 <p>&#x3D;&#x3D;&#x3D;</p>
 <p>第一行就長這樣</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br></pre></td></tr></table></figure></div>
 
 <p>&#x3D;&#x3D;&#x3D;</p>
-<p>進入到第二行:<br>using namespace std;<br>這行是用來省略std::<br><a class="link"   target="_blank" rel="noopener" href="https://www.itread01.com/content/1542080947.html" >std是什麼? <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>懶的說了，自己看</p>
+<p>進入到第二行:<br>using namespace std;<br>這行是用來省略std::<br><a class="link"   target="_blank" rel="noopener" href="https://www.itread01.com/content/1542080947.html" >std是什麼?<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>懶的說了，自己看</p>
 <p>&#x3D;&#x3D;&#x3D;</p>
 <p>第三行我習慣空著</p>
 <p>&#x3D;&#x3D;&#x3D;</p>
 <p>第四行我們就要進入程式的主體ㄌ:<br>int main()<br>int是什麼等一下會介紹<br>至於main()就是一個函式，含是就是數學的那個函式y &#x3D; f(x)，程式也一樣，()裡面放回傳值。<br>🌰:<br>今天創造一個叫add的函式</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure></div>
 <p>內容是回傳 輸入值a + 輸入值b</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a,<span class="type">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a,<span class="type">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>那這邊add(a,b)就會等於a+b<br>這邊後面會有更仔細的解釋</p>
 <p>&#x3D;&#x3D;&#x3D;</p>
 <p>main()是什麼呢?<br>main()是程式的進入點，電腦會找main()這個函式，去執行裡面的程式碼，一個大門的感覺。<br>那main()內容要放什麼?回傳什麼?<br>Ans:內容放你寫的程式，不用回傳，空著就好。<br>記得函式內容要用大括號刮起來</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">型別 函式名稱()&#123;&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">型別 函式名稱()&#123;&#125;</span><br></pre></td></tr></table></figure></div>
 <p>那到這邊應該有人會問型別是什麼?int又是什麼?<br>型別就是資料的型別哈哈</p>
 <p>直接上🌰:<br>常用的資料型別有int ,float , double , bool , string(C++限定) , char…<br>他們代表什麼?又能幹嘛呢?<br>首先要先介紹變數，變數就是會變的數，就像你善變的女朋友，一下子要從前面，一下子要從後面，也像多變的天氣，一下子放晴一下子暴雨。<br>現在這個變數是1等等可能就變成2了，更貼近的說法是容器，告訴電腦這個容器裡面裝的是什麼?<br>那這個容器的名字隨便你取，但要遵守一些規則:<br>1.不能用數字開頭，中文<br>2.可以用英文，底線”_”<br>3.不能用保留字(保留字就是程式已經定義好的函式名稱阿，指令阿等等)<br>🌰如:<br>(V)</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a;</span><br><span class="line"><span class="type">int</span> _;</span><br><span class="line"><span class="type">int</span> a69;</span><br><span class="line"><span class="type">int</span> Int;</span><br><span class="line"><span class="type">int</span> iNt;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a;</span><br><span class="line"><span class="type">int</span> _;</span><br><span class="line"><span class="type">int</span> a69;</span><br><span class="line"><span class="type">int</span> Int;</span><br><span class="line"><span class="type">int</span> iNt;</span><br></pre></td></tr></table></figure></div>
 <p>(X)</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="number">69</span>a;</span><br><span class="line"><span class="type">int</span> <span class="type">int</span>;</span><br></pre></td></tr></table></figure></div>
-<p>tip:如果真的要用到保留字可以把其中一個字母改成大寫，這樣就okㄌ<br><a class="link"   target="_blank" rel="noopener" href="http://kaiching.org/pydoing/cpp-guide/unit-5-naming-rule.html" >ref: <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="number">69</span>a;</span><br><span class="line"><span class="type">int</span> <span class="type">int</span>;</span><br></pre></td></tr></table></figure></div>
+<p>tip:如果真的要用到保留字可以把其中一個字母改成大寫，這樣就okㄌ<br><a class="link"   target="_blank" rel="noopener" href="http://kaiching.org/pydoing/cpp-guide/unit-5-naming-rule.html" >ref:<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
 <p>那回到資料型別，上面例子都是用int(整數)當例子，這邊指的是變數(容器)裡面裝的資料的型別，直接看🌰:</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="type">float</span> a = <span class="number">0.1</span>;</span><br><span class="line"><span class="type">double</span> a = <span class="number">0.1234</span>;</span><br><span class="line"><span class="type">bool</span> a = <span class="literal">true</span>;</span><br><span class="line"><span class="type">char</span> a = <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">string a = <span class="string">&quot;aaaa&quot;</span>;</span><br><span class="line"><span class="comment">//也口以一次宣告很多個&quot;同樣類型&quot;的變數</span></span><br><span class="line">(V)</span><br><span class="line"><span class="type">int</span> a,b,c,d,e,f,g;</span><br><span class="line"><span class="comment">//注意!同一種型別一排</span></span><br><span class="line">(X)</span><br><span class="line"><span class="type">int</span> a,<span class="type">float</span> b,<span class="type">double</span> c;</span><br><span class="line">(這是不對的</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="type">float</span> a = <span class="number">0.1</span>;</span><br><span class="line"><span class="type">double</span> a = <span class="number">0.1234</span>;</span><br><span class="line"><span class="type">bool</span> a = <span class="literal">true</span>;</span><br><span class="line"><span class="type">char</span> a = <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">string a = <span class="string">&quot;aaaa&quot;</span>;</span><br><span class="line"><span class="comment">//也口以一次宣告很多個&quot;同樣類型&quot;的變數</span></span><br><span class="line">(V)</span><br><span class="line"><span class="type">int</span> a,b,c,d,e,f,g;</span><br><span class="line"><span class="comment">//注意!同一種型別一排</span></span><br><span class="line">(X)</span><br><span class="line"><span class="type">int</span> a,<span class="type">float</span> b,<span class="type">double</span> c;</span><br><span class="line">(這是不對的</span><br></pre></td></tr></table></figure></div>
 <p>一個一個解釋<br>int &#x3D;&gt; 整數<br>float &#x3D;&gt; 浮點數(有小數點)<br>double &#x3D;&gt; 更精準的浮點數<br>bool &#x3D;&gt; 布林(只放true和false)<br>char &#x3D;&gt; 字元(單個字)<br>string &#x3D;&gt; 字串(很多字，當然也可以只放一個字)<br>tip:string其實就是很多個字元串起來，宣告的時候要用雙引號””，字元則用單引號’’</p>
 <p>&#x3D;&#x3D;&#x3D;</p>
 <p>通過宣告可以讓電腦知道你變數(容器)裡面放什麼，之後用到這個變數的時候才能進行運算處理。<br>介紹了很多，休息一下進廣告瞜<br>廣告沒了</p>
 <h3 id="第一項挑戰-宣告"><a href="#第一項挑戰-宣告" class="headerlink" title="第一項挑戰(宣告)"></a>第一項挑戰(宣告)</h3><p>宣告一個整數a,浮點數b,字元c,字串d。</p>
 <p>:::spoiler 點我看答案</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">float</span> b;</span><br><span class="line">    <span class="type">char</span> c;</span><br><span class="line">    string d;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">float</span> b;</span><br><span class="line">    <span class="type">char</span> c;</span><br><span class="line">    string d;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>:::<br>這邊介紹一下coding style<br>好的coding style看起來比較舒服，也方便維護，看懂整個程式的邏輯。<br>🌰:<br>bad</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;<span class="type">int</span> a;<span class="type">int</span> b;cout&lt;&lt;a+b;&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;<span class="type">int</span> a;<span class="type">int</span> b;cout&lt;&lt;a+b;&#125;</span><br></pre></td></tr></table></figure></div>
 <p>or</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="type">int</span> a;</span><br><span class="line"><span class="type">int</span> b;</span><br><span class="line">cout&lt;&lt;a+b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="type">int</span> a;</span><br><span class="line"><span class="type">int</span> b;</span><br><span class="line">cout&lt;&lt;a+b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>good</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">int</span> b;</span><br><span class="line">    cout&lt;&lt;a+b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">int</span> b;</span><br><span class="line">    cout&lt;&lt;a+b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>到後面會在介紹一次<br>那做完第一項挑戰應該沒什麼難度吧<br>接著第二項</p>
 <h3 id="第二項挑戰-輸入輸出"><a href="#第二項挑戰-輸入輸出" class="headerlink" title="第二項挑戰(輸入輸出)"></a>第二項挑戰(輸入輸出)</h3><p>這項挑戰就是要輸入整數a然後輸出整數a<br>:::info<br>輸入的語法(cin&gt;&gt;變數;)<br>🌰:<br>cin&gt;&gt;b;<br>輸出的語法(cout&lt;&lt;變數;)<br>🌰:<br>cout&lt;&lt;b;<br>::: </p>
 <p>tips:記得最後加分號”;”，在給電腦下指令後要用分號”;”來讓電腦知道你的指令告一段落了。如果沒加電腦會送你可愛的錯誤訊息(error message!)，長這樣:<br><img  
@@ -626,31 +733,31 @@
                      
                 ><br>:::</p>
 <p>:::spoiler 點我看答案</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    cin&gt;&gt;a;</span><br><span class="line">    cout&lt;&lt;a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    cin&gt;&gt;a;</span><br><span class="line">    cout&lt;&lt;a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
-<p>這邊可以配合TCGS OJ的題目練習<br><a class="link"   target="_blank" rel="noopener" href="http://www.tcgs.tc.edu.tw:1218/" >網站 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>辦完會員就能開始練題目瞜<br>這個網站能讓你上傳你的程式碼，然後伺服器會編譯，接著檢查答案對不對再告訴你。<br><img  
+<p>這邊可以配合TCGS OJ的題目練習<br><a class="link"   target="_blank" rel="noopener" href="http://www.tcgs.tc.edu.tw:1218/" >網站<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>辦完會員就能開始練題目瞜<br>這個網站能讓你上傳你的程式碼，然後伺服器會編譯，接著檢查答案對不對再告訴你。<br><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="https://i.imgur.com/r9iFVDW.png"
                      
                 ><br>點這兩個都能選題目，從a001開始<br>當然今天不需要輸入，直接輸出瑪喜可以拉，例如:TCGSa001<br>題目說輸出Hello!，這邊提供兩種解法:<br>:::info<br>第一種:<br>宣告一個字串，他的值叫做”Hello!”，然後輸出這個字串<br>第二種:<br>直接cout&lt;&lt;”Hello!”;<br>:::<br>好的熟悉輸入輸出就進入下個挑戰搂&gt;&lt;</p>
 <h3 id="第三項挑戰-連續輸入連續輸出"><a href="#第三項挑戰-連續輸入連續輸出" class="headerlink" title="第三項挑戰(連續輸入連續輸出)"></a>第三項挑戰(連續輸入連續輸出)</h3><p>這項挑戰就輸入兩個整數a和b，然後倒過來輸出b和a。<br>:::info<br>連續輸入語法(cin&gt;&gt;變數&gt;&gt;變數)<br>🌰:<br>cin&gt;&gt;z&gt;&gt;x;<br>連續輸出語法(cout&lt;&lt;變數&lt;&lt;變數)<br>🌰:<br>cout&lt;&lt;z&lt;&lt;x;<br>:::<br>總之就是用”&lt;&lt;”和”&gt;&gt;”串起來，輸入輸出三個四個以此類推…<br>:::spoiler 點我看答案</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">&#123;</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> a,b;</span></span></span><br><span class="line"><span class="params"><span class="function">    cin&gt;&gt;a&gt;&gt;b;</span></span></span><br><span class="line"><span class="params"><span class="function">    cout&lt;&lt;b&lt;&lt;a;</span></span></span><br><span class="line"><span class="params"><span class="function">&#125;</span></span></span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">&#123;</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> a,b;</span></span></span><br><span class="line"><span class="params"><span class="function">    cin&gt;&gt;a&gt;&gt;b;</span></span></span><br><span class="line"><span class="params"><span class="function">    cout&lt;&lt;b&lt;&lt;a;</span></span></span><br><span class="line"><span class="params"><span class="function">&#125;</span></span></span><br></pre></td></tr></table></figure></div>
 <p>:::</p>
 <h3 id="第四項挑戰"><a href="#第四項挑戰" class="headerlink" title="第四項挑戰"></a>第四項挑戰</h3><p>輸出”雷姆好可愛XDDD雷姆是郭勁廷老婆。”這段話(不包含””)。<br>“雷姆好可愛XDDD雷姆是郭勁廷老婆。”這是一段文字，由很多單個字元合在一起的字串。<br>所以要輸出一個字串<br>:::info<br>上面有提到字串是用””包起來的。<br>所以只要cout&lt;&lt;”雷姆好可愛XDDD雷姆是郭勁廷老婆。”;<br>就可以了<br>這邊提到一個重點<br>“”這個裡面包的東西會全部印出來，我用程式碼來講解</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">    cout&lt;&lt;a&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;a&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">    cout&lt;&lt;a&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;a&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>:::<br>這邊可以看到一個新東西長這樣’\n’，這代表換行的意思。<br>沒加的話輸出長這樣:<br>1”a”<br>有加的話輸出長這樣:<br>1<br>“a”<br>‘\n’也能用endl(endline)替換，這邊一律推薦’\n’，因為程式效率會執行得比較快，想了解更多的可以參考下面的文章<br><a target="_blank" rel="noopener" href="https://www.itread01.com/content/1546683862.html"><strong>ref</strong></a><br><strong>充分了解後可以去TCGSa002練習。</strong></p>
 <h2 id="跳脫字元"><a href="#跳脫字元" class="headerlink" title="跳脫字元"></a>跳脫字元</h2><p>這個東西很簡單，剛剛學過怎麼輸入輸出，現在問題來了，如果我要輸出”&#x2F;“ “;” “&gt;”等等這些在程式中具有特殊意義的符號呢?<br>ANS : 跳脫字元!<br>沒錯，就是用跳脫字元來讓電腦知道你今天這個符號不是用來當特殊功能的符號。</p>
 <p>:::info<br>用法:<br>在有特殊意義的符號前面加上”&quot;，防止電腦將這個符號當成特殊用法處裡。<br>:::</p>
 <p>🌰:<br>今天我要輸出’這個符號</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&#x27;&#x27;&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&#x27;&#x27;&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 <p>會發現無法編譯，噴錯誤<br><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="https://i.imgur.com/e4lK1Bx.png"
                      
                 ><br>那該怎麼解決呢?<br>上面有說過，用\去告訴電腦他不是特殊符號，而是一般的字元。<br>改成:</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&#x27;\&#x27;&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&#x27;\&#x27;&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 <p>就可以了</p>
 <p>學會後搭配 TCGSa003 服用。</p>
 <h2 id="運算子-Operator"><a href="#運算子-Operator" class="headerlink" title="運算子(Operator)"></a>運算子(Operator)</h2><h3 id="1-算術運算子"><a href="#1-算術運算子" class="headerlink" title="1.算術運算子"></a>1.<strong>算術運算子</strong></h3><p>就是做加減乘除等等操作<br>在電腦中有些數學運算符號不像我們平常看到那樣<br><img  
@@ -662,13 +769,13 @@
 <p><strong>然後一樣()優先運算，否則先乘除後加減。</strong></p>
 <h3 id="2-指定運算子"><a href="#2-指定運算子" class="headerlink" title="2.指定運算子"></a>2.<strong>指定運算子</strong></h3><p>指定值給變數，通常用”&#x3D;”表示<br>注意!<br>平常人類的數學是把運算結果指定給右邊</p>
 <p><strong>人類</strong><br>:::info<br>EX.<br>a+b &#x3D;  c<br>運算 &#x3D; 結果<br>:::<br><strong>電腦</strong><br>:::info<br>EX.<br>c          &#x3D;    a+b;<br>結果(變數)  &#x3D;    運算過程<br>:::<br>並且電腦還能這樣寫<br>c &#x3D; c+a;<br>那就是先算完(c+a)，再把結果存在c，去更新c的值。<br>帶入數字說明:</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">c = <span class="number">1</span>;</span><br><span class="line">c = c<span class="number">+2</span>;</span><br><span class="line">cout &lt;&lt; c ;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">c = <span class="number">1</span>;</span><br><span class="line">c = c<span class="number">+2</span>;</span><br><span class="line">cout &lt;&lt; c ;</span><br></pre></td></tr></table></figure></div>
 
 <p>這時候cout &lt;&lt; c ;<br>會發現c變成3，因為電腦先算(c+2)，得到3後去更新c，c(1) –&gt;&gt; c(3)</p>
 <p>這邊介紹一個簡潔的表示法:<br>剛剛舉了c &#x3D; c+a 的例子，其實還可以這樣寫:</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c += a;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c += a;</span><br></pre></td></tr></table></figure></div>
 <p>其他減，乘，除，取餘數一樣</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">c -= a;</span><br><span class="line">c *= a;</span><br><span class="line">c /= a;</span><br><span class="line">c %= a;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">c -= a;</span><br><span class="line">c *= a;</span><br><span class="line">c /= a;</span><br><span class="line">c %= a;</span><br></pre></td></tr></table></figure></div>
 
 <h3 id="3-比較運算子"><a href="#3-比較運算子" class="headerlink" title="3.比較運算子"></a>3.<strong>比較運算子</strong></h3><p><img  
                      lazyload
@@ -676,14 +783,14 @@
                      data-src="https://i.imgur.com/kRobNta.png"
                      
                 ><br>舉例來說:<br>要比較6和9的大小<br>這邊我把它們比較運算出來的結果指定給變數”result”，這時候就能用到之前說的布林變數bool這個型別了。<br>還記得bool只存”true”和”false”這兩個狀態嗎?</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result = (<span class="number">6</span> &gt; <span class="number">9</span>);</span><br><span class="line">cout &lt;&lt; result;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result = (<span class="number">6</span> &gt; <span class="number">9</span>);</span><br><span class="line">cout &lt;&lt; result;</span><br></pre></td></tr></table></figure></div>
 <p>會發現輸出1，由於bool在記憶體中只占1byte的大小，所以用1來表示”true”，0則表示”false”。<br>那為什麼是true應該看的出來吧，因為6小於9這個敘述是對的，所以true。<br>也可以改成錯誤的敘述，例如:6&gt;9…等等，然後把result印出來看看。</p>
 <p>不單單是比較數字，裡面也能放變數。<br>EX.</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">6</span>,b = <span class="number">9</span>;</span><br><span class="line"><span class="type">bool</span> result</span><br><span class="line"><span class="comment">//先宣告</span></span><br><span class="line">result =( a &gt; b );</span><br><span class="line">cout &lt;&lt; result ;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">6</span>,b = <span class="number">9</span>;</span><br><span class="line"><span class="type">bool</span> result</span><br><span class="line"><span class="comment">//先宣告</span></span><br><span class="line">result =( a &gt; b );</span><br><span class="line">cout &lt;&lt; result ;</span><br></pre></td></tr></table></figure></div>
 <p>回到那張表，應該&gt;，&gt;&#x3D;，&lt;，&lt;&#x3D;都沒問題吧!<br>接下來是”!&#x3D;”和”&#x3D;&#x3D;”<br>:::info<br>!&#x3D;就是不等於<br>&#x3D;&#x3D;就是等於<br>(The 幹話<br>:::<br>直接舉例:<br>:::info<br>6 !&#x3D; 9;<br>6 &#x3D;&#x3D; 6;<br>:::<br>這兩行輸入電腦，電腦會告訴你1(true)，還是0(false)?</p>
 <p>好啦1(true)拉<br>&#x2F;&#x2F;<br>因為6不等於9<br>所以你說的對，那就是true</p>
 <p>然後6等於6<br>也沒說錯，所以也是true。<br>&#x2F;&#x2F;<br><strong>這邊超容易錯的地方就是只打一個’&#x3D;’，還有這樣’&#x3D;!’</strong><br><strong>記住:</strong><br>:::danger<br><strong>一個等於叫做指定運算子<br>兩個才是比較運算子</strong><br>:rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage: :rage:<br>:::</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">以下為錯誤示範</span><br><span class="line">result = (<span class="number">6</span> = <span class="number">6</span>);</span><br><span class="line">result = (<span class="number">6</span> =! <span class="number">9</span>);</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">以下為錯誤示範</span><br><span class="line">result = (<span class="number">6</span> = <span class="number">6</span>);</span><br><span class="line">result = (<span class="number">6</span> =! <span class="number">9</span>);</span><br></pre></td></tr></table></figure></div>
 <p>BAD!<br>:face_with_symbols_on_mouth: :face_with_symbols_on_mouth: :face_with_symbols_on_mouth: </p>
 <p>最後三個是</p>
 <p>最後附上參考資料:<br><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/C%E5%92%8CC%2B%2B%E9%81%8B%E7%AE%97%E5%AD%90"><strong>ref</strong></a></p>
@@ -695,25 +802,25 @@
                 ><br>這邊主要有三兄弟兩姊妹<br>三兄弟：<br>1.if<br>2.else if<br>3.else<br>兩姊妹：<br>1.break<br>2.continue</p>
 <p>一個一個介紹</p>
 <h3 id="if"><a href="#if" class="headerlink" title="if"></a>if</h3><p>if 語法長這樣<br>1.</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(條件式<span class="type">bool</span>)</span><br><span class="line">    做什麼;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(條件式<span class="type">bool</span>)</span><br><span class="line">    做什麼;</span><br></pre></td></tr></table></figure></div>
 <p>這邊有很多寫法<br>2.</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(條件式<span class="type">bool</span>) 做什麼;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(條件式<span class="type">bool</span>) 做什麼;</span><br></pre></td></tr></table></figure></div>
 <ol start="3">
-<li><div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(條件式<span class="type">bool</span>)&#123;</span><br><span class="line">    做什麼;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></li>
-<li><div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(條件式<span class="type">bool</span>)</span><br><span class="line">&#123;</span><br><span class="line">    做什麼;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-以上都是正確的語法<br>1、2都是在只有一行指令的情況下才能這樣放<br>3、4是看個人的習慣要不要把大括號下放<br>:::danger<br>這些是不對的<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(條件式<span class="type">bool</span>) </span><br><span class="line">    做什麼;</span><br><span class="line">    做什麼;</span><br></pre></td></tr></table></figure></div>
-沒加{}不能這麼多行:rage:<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(條件式<span class="type">bool</span>)</span><br><span class="line">    做第一件事;</span><br><span class="line">    做第二件事;</span><br></pre></td></tr></table></figure></div>
+<li><div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(條件式<span class="type">bool</span>)&#123;</span><br><span class="line">    做什麼;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></li>
+<li><div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(條件式<span class="type">bool</span>)</span><br><span class="line">&#123;</span><br><span class="line">    做什麼;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+以上都是正確的語法<br>1、2都是在只有一行指令的情況下才能這樣放<br>3、4是看個人的習慣要不要把大括號下放<br>:::danger<br>這些是不對的<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(條件式<span class="type">bool</span>) </span><br><span class="line">    做什麼;</span><br><span class="line">    做什麼;</span><br></pre></td></tr></table></figure></div>
+沒加{}不能這麼多行:rage:<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(條件式<span class="type">bool</span>)</span><br><span class="line">    做第一件事;</span><br><span class="line">    做第二件事;</span><br></pre></td></tr></table></figure></div>
 沒加括號😭，這樣雖然可以編譯執行，但是if只會做第一件事，因為沒加{}的if只會向下吃一行而已<br>:::<br>大致上是這些細節</li>
 </ol>
 <h3 id="else-if"><a href="#else-if" class="headerlink" title="else if"></a>else if</h3><p>else if 語法和if大同小異，就是把原本if的地方換成else if</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(條件)&#123;</span><br><span class="line">    做事;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(條件)&#123;</span><br><span class="line">    做事;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(條件)&#123;</span><br><span class="line">    做事;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(條件)&#123;</span><br><span class="line">    做事;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
 <p>else if 要注意的是他不能單獨存在，編譯會失敗，程式讀到else if的時候會往上找最近的if配對。<br>看🌰：</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(條件一)&#123;</span><br><span class="line">    做第一件事;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(條件二)&#123;</span><br><span class="line">    做第二件事;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(條件一)&#123;</span><br><span class="line">    做第一件事;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(條件二)&#123;</span><br><span class="line">    做第二件事;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
 <p>像是這樣，如果有很多層if、else if 呢?<br>🌰如：</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(交往)&#123;</span><br><span class="line">    牽手;</span><br><span class="line">    <span class="keyword">if</span>(結婚)&#123;</span><br><span class="line">        捉i;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(離婚)&#123;</span><br><span class="line">        去半套店;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(告白失敗)&#123;</span><br><span class="line">    尻尻;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(交往)&#123;</span><br><span class="line">    牽手;</span><br><span class="line">    <span class="keyword">if</span>(結婚)&#123;</span><br><span class="line">        捉i;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(離婚)&#123;</span><br><span class="line">        去半套店;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(告白失敗)&#123;</span><br><span class="line">    尻尻;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
 <p>其實秉持著剛剛上面提到的精神，else if 往上找第一個if就是和他一組的，程式會從第1行開始執行，跑到第6行的時候會往上找，所以<strong>結婚</strong>和<strong>離婚</strong>是一組的，然後到第10行的時候也會往上找，由於結婚已經和別人一組了，就像你的女朋友一樣變成別人的了，所以會再往上找到<strong>交往</strong>和<strong>告白失敗</strong>是一組的。</p>
 <p>然後else if是可以無限加的，你可以一個if接一大堆else if。<br>else if 白話文就是在判過if的條件後再細分更多條件，以下回答一些新手常見QA</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int a=5;</span><br><span class="line">if(a&gt;4)&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int a=5;</span><br><span class="line">if(a&gt;4)&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
 <h3 id="else"><a href="#else" class="headerlink" title="else"></a>else</h3><h3 id="break"><a href="#break" class="headerlink" title="break"></a>break</h3><h3 id="continue"><a href="#continue" class="headerlink" title="continue"></a>continue</h3><!-- CSS -->
 <style>
     .navbar-brand:before {
@@ -731,11 +838,11 @@
         font-weight: bold;
     }
 </style>
-        </div>
+		</div>
 
-        
-            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
-                <div class="article-copyright-info-container">
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
     <ul>
         <li><strong>Title:</strong> How to C++</li>
         <li><strong>Author:</strong> Troy</li>
@@ -763,88 +870,76 @@
     </ul>
 </div>
 
-            </div>
-        
+		</div>
+		
 
-        
-            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
-                
-                    <li class="tag-item mx-0.5">
-                        <a href="/tags/C/">#C++</a>&nbsp;
-                    </li>
-                
-            </ul>
-        
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/C/">#C++</a>&nbsp;
+			</li>
+			
+		</ul>
+		
 
-        
+		
 
-        
-            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
-                
-                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="prev"
-                        rel="prev"
-                        href="/2024/12/25/bs/"
-                        >
-                            <span class="left arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">Binary Search</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
-                
-                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="next"
-                        rel="next"
-                        href="/2024/12/03/SIP-server/"
-                        >
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">SIP server</span>
-                                <span class="post-nav-item">Next posts</span>
-                            </span>
-                            <span class="right arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </span>
-                        </a>
-                    </div>
-                
-            </div>
-        
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2024/12/25/bs/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">Binary Search</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2024/12/03/SIP-server/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">SIP server</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
 
 
-        
-    </div>
+		
+	</div>
 
-    
-        <div class="toc-content-container">
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <div class="toc-title">On this page</div>
-        <div class="page-title">How to C++</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-C"><span class="nav-text">How to C++</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%AB%E7%A8%8B%E5%BC%8F%E8%A6%81%E5%B9%B9%E5%98%9B"><span class="nav-text">寫程式要幹嘛?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%A3%E6%88%91%E7%82%BA%E4%BB%80%E9%BA%BC%E8%A6%81%E5%AD%B8"><span class="nav-text">那我為什麼要學?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%A2%E8%A8%80%E8%AA%AA%E5%AE%8C%E4%BA%86%EF%BC%8C%E4%BE%86%E4%BB%8B%E7%B4%B9%E7%A8%8B%E5%BC%8F"><span class="nav-text">廢言說完了，來介紹程式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%84%E6%98%AF%E5%9C%A8%E4%BB%8B%E7%B4%B9%E7%A8%8B%E5%BC%8F"><span class="nav-text">還是在介紹程式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B5%82%E6%96%BC%E8%A6%81%E9%96%8B%E5%A7%8B%E7%9E%9C"><span class="nav-text">終於要開始瞜</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B7%E6%89%8B%E5%BC%8F"><span class="nav-text">起手式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9C%9F%E7%9A%84%E8%A6%81%E5%AF%AB%E7%A8%8B%E5%BC%8F%E4%BA%86%E6%8B%89"><span class="nav-text">真的要寫程式了拉</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%A0%85%E6%8C%91%E6%88%B0-%E5%AE%A3%E5%91%8A"><span class="nav-text">第一項挑戰(宣告)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%A0%85%E6%8C%91%E6%88%B0-%E8%BC%B8%E5%85%A5%E8%BC%B8%E5%87%BA"><span class="nav-text">第二項挑戰(輸入輸出)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E9%A0%85%E6%8C%91%E6%88%B0-%E9%80%A3%E7%BA%8C%E8%BC%B8%E5%85%A5%E9%80%A3%E7%BA%8C%E8%BC%B8%E5%87%BA"><span class="nav-text">第三項挑戰(連續輸入連續輸出)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E9%A0%85%E6%8C%91%E6%88%B0"><span class="nav-text">第四項挑戰</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%B3%E8%84%AB%E5%AD%97%E5%85%83"><span class="nav-text">跳脫字元</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%8B%E7%AE%97%E5%AD%90-Operator"><span class="nav-text">運算子(Operator)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%AE%97%E8%A1%93%E9%81%8B%E7%AE%97%E5%AD%90"><span class="nav-text">1.算術運算子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%8C%87%E5%AE%9A%E9%81%8B%E7%AE%97%E5%AD%90"><span class="nav-text">2.指定運算子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%AF%94%E8%BC%83%E9%81%8B%E7%AE%97%E5%AD%90"><span class="nav-text">3.比較運算子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A2%9D%E4%BB%B6%E5%88%A4%E6%96%B7"><span class="nav-text">條件判斷</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#if"><span class="nav-text">if</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#else-if"><span class="nav-text">else if</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#else"><span class="nav-text">else</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#break"><span class="nav-text">break</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#continue"><span class="nav-text">continue</span></a></li></ol></li></ol></li></ol>
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">How to C++</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-C"><span class="nav-text">How to C++</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%AB%E7%A8%8B%E5%BC%8F%E8%A6%81%E5%B9%B9%E5%98%9B"><span class="nav-text">寫程式要幹嘛?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%A3%E6%88%91%E7%82%BA%E4%BB%80%E9%BA%BC%E8%A6%81%E5%AD%B8"><span class="nav-text">那我為什麼要學?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%A2%E8%A8%80%E8%AA%AA%E5%AE%8C%E4%BA%86%EF%BC%8C%E4%BE%86%E4%BB%8B%E7%B4%B9%E7%A8%8B%E5%BC%8F"><span class="nav-text">廢言說完了，來介紹程式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%84%E6%98%AF%E5%9C%A8%E4%BB%8B%E7%B4%B9%E7%A8%8B%E5%BC%8F"><span class="nav-text">還是在介紹程式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B5%82%E6%96%BC%E8%A6%81%E9%96%8B%E5%A7%8B%E7%9E%9C"><span class="nav-text">終於要開始瞜</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B7%E6%89%8B%E5%BC%8F"><span class="nav-text">起手式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9C%9F%E7%9A%84%E8%A6%81%E5%AF%AB%E7%A8%8B%E5%BC%8F%E4%BA%86%E6%8B%89"><span class="nav-text">真的要寫程式了拉</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%A0%85%E6%8C%91%E6%88%B0-%E5%AE%A3%E5%91%8A"><span class="nav-text">第一項挑戰(宣告)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%A0%85%E6%8C%91%E6%88%B0-%E8%BC%B8%E5%85%A5%E8%BC%B8%E5%87%BA"><span class="nav-text">第二項挑戰(輸入輸出)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E9%A0%85%E6%8C%91%E6%88%B0-%E9%80%A3%E7%BA%8C%E8%BC%B8%E5%85%A5%E9%80%A3%E7%BA%8C%E8%BC%B8%E5%87%BA"><span class="nav-text">第三項挑戰(連續輸入連續輸出)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E9%A0%85%E6%8C%91%E6%88%B0"><span class="nav-text">第四項挑戰</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%B3%E8%84%AB%E5%AD%97%E5%85%83"><span class="nav-text">跳脫字元</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%8B%E7%AE%97%E5%AD%90-Operator"><span class="nav-text">運算子(Operator)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%AE%97%E8%A1%93%E9%81%8B%E7%AE%97%E5%AD%90"><span class="nav-text">1.算術運算子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%8C%87%E5%AE%9A%E9%81%8B%E7%AE%97%E5%AD%90"><span class="nav-text">2.指定運算子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%AF%94%E8%BC%83%E9%81%8B%E7%AE%97%E5%AD%90"><span class="nav-text">3.比較運算子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A2%9D%E4%BB%B6%E5%88%A4%E6%96%B7"><span class="nav-text">條件判斷</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#if"><span class="nav-text">if</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#else-if"><span class="nav-text">else if</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#else"><span class="nav-text">else</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#break"><span class="nav-text">break</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#continue"><span class="nav-text">continue</span></a></li></ol></li></ol></li></ol>
 
-    </div>
+	</div>
 </div>
-        </div>
-    
+	</div>
+	
 </div>
+			</div>
 
+			
+		</div>
 
-
-                
-
-            </div>
-
-            
-
-        </div>
-
-        <div class="main-content-footer">
-            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
     <div class="info-container py-3 text-center">
         
         <div class="text-center">
@@ -853,7 +948,7 @@
               <span>2022</span>
               -
             
-            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Tr0y2ooo</a>
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Tr0y2ooo</a>
             
                 
                 <p class="post-count space-x-0.5">
@@ -883,7 +978,7 @@
         
         <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
             <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
-            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.7.3</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
         </div>
         
         
@@ -912,91 +1007,88 @@
         
     </div>  
 </footer>
-        </div>
-    </div>
+		</div>
+	</div>
 
-    
-        <div class="post-tools">
-            <div class="post-tools-container">
-    <ul class="article-tools-list">
-        <!-- TOC aside toggle -->
-        
-            <li class="right-bottom-tools page-aside-toggle">
-                <i class="fa-regular fa-outdent"></i>
-            </li>
-        
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
 
-        <!-- go comment -->
-        
-    </ul>
+		<!-- go comment -->
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
 </div>
 
-        </div>
-    
-
-    <div class="right-side-tools-container">
-        <div class="side-tools-container">
-    <ul class="hidden-tools-list">
-        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
-            <i class="fa-regular fa-magnifying-glass-plus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
-            <i class="fa-regular fa-magnifying-glass-minus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
-            <i class="fa-regular fa-moon"></i>
-        </li>
-
-        <!-- rss -->
-        
-
-        
-
-        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
-            <i class="fa-regular fa-arrow-down"></i>
-        </li>
-    </ul>
-
-    <ul class="visible-tools-list">
-        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
-            <i class="fa-regular fa-cog fa-spin"></i>
-        </li>
-        
-            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
-                <i class="arrow-up fas fa-arrow-up"></i>
-                <span class="percent"></span>
-            </li>
-        
-        
-    </ul>
-</div>
-
-    </div>
-
-    <div class="image-viewer-container">
-    <img src="">
-</div>
-
-
-    
+	
 
 </main>
 
 
-    
-<script src="/js/libs/Swup.min.js"></script>
 
-<script src="/js/libs/SwupSlideTheme.min.js"></script>
+<script src="/js/build/libs/Swup.min.js"></script>
 
-<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
 
-<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
 
-<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
 
-<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
 
 <script>
     const swup = new Swup({
@@ -1020,44 +1112,42 @@
 
 
 
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
 
+<script src="/js/build/utils.js" type="module"></script>
 
+<script src="/js/build/main.js" type="module"></script>
 
-<script src="/js/tools/imageViewer.js" type="module"></script>
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
 
-<script src="/js/utils.js" type="module"></script>
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
 
-<script src="/js/main.js" type="module"></script>
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
 
-<script src="/js/layouts/navbarShrink.js" type="module"></script>
-
-<script src="/js/tools/scrollTopBottom.js" type="module"></script>
-
-<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
-
-<script src="/js/layouts/categoryList.js" type="module"></script>
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
 
 
 
 
 
     
-<script src="/js/tools/codeBlock.js" type="module"></script>
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
 
 
 
 
     
-<script src="/js/layouts/lazyload.js" type="module"></script>
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
 
 
 
 
     
-<script src="/js/tools/runtime.js"></script>
+<script src="/js/build/tools/runtime.js"></script>
 
     
-<script src="/js/libs/odometer.min.js"></script>
+<script src="/js/build/libs/odometer.min.js"></script>
 
     
 <link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
@@ -1066,10 +1156,10 @@
 
 
   
-<script src="/js/libs/Typed.min.js"></script>
+<script src="/js/build/libs/Typed.min.js"></script>
 
   
-<script src="/js/plugins/typed.js" type="module"></script>
+<script src="/js/build/plugins/typed.js" type="module"></script>
 
 
 
@@ -1079,37 +1169,41 @@
 
 
     
-<script src="/js/libs/anime.min.js"></script>
+<script src="/js/build/libs/anime.min.js"></script>
 
 
 
 
 
     
-<script src="/js/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
 
-<script src="/js/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
 
-<script src="/js/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
-
-
-
-
-<script src="/js/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
-
-
-<script src="/js/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
 
 
 
 
-    <div id="aplayer"></div>
-
-<script src="/js/libs/APlayer.min.js"></script>
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
 
 
-<script src="/js/plugins/aplayer.js"></script>
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
 
 
+
+
+
+	
+	<div id="aplayer"></div>
+
+<script src="/js/build/libs/APlayer.min.js"></script>
+
+
+<script src="/js/build/plugins/aplayer.js"></script>
+
+
+	
 </body>
+
 </html>

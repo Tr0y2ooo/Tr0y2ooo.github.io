@@ -6,6 +6,116 @@
     <meta name="keywords" content="Hexo Theme Redefine">
     
     <meta name="author" content="Tr0y2ooo">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
     <!-- preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,6 +128,9 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
+    
+    
+        
         <meta name="description" content="picoGym ExclusiveFirst Find沒有技巧，點進去看uber-secret就有flag了:::spoiler flagflag:picoCTF{f1nd_15_f457_ab443fd1}::: Big Zip先下grep picoCTF{，，發現找不到需要加上參數 -r 就有囉:::spoiler flagflag:picoCTF{gr3p_15_m4g1c_ef8790dc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="pico">
@@ -88,7 +201,7 @@
 
     
         
-<link rel="stylesheet" href="/assets/build/styles.css">
+<link rel="stylesheet" href="/css/build/tailwind.css">
 
     
 
@@ -108,7 +221,7 @@
 
     <script id="hexo-configurations">
     window.config = {"hostname":"example.com","root":"/","language":"en"};
-    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/rem.jpg","dark":"/images/rem_dark.jpg"},"title":"‎‎‎‏‎‏‎‏","subtitle":{"text":null,"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"幹你娘","artist":"DJ Jerry","url":"https://ssl-pixnet-tv.pixfs.net/user/leo4/1231657490.m4a","cover":"https://media.discordapp.net/attachments/850438898093785128/1262046151520161835/1720574532076.gif?ex=67340852&is=6732b6d2&hm=a84a4a8bdeae5d7d34f0a8a1ccc339a001a624eb6ff490d5fd18cb35e0a49b84&=","lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.3","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"tags":{"path":"/tags/","icon":"fa-solid fa-tags"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/EvanNotFound/hexo-theme-redefine","Blog":"https://ohevan.com"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3,"Tags":null,"icon":"fa-solid fa-tags","path":"/tags/"}},"footerStart":"2022/8/17 11:45:14"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/rem.jpg","dark":"/images/rem_dark.jpg"},"title":"‎‎‎‏‎‏‎‏","subtitle":{"text":null,"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"幹你娘","artist":"DJ Jerry","url":"https://ssl-pixnet-tv.pixfs.net/user/leo4/1231657490.m4a","cover":"https://media.discordapp.net/attachments/850438898093785128/1262046151520161835/1720574532076.gif?ex=67340852&is=6732b6d2&hm=a84a4a8bdeae5d7d34f0a8a1ccc339a001a624eb6ff490d5fd18cb35e0a49b84&=","lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"tags":{"path":"/tags/","icon":"fa-solid fa-tags"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/EvanNotFound/hexo-theme-redefine","Blog":"https://ohevan.com"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3,"Tags":null,"icon":"fa-solid fa-tags","path":"/tags/"}},"footerStart":"2022/8/17 11:45:14"};
     window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
     window.data = {"masonry":false};
   </script>
@@ -133,29 +246,26 @@
 <meta name="generator" content="Hexo 7.3.0"></head>
 
 
+
 <body>
-<div class="progress-bar-container">
-    
+	<div class="progress-bar-container">
+	
 
-    
-        <span class="pjax-progress-bar"></span>
-<!--        <span class="swup-progress-icon">-->
-<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
-<!--        </span>-->
-    
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
 </div>
-
-
 
 <main class="page-container" id="swup">
 
-    
+	
 
-    <div class="main-content-container flex flex-col justify-between min-h-dvh">
-
-
-        <div class="main-content-header">
-            <header class="navbar-container px-6 md:px-12">
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
     <div class="navbar-content transition-navbar ">
         <div class="left">
             
@@ -426,40 +536,37 @@
 </header>
 
 
-        </div>
+		</div>
 
-        <div class="main-content-body">
+		<div class="main-content-body transition-fade-up">
+			
 
-            
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
 
-            <div class="main-content">
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">pico</h1>
+			</div>
+			
+		</div>
 
-                
-                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
-    <div class="article-content-container">
-
-        <div class="article-title relative w-full">
-            
-                <div class="w-full flex items-center pt-6 justify-start">
-                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">pico</h1>
-                </div>
-            
-            </div>
-
-        
-            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
-                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
-                    <img src="/images/personal.jpg">
-                </div>
-                <div class="info flex flex-col justify-between">
-                    <div class="author flex items-center">
-                        <span class="name text-default-text-color text-lg font-semibold">Troy</span>
-                        
-                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
-                        
-                    </div>
-                    <div class="meta-info">
-                        <div class="article-meta-info">
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/personal.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Troy</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
         <span class="desktop">2024-12-25 01:42</span>
@@ -525,16 +632,16 @@
     
 </div>
 
-                    </div>
-                </div>
-            </div>
-        
+				</div>
+			</div>
+		</div>
+		
 
-        
+		
 
 
-        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h1 id="picoGym-Exclusive"><a href="#picoGym-Exclusive" class="headerlink" title="picoGym Exclusive"></a>picoGym Exclusive</h1><h2 id="First-Find"><a href="#First-Find" class="headerlink" title="First Find"></a>First Find</h2><p>沒有技巧，點進去看uber-secret就有flag了<br>:::spoiler flag<br>flag:picoCTF{f1nd_15_f457_ab443fd1}<br>:::</p>
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="picoGym-Exclusive"><a href="#picoGym-Exclusive" class="headerlink" title="picoGym Exclusive"></a>picoGym Exclusive</h1><h2 id="First-Find"><a href="#First-Find" class="headerlink" title="First Find"></a>First Find</h2><p>沒有技巧，點進去看uber-secret就有flag了<br>:::spoiler flag<br>flag:picoCTF{f1nd_15_f457_ab443fd1}<br>:::</p>
 <h2 id="Big-Zip"><a href="#Big-Zip" class="headerlink" title="Big Zip"></a>Big Zip</h2><p>先下grep picoCTF{，，發現找不到<br>需要加上參數 -r 就有囉<br>:::spoiler flag<br>flag:picoCTF{gr3p_15_m4g1c_ef8790dc}<br>:::</p>
 <h2 id="ASCII-FTW"><a href="#ASCII-FTW" class="headerlink" title="ASCII FTW"></a>ASCII FTW</h2><p>這題先打file可以看到他是elf檔，然後直接跑起來可以看到The flag starts with 70，那再用objdump -d 去disassembly他的machine code，可以注意到main function裡面有很多mov BYTE PTR [rbp-0x30],0x70類似這樣格式的code，這邊其實就是把字元一個一個放進去，所以我們只要把所有hex(0x70)轉成ASCII就可以知道flag是啥了，可以善用chatgpt或是自己做一個parser<br>:::spoiler flag<br>flag:piocCTF{ASCII_IS_3CF4BF4AD}<br>:::</p>
 <h2 id="ASCII-Numbers"><a href="#ASCII-Numbers" class="headerlink" title="ASCII Numbers"></a>ASCII Numbers</h2><p>直接去掉0x然後到hex to text的網站就有答案了<br>:::spoiler flag<br>flag:picoCTF{45c11_n0_qu35710n5_1ll_t311_y3_n0_l135_445d4180}<br>:::</p>
@@ -580,21 +687,21 @@
                      data-src="https://hackmd.io/_uploads/rJPEgK9Tn.png"
                      
                 ></p>
-<p><a class="link"   target="_blank" rel="noopener" href="http://godleon.blogspot.com/2008/02/comparisons-assembly-cmp-cmp-cmp-vleft.html" >ref1 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/499752787.html" >ref2 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>:::success<br>&lt;+0&gt;:     endbr64<br>&lt;+4&gt;:     push   rbp<br>&lt;+5&gt;:     mov    rbp,rsp<br>&lt;+8&gt;:     mov    DWORD PTR [rbp-0x14],edi<br>&lt;+11&gt;:    mov    QWORD PTR [rbp-0x20],rsi<br>&lt;+15&gt;:    mov    DWORD PTR [rbp-0x4],0x9fe1a<br>&lt;+22&gt;:    cmp    DWORD PTR [rbp-0x4],0x2710<br>&lt;+29&gt;:    jle    0x55555555514e &lt;main+37&gt;<br>&lt;+31&gt;:    sub    DWORD PTR [rbp-0x4],0x65<br>&lt;+35&gt;:    jmp    0x555555555152 &lt;main+41&gt;<br>&lt;+37&gt;:    add    DWORD PTR [rbp-0x4],0x65<br>&lt;+41&gt;:    mov    eax,DWORD PTR [rbp-0x4]<br>&lt;+44&gt;:    pop    rbp<br>&lt;+45&gt;:    ret<br>:::<br>0x9fe1a cmp 0x2710 &#x3D;&gt; 654874 cmp 10000 顯然是 vleft &gt; vright( al &gt; bl )<br>所以下面jle就不會做，jmp是無條件直接跳過去，有點像goto，所以就直接跳過&lt;+37&gt;:，直接到&lt;+41&gt;:<br>eax &#x3D; [rbp-0x4] &#x3D; 0x9fe1a - 0x65<br>eax &#x3D; 654773<br>:::spoiler flag<br>flag:picoCTF{654773}<br>:::</p>
-<h2 id="GDB-baby-step-1"><a href="#GDB-baby-step-1" class="headerlink" title="GDB baby step 1"></a>GDB baby step 1</h2><p><a class="link"   target="_blank" rel="noopener" href="https://www.cntofu.com/book/46/gdb/gdbming_ling_ji_chu_ff0c_rang_ni_de_cheng_xu_bug_w.md" >gdb說明書 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>這題主要是讓你熟悉gdb怎麼用，把檔案載下來後丟到gdb<br>可以用picoctf提供的web shell(要先輸入帳號和密碼)或是自己的環境<br><img  
+<p><a class="link"   target="_blank" rel="noopener" href="http://godleon.blogspot.com/2008/02/comparisons-assembly-cmp-cmp-cmp-vleft.html" >ref1<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/499752787.html" >ref2<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>:::success<br>&lt;+0&gt;:     endbr64<br>&lt;+4&gt;:     push   rbp<br>&lt;+5&gt;:     mov    rbp,rsp<br>&lt;+8&gt;:     mov    DWORD PTR [rbp-0x14],edi<br>&lt;+11&gt;:    mov    QWORD PTR [rbp-0x20],rsi<br>&lt;+15&gt;:    mov    DWORD PTR [rbp-0x4],0x9fe1a<br>&lt;+22&gt;:    cmp    DWORD PTR [rbp-0x4],0x2710<br>&lt;+29&gt;:    jle    0x55555555514e &lt;main+37&gt;<br>&lt;+31&gt;:    sub    DWORD PTR [rbp-0x4],0x65<br>&lt;+35&gt;:    jmp    0x555555555152 &lt;main+41&gt;<br>&lt;+37&gt;:    add    DWORD PTR [rbp-0x4],0x65<br>&lt;+41&gt;:    mov    eax,DWORD PTR [rbp-0x4]<br>&lt;+44&gt;:    pop    rbp<br>&lt;+45&gt;:    ret<br>:::<br>0x9fe1a cmp 0x2710 &#x3D;&gt; 654874 cmp 10000 顯然是 vleft &gt; vright( al &gt; bl )<br>所以下面jle就不會做，jmp是無條件直接跳過去，有點像goto，所以就直接跳過&lt;+37&gt;:，直接到&lt;+41&gt;:<br>eax &#x3D; [rbp-0x4] &#x3D; 0x9fe1a - 0x65<br>eax &#x3D; 654773<br>:::spoiler flag<br>flag:picoCTF{654773}<br>:::</p>
+<h2 id="GDB-baby-step-1"><a href="#GDB-baby-step-1" class="headerlink" title="GDB baby step 1"></a>GDB baby step 1</h2><p><a class="link"   target="_blank" rel="noopener" href="https://www.cntofu.com/book/46/gdb/gdbming_ling_ji_chu_ff0c_rang_ni_de_cheng_xu_bug_w.md" >gdb說明書<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>這題主要是讓你熟悉gdb怎麼用，把檔案載下來後丟到gdb<br>可以用picoctf提供的web shell(要先輸入帳號和密碼)或是自己的環境<br><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="https://hackmd.io/_uploads/S1PflLhp3.png"
                      
                 ><br>點進去登入後先用</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget &#123;檔案網址&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget &#123;檔案網址&#125;</span><br></pre></td></tr></table></figure></div>
 <p>把檔案載下來，檔案網址可以按右鍵複製連結網址<br><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="https://hackmd.io/_uploads/SyvTe8hT2.png"
                      
                 ><br>丟到gdb就是打</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gdb &#123;檔案名稱&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gdb &#123;檔案名稱&#125;</span><br></pre></td></tr></table></figure></div>
 <p>成功的話應該會長這樣<br><img  
                      lazyload
                      src="/images/loading.svg"
@@ -602,7 +709,7 @@
                      
                 ></p>
 <p>因為不知道要幹嘛，所以先設斷點在main()</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ b main</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ b main</span><br></pre></td></tr></table></figure></div>
 <p>b代表break的意思，main是main函式的意思，假如今天的程式有一個shell()的函式，也可以b shell去下斷點。</p>
 <p>回到這題，設在main他的程式就會停在main的指令前，讓你手動執行一條一條的指令，先輸入r讓他跑起來然後再輸入ni可以跳到下一行指令<br><img  
                      lazyload
@@ -615,28 +722,28 @@
                      data-src="https://hackmd.io/_uploads/ByQy78hah.png"
                      
                 ><br>沒關係保險起見再打</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ info registers $rax</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ info registers $rax</span><br></pre></td></tr></table></figure></div>
 <p>可以看到目前rax的值<br>:::spoiler flag<br>flag:picoCTF{549698}<br>:::</p>
 <h2 id="GDB-baby-step-2"><a href="#GDB-baby-step-2" class="headerlink" title="GDB baby step 2"></a>GDB baby step 2</h2><p>這題我不確定我是不是偷吃步，一樣break在main，然後我直接找到ret前的地址，設break point然後重跑一次把rax的值印出來，就有囉</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ b 0x401141</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ b 0x401141</span><br></pre></td></tr></table></figure></div>
 <p>:::spoiler flag<br>flag:picoCTF{307019}<br>:::</p>
 <h2 id="GDB-baby-step-3"><a href="#GDB-baby-step-3" class="headerlink" title="GDB baby step 3"></a>GDB baby step 3</h2><p>這題要找0x2262c96b被放在內存的哪裡，並且把那邊的值印出來</p>
 <p>一樣用gdb，然後break main，讓他跑到ret前，也就是0x40111f的位置，可以用</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ info registers $rax</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ info registers $rax</span><br></pre></td></tr></table></figure></div>
 <p>確定0x2262c96b已經被寫入rax了<br><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="https://hackmd.io/_uploads/S1Ql5-Tp3.png"
                      
                 ><br>可以發現0x2262c96b在&lt;main+15&gt;的時候就被寫到rbp-0x4了<br>那就用</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ x/4xb $rbp-0x4</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ x/4xb $rbp-0x4</span><br></pre></td></tr></table></figure></div>
 <p>把記憶體位址印出來，就是flagㄌ<br>:::spoiler flag<br>flag:picoCTF{0x6bc96222}<br>:::</p>
 <h2 id="GDB-baby-step-4"><a href="#GDB-baby-step-4" class="headerlink" title="GDB baby step 4"></a>GDB baby step 4</h2><p>這題說main函式裡面呼叫了一個函式把eax乘上一個常數，那個常數轉成十進位就是flag<br>一樣先丟gdb，然後用</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ dissemble main</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ dissemble main</span><br></pre></td></tr></table></figure></div>
 <p>可以發現main用到一個叫做func1()的函式，再disassemble func1，可以找到相乘的那行指令在&lt;+14&gt;的地方，常數就是0x3269，再轉成十進位就是了<br>:::spoiler flag<br>flag:picoCTF{12905}<br>:::</p>
 <h2 id="Local-Target"><a href="#Local-Target" class="headerlink" title="Local Target"></a>Local Target</h2><p>這題有一個無腦作法，就是找到offset後再輸入一個字元，num就會被更新成那個字元的ascii，就有flag了</p>
 <p>認真來分析的話就是，先看他給的c</p>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">  FILE *fptr;</span><br><span class="line">  <span class="type">char</span> c;</span><br><span class="line"></span><br><span class="line">  <span class="type">char</span> input[<span class="number">16</span>];</span><br><span class="line">  <span class="type">int</span> num = <span class="number">64</span>;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Enter a string: &quot;</span>);</span><br><span class="line">  fflush(<span class="built_in">stdout</span>);</span><br><span class="line">  gets(input);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;num is %d\n&quot;</span>, num);</span><br><span class="line">  fflush(<span class="built_in">stdout</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>( num == <span class="number">65</span> )&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;You win!\n&quot;</span>);</span><br><span class="line">    fflush(<span class="built_in">stdout</span>);</span><br><span class="line">    <span class="comment">// Open file</span></span><br><span class="line">    fptr = fopen(<span class="string">&quot;flag.txt&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (fptr == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Cannot open file.\n&quot;</span>);</span><br><span class="line">        fflush(<span class="built_in">stdout</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Read contents from file</span></span><br><span class="line">    c = fgetc(fptr);</span><br><span class="line">    <span class="keyword">while</span> (c != EOF)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span> (<span class="string">&quot;%c&quot;</span>, c);</span><br><span class="line">        c = fgetc(fptr);</span><br><span class="line">    &#125;</span><br><span class="line">    fflush(<span class="built_in">stdout</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    fflush(<span class="built_in">stdout</span>);</span><br><span class="line">    fclose(fptr);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Bye!\n&quot;</span>);</span><br><span class="line">  fflush(<span class="built_in">stdout</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">  FILE *fptr;</span><br><span class="line">  <span class="type">char</span> c;</span><br><span class="line"></span><br><span class="line">  <span class="type">char</span> input[<span class="number">16</span>];</span><br><span class="line">  <span class="type">int</span> num = <span class="number">64</span>;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Enter a string: &quot;</span>);</span><br><span class="line">  fflush(<span class="built_in">stdout</span>);</span><br><span class="line">  gets(input);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;num is %d\n&quot;</span>, num);</span><br><span class="line">  fflush(<span class="built_in">stdout</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>( num == <span class="number">65</span> )&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;You win!\n&quot;</span>);</span><br><span class="line">    fflush(<span class="built_in">stdout</span>);</span><br><span class="line">    <span class="comment">// Open file</span></span><br><span class="line">    fptr = fopen(<span class="string">&quot;flag.txt&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (fptr == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Cannot open file.\n&quot;</span>);</span><br><span class="line">        fflush(<span class="built_in">stdout</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Read contents from file</span></span><br><span class="line">    c = fgetc(fptr);</span><br><span class="line">    <span class="keyword">while</span> (c != EOF)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span> (<span class="string">&quot;%c&quot;</span>, c);</span><br><span class="line">        c = fgetc(fptr);</span><br><span class="line">    &#125;</span><br><span class="line">    fflush(<span class="built_in">stdout</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    fflush(<span class="built_in">stdout</span>);</span><br><span class="line">    fclose(fptr);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Bye!\n&quot;</span>);</span><br><span class="line">  fflush(<span class="built_in">stdout</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>整個程式就是宣告一個字元陣列叫做input(大小是16)，再宣告一個整數叫做num，num的值是64，接下來用gets()請使用者輸入input的內容，最後會判斷num的值是不是65，是的話就把flag印出來。</p>
 <p>攻擊思路很簡單，就是利用gets()這個函式overflow去蓋num的值，把它改成65就達到目的了</p>
 <p>那究竟要蓋多少呢?<br>題目有說到input的大小是16，所以第17個字元就可以蓋num的值嗎?<br>WrongXX<br>他的記憶體是長這樣的<br><img  
@@ -644,15 +751,15 @@
                      src="/images/loading.svg"
                      data-src="https://hackmd.io/_uploads/H1Un-qLC2.png"
                      
-                ><br><a class="link"   target="_blank" rel="noopener" href="https://tech-blog.cymetrics.io/posts/crystal/pwn-intro/" >src <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>有注意到下面兩格嗎?分別是old rbp和return address，會需要這兩塊記憶體讓程式呼叫完函式後回到main函式，所以呢總共會需要16(input大小)+4(old rbp)+4(return address) &#x3D; 24<br>這個要塞啥字元都可以，英文叫做offset，主要作用是塞滿記憶體，也有人用NOP去塞，總之，我的payload會是24個字元+’A’，這樣就可以把num改成65(A的ascii)</p>
+                ><br><a class="link"   target="_blank" rel="noopener" href="https://tech-blog.cymetrics.io/posts/crystal/pwn-intro/" >src<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>有注意到下面兩格嗎?分別是old rbp和return address，會需要這兩塊記憶體讓程式呼叫完函式後回到main函式，所以呢總共會需要16(input大小)+4(old rbp)+4(return address) &#x3D; 24<br>這個要塞啥字元都可以，英文叫做offset，主要作用是塞滿記憶體，也有人用NOP去塞，總之，我的payload會是24個字元+’A’，這樣就可以把num改成65(A的ascii)</p>
 <p>payload：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">ip = &#x27;saturn.picoctf.net&#x27;</span><br><span class="line">port = 56786</span><br><span class="line">#r = process(&#x27;./local-target&#x27;)</span><br><span class="line">r = remote(ip,port)</span><br><span class="line"></span><br><span class="line">payload = b&#x27;a&#x27;*24 + b&#x27;A&#x27;</span><br><span class="line">r.send(payload)</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">ip = &#x27;saturn.picoctf.net&#x27;</span><br><span class="line">port = 56786</span><br><span class="line">#r = process(&#x27;./local-target&#x27;)</span><br><span class="line">r = remote(ip,port)</span><br><span class="line"></span><br><span class="line">payload = b&#x27;a&#x27;*24 + b&#x27;A&#x27;</span><br><span class="line">r.send(payload)</span><br></pre></td></tr></table></figure></div>
 <p>:::spoiler flag<br>flag:picoCTF{l0c4l5_1n_5c0p3_fee8ef05}<br>:::</p>
 <h2 id="Picker-I"><a href="#Picker-I" class="headerlink" title="Picker I"></a>Picker I</h2><p>這題是逆向，看一下source code，也可以直接看最後一句</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getRandomNumber</span>():</span><br><span class="line">  <span class="built_in">print</span>(<span class="number">4</span>)  <span class="comment"># Chosen by fair die roll.</span></span><br><span class="line">            <span class="comment"># Guaranteed to be random.</span></span><br><span class="line">            <span class="comment"># (See XKCD)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">exit</span>():</span><br><span class="line">  sys.exit(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">esoteric1</span>():</span><br><span class="line">  esoteric = \</span><br><span class="line">  <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">  int query_apm_bios(void)</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">        struct biosregs ireg, oreg;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        /* APM BIOS installation check */</span></span><br><span class="line"><span class="string">        initregs(&amp;ireg);</span></span><br><span class="line"><span class="string">        ireg.ah = 0x53;</span></span><br><span class="line"><span class="string">        intcall(0x15, &amp;ireg, &amp;oreg);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        if (oreg.flags &amp; X86_EFLAGS_CF)</span></span><br><span class="line"><span class="string">                return -1;              /* No APM BIOS */</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        if (oreg.bx != 0x504d)          /* &quot;PM&quot; signature */</span></span><br><span class="line"><span class="string">                return -1;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        if (!(oreg.cx &amp; 0x02))          /* 32 bits supported? */</span></span><br><span class="line"><span class="string">                return -1;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        /* Disconnect first, just in case */</span></span><br><span class="line"><span class="string">        ireg.al = 0x04;</span></span><br><span class="line"><span class="string">        intcall(0x15, &amp;ireg, NULL);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        /* 32-bit connect */</span></span><br><span class="line"><span class="string">        ireg.al = 0x03;</span></span><br><span class="line"><span class="string">        intcall(0x15, &amp;ireg, &amp;oreg);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        boot_params.apm_bios_info.cseg        = oreg.ax;</span></span><br><span class="line"><span class="string">        boot_params.apm_bios_info.offset      = oreg.ebx;</span></span><br><span class="line"><span class="string">        boot_params.apm_bios_info.cseg_16     = oreg.cx;</span></span><br><span class="line"><span class="string">        boot_params.apm_bios_info.dseg        = oreg.dx;</span></span><br><span class="line"><span class="string">        boot_params.apm_bios_info.cseg_len    = oreg.si;</span></span><br><span class="line"><span class="string">        boot_params.apm_bios_info.cseg_16_len = oreg.hsi;</span></span><br><span class="line"><span class="string">        boot_params.apm_bios_info.dseg_len    = oreg.di;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        if (oreg.flags &amp; X86_EFLAGS_CF)</span></span><br><span class="line"><span class="string">                return -1;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        /* Redo the installation check as the 32-bit connect;</span></span><br><span class="line"><span class="string">           some BIOSes return different flags this way... */</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        ireg.al = 0x00;</span></span><br><span class="line"><span class="string">        intcall(0x15, &amp;ireg, &amp;oreg);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        if ((oreg.eflags &amp; X86_EFLAGS_CF) || oreg.bx != 0x504d) &#123;</span></span><br><span class="line"><span class="string">                /* Failure with 32-bit connect, try to disconnect and ignore */</span></span><br><span class="line"><span class="string">                ireg.al = 0x04;</span></span><br><span class="line"><span class="string">                intcall(0x15, &amp;ireg, NULL);</span></span><br><span class="line"><span class="string">                return -1;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        boot_params.apm_bios_info.version = oreg.ax;</span></span><br><span class="line"><span class="string">        boot_params.apm_bios_info.flags   = oreg.cx;</span></span><br><span class="line"><span class="string">        return 0;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">  &#x27;&#x27;&#x27;</span></span><br><span class="line">  <span class="built_in">print</span>(esoteric)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">win</span>():</span><br><span class="line">  <span class="comment"># This line will not work locally unless you create your own &#x27;flag.txt&#x27; in</span></span><br><span class="line">  <span class="comment">#   the same directory as this script</span></span><br><span class="line">  flag = <span class="built_in">open</span>(<span class="string">&#x27;flag.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>).read()</span><br><span class="line">  <span class="comment">#flag = flag[:-1]</span></span><br><span class="line">  flag = flag.strip()</span><br><span class="line">  str_flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="keyword">for</span> c <span class="keyword">in</span> flag:</span><br><span class="line">    str_flag += <span class="built_in">str</span>(<span class="built_in">hex</span>(<span class="built_in">ord</span>(c))) + <span class="string">&#x27; &#x27;</span></span><br><span class="line">  <span class="built_in">print</span>(str_flag)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">esoteric2</span>():</span><br><span class="line">  esoteric = \</span><br><span class="line">  <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">#include &quot;boot.h&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#define MAX_8042_LOOPS  100000</span></span><br><span class="line"><span class="string">#define MAX_8042_FF     32</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">static int empty_8042(void)</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">        u8 status;</span></span><br><span class="line"><span class="string">        int loops = MAX_8042_LOOPS;</span></span><br><span class="line"><span class="string">        int ffs   = MAX_8042_FF;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        while (loops--) &#123;</span></span><br><span class="line"><span class="string">                io_delay();</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">                status = inb(0x64);</span></span><br><span class="line"><span class="string">                if (status == 0xff) &#123;</span></span><br><span class="line"><span class="string">                        /* FF is a plausible, but very unlikely status */</span></span><br><span class="line"><span class="string">                        if (!--ffs)</span></span><br><span class="line"><span class="string">                                return -1; /* Assume no KBC present */</span></span><br><span class="line"><span class="string">                &#125;</span></span><br><span class="line"><span class="string">                if (status &amp; 1) &#123;</span></span><br><span class="line"><span class="string">                        /* Read and discard input data */</span></span><br><span class="line"><span class="string">                        io_delay();</span></span><br><span class="line"><span class="string">                        (void)inb(0x60);</span></span><br><span class="line"><span class="string">                &#125; else if (!(status &amp; 2)) &#123;</span></span><br><span class="line"><span class="string">                        /* Buffers empty, finished! */</span></span><br><span class="line"><span class="string">                        return 0;</span></span><br><span class="line"><span class="string">                &#125;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        return -1;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">/* Returns nonzero if the A20 line is enabled.  The memory address</span></span><br><span class="line"><span class="string">   used as a test is the int $0x80 vector, which should be safe. */</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#define A20_TEST_ADDR   (4*0x80)</span></span><br><span class="line"><span class="string">#define A20_TEST_SHORT  32</span></span><br><span class="line"><span class="string">#define A20_TEST_LONG   2097152 /* 2^21 */</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">static int a20_test(int loops)</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">        int ok = 0;</span></span><br><span class="line"><span class="string">        int saved, ctr;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        set_fs(0x0000);</span></span><br><span class="line"><span class="string">        set_gs(0xffff);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        saved = ctr = rdfs32(A20_TEST_ADDR);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        while (loops--) &#123;</span></span><br><span class="line"><span class="string">                wrfs32(++ctr, A20_TEST_ADDR);</span></span><br><span class="line"><span class="string">                io_delay();     /* Serialize and make delay constant */</span></span><br><span class="line"><span class="string">                ok = rdgs32(A20_TEST_ADDR+0x10) ^ ctr;</span></span><br><span class="line"><span class="string">                if (ok)</span></span><br><span class="line"><span class="string">                        break;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        wrfs32(saved, A20_TEST_ADDR);</span></span><br><span class="line"><span class="string">        return ok;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">/* Quick test to see if A20 is already enabled */</span></span><br><span class="line"><span class="string">static int a20_test_short(void)</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">        return a20_test(A20_TEST_SHORT);</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">  &#x27;&#x27;&#x27;</span></span><br><span class="line">  <span class="built_in">print</span>(esoteric)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="literal">True</span>):</span><br><span class="line">  <span class="keyword">try</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Try entering &quot;getRandomNumber&quot; without the double quotes...&#x27;</span>)</span><br><span class="line">    user_input = <span class="built_in">input</span>(<span class="string">&#x27;==&gt; &#x27;</span>)</span><br><span class="line">    <span class="built_in">eval</span>(user_input + <span class="string">&#x27;()&#x27;</span>)</span><br><span class="line">  <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(e)</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getRandomNumber</span>():</span><br><span class="line">  <span class="built_in">print</span>(<span class="number">4</span>)  <span class="comment"># Chosen by fair die roll.</span></span><br><span class="line">            <span class="comment"># Guaranteed to be random.</span></span><br><span class="line">            <span class="comment"># (See XKCD)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">exit</span>():</span><br><span class="line">  sys.exit(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">esoteric1</span>():</span><br><span class="line">  esoteric = \</span><br><span class="line">  <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">  int query_apm_bios(void)</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">        struct biosregs ireg, oreg;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        /* APM BIOS installation check */</span></span><br><span class="line"><span class="string">        initregs(&amp;ireg);</span></span><br><span class="line"><span class="string">        ireg.ah = 0x53;</span></span><br><span class="line"><span class="string">        intcall(0x15, &amp;ireg, &amp;oreg);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        if (oreg.flags &amp; X86_EFLAGS_CF)</span></span><br><span class="line"><span class="string">                return -1;              /* No APM BIOS */</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        if (oreg.bx != 0x504d)          /* &quot;PM&quot; signature */</span></span><br><span class="line"><span class="string">                return -1;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        if (!(oreg.cx &amp; 0x02))          /* 32 bits supported? */</span></span><br><span class="line"><span class="string">                return -1;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        /* Disconnect first, just in case */</span></span><br><span class="line"><span class="string">        ireg.al = 0x04;</span></span><br><span class="line"><span class="string">        intcall(0x15, &amp;ireg, NULL);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        /* 32-bit connect */</span></span><br><span class="line"><span class="string">        ireg.al = 0x03;</span></span><br><span class="line"><span class="string">        intcall(0x15, &amp;ireg, &amp;oreg);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        boot_params.apm_bios_info.cseg        = oreg.ax;</span></span><br><span class="line"><span class="string">        boot_params.apm_bios_info.offset      = oreg.ebx;</span></span><br><span class="line"><span class="string">        boot_params.apm_bios_info.cseg_16     = oreg.cx;</span></span><br><span class="line"><span class="string">        boot_params.apm_bios_info.dseg        = oreg.dx;</span></span><br><span class="line"><span class="string">        boot_params.apm_bios_info.cseg_len    = oreg.si;</span></span><br><span class="line"><span class="string">        boot_params.apm_bios_info.cseg_16_len = oreg.hsi;</span></span><br><span class="line"><span class="string">        boot_params.apm_bios_info.dseg_len    = oreg.di;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        if (oreg.flags &amp; X86_EFLAGS_CF)</span></span><br><span class="line"><span class="string">                return -1;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        /* Redo the installation check as the 32-bit connect;</span></span><br><span class="line"><span class="string">           some BIOSes return different flags this way... */</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        ireg.al = 0x00;</span></span><br><span class="line"><span class="string">        intcall(0x15, &amp;ireg, &amp;oreg);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        if ((oreg.eflags &amp; X86_EFLAGS_CF) || oreg.bx != 0x504d) &#123;</span></span><br><span class="line"><span class="string">                /* Failure with 32-bit connect, try to disconnect and ignore */</span></span><br><span class="line"><span class="string">                ireg.al = 0x04;</span></span><br><span class="line"><span class="string">                intcall(0x15, &amp;ireg, NULL);</span></span><br><span class="line"><span class="string">                return -1;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        boot_params.apm_bios_info.version = oreg.ax;</span></span><br><span class="line"><span class="string">        boot_params.apm_bios_info.flags   = oreg.cx;</span></span><br><span class="line"><span class="string">        return 0;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">  &#x27;&#x27;&#x27;</span></span><br><span class="line">  <span class="built_in">print</span>(esoteric)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">win</span>():</span><br><span class="line">  <span class="comment"># This line will not work locally unless you create your own &#x27;flag.txt&#x27; in</span></span><br><span class="line">  <span class="comment">#   the same directory as this script</span></span><br><span class="line">  flag = <span class="built_in">open</span>(<span class="string">&#x27;flag.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>).read()</span><br><span class="line">  <span class="comment">#flag = flag[:-1]</span></span><br><span class="line">  flag = flag.strip()</span><br><span class="line">  str_flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="keyword">for</span> c <span class="keyword">in</span> flag:</span><br><span class="line">    str_flag += <span class="built_in">str</span>(<span class="built_in">hex</span>(<span class="built_in">ord</span>(c))) + <span class="string">&#x27; &#x27;</span></span><br><span class="line">  <span class="built_in">print</span>(str_flag)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">esoteric2</span>():</span><br><span class="line">  esoteric = \</span><br><span class="line">  <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">#include &quot;boot.h&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#define MAX_8042_LOOPS  100000</span></span><br><span class="line"><span class="string">#define MAX_8042_FF     32</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">static int empty_8042(void)</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">        u8 status;</span></span><br><span class="line"><span class="string">        int loops = MAX_8042_LOOPS;</span></span><br><span class="line"><span class="string">        int ffs   = MAX_8042_FF;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        while (loops--) &#123;</span></span><br><span class="line"><span class="string">                io_delay();</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">                status = inb(0x64);</span></span><br><span class="line"><span class="string">                if (status == 0xff) &#123;</span></span><br><span class="line"><span class="string">                        /* FF is a plausible, but very unlikely status */</span></span><br><span class="line"><span class="string">                        if (!--ffs)</span></span><br><span class="line"><span class="string">                                return -1; /* Assume no KBC present */</span></span><br><span class="line"><span class="string">                &#125;</span></span><br><span class="line"><span class="string">                if (status &amp; 1) &#123;</span></span><br><span class="line"><span class="string">                        /* Read and discard input data */</span></span><br><span class="line"><span class="string">                        io_delay();</span></span><br><span class="line"><span class="string">                        (void)inb(0x60);</span></span><br><span class="line"><span class="string">                &#125; else if (!(status &amp; 2)) &#123;</span></span><br><span class="line"><span class="string">                        /* Buffers empty, finished! */</span></span><br><span class="line"><span class="string">                        return 0;</span></span><br><span class="line"><span class="string">                &#125;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        return -1;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">/* Returns nonzero if the A20 line is enabled.  The memory address</span></span><br><span class="line"><span class="string">   used as a test is the int $0x80 vector, which should be safe. */</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#define A20_TEST_ADDR   (4*0x80)</span></span><br><span class="line"><span class="string">#define A20_TEST_SHORT  32</span></span><br><span class="line"><span class="string">#define A20_TEST_LONG   2097152 /* 2^21 */</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">static int a20_test(int loops)</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">        int ok = 0;</span></span><br><span class="line"><span class="string">        int saved, ctr;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        set_fs(0x0000);</span></span><br><span class="line"><span class="string">        set_gs(0xffff);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        saved = ctr = rdfs32(A20_TEST_ADDR);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        while (loops--) &#123;</span></span><br><span class="line"><span class="string">                wrfs32(++ctr, A20_TEST_ADDR);</span></span><br><span class="line"><span class="string">                io_delay();     /* Serialize and make delay constant */</span></span><br><span class="line"><span class="string">                ok = rdgs32(A20_TEST_ADDR+0x10) ^ ctr;</span></span><br><span class="line"><span class="string">                if (ok)</span></span><br><span class="line"><span class="string">                        break;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        wrfs32(saved, A20_TEST_ADDR);</span></span><br><span class="line"><span class="string">        return ok;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">/* Quick test to see if A20 is already enabled */</span></span><br><span class="line"><span class="string">static int a20_test_short(void)</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">        return a20_test(A20_TEST_SHORT);</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">  &#x27;&#x27;&#x27;</span></span><br><span class="line">  <span class="built_in">print</span>(esoteric)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="literal">True</span>):</span><br><span class="line">  <span class="keyword">try</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Try entering &quot;getRandomNumber&quot; without the double quotes...&#x27;</span>)</span><br><span class="line">    user_input = <span class="built_in">input</span>(<span class="string">&#x27;==&gt; &#x27;</span>)</span><br><span class="line">    <span class="built_in">eval</span>(user_input + <span class="string">&#x27;()&#x27;</span>)</span><br><span class="line">  <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(e)</span><br></pre></td></tr></table></figure></div>
 <p>有學過python就知道三個引號(‘)就是多行註解，所以有大部分的code都沒用，都是來混淆視聽的，主要看最後面160行的while(True)，大概意思就是使用者輸入函式，然後程式執行，往上看有哪些函式可以用，會發現有getRandomNumber()、exit()、esoteric()、win()、esoteric2()，其中esoteric()和esoteric2()都是沒用的，exit()是結束程式，getRandomNumber()是印出4，很顯然要用win()，直接nc過去然後輸入win()會得到一串0x什麼的，直接google”hex to text”就能搞出flag了(記得選utf-8)<br>:::spoiler flag<br>flag:picoCTF{4_d14m0nd_1n_7h3_r0ugh_b523b2a1}<br>:::</p>
 <h2 id="Picker-II"><a href="#Picker-II" class="headerlink" title="Picker II"></a>Picker II</h2><p>這題跟上一題題意差不多，但這次會過濾win這個單字，不過還是一樣，nc過去就是eval的shell了，所以直接open flag.txt</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(open(&#x27;flag.txt&#x27;, &#x27;r&#x27;).read())</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(open(&#x27;flag.txt&#x27;, &#x27;r&#x27;).read())</span><br></pre></td></tr></table></figure></div>
 <p>:::spoiler flag<br>flag:picoCTF{f1l73r5_f41l_c0d3_r3f4c70r_m1gh7_5ucc33d_b924e8e5}<br>:::</p>
 <h2 id="Picker-III"><a href="#Picker-III" class="headerlink" title="Picker III"></a>Picker III</h2><p>這題題目是這樣的，nc連過去會請你輸入數字，看一下source code會有這些操作<br><img  
                      lazyload
@@ -676,7 +783,7 @@
                       alt="image"
                 ><br>最後會噴出一堆hex，再用python轉成text就可以了<br>:::spoiler flag<br>flag:picoCTF{7h15_15_wh47_w3_g37_w17h_u53r5_1n_ch4rg3_c20f5222}<br>:::</p>
 <h2 id="Picker-IV"><a href="#Picker-IV" class="headerlink" title="Picker IV"></a>Picker IV</h2><p>這題秒殺，source code不長，就是給你輸入address，然後程式會跳到那個address，裡面已經有一個win()的函式，直接用objdump看win()的位址再跳過去就有flag了</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objdump -d -M Intel picker-IV</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objdump -d -M Intel picker-IV</span><br></pre></td></tr></table></figure></div>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
@@ -690,18 +797,18 @@
                       alt="image"
                 ><br>:::spoiler flag<br>flag:picoCTF{n3v3r_jump_t0_u53r_5uppl13d_4ddr35535_01672a61}<br>:::</p>
 <h2 id="WPA-ing-Out"><a href="#WPA-ing-Out" class="headerlink" title="WPA-ing Out"></a>WPA-ing Out</h2><p>這題是分析pcap檔，破解他的密碼，一開始先開小鯊魚wireshark看，過濾出wlan的封包，好像所有資料都被加密了，提示是說可以用aircrack-ng這個工具看看，題目有說到密碼在rockyou wordlist，所以就下指令去爆破密碼</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aircrack-ng wpa-ing_out.pcap -w /usr/share/wordlist/rockyou.txt</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aircrack-ng wpa-ing_out.pcap -w /usr/share/wordlist/rockyou.txt</span><br></pre></td></tr></table></figure></div>
 <p>要確定rockyou.txt是不是存在，如果用wsl要自己上網抓字典庫，我是用網路上的kali環境，結果rockyou.txt還沒解壓縮，要解完再爆破，爆破完就知道密碼是mickeymouse<br><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="https://hackmd.io/_uploads/SJwOtjur6.png"
                       alt="image"
                 ><br>:::spoiler flag<br>flag:picoCTF{mickeymouse}<br>:::</p>
-<h2 id="JAuth"><a href="#JAuth" class="headerlink" title="JAuth"></a>JAuth</h2><p>這題主要在說JWT的驗證機制，詳細可以看<a class="link"   target="_blank" rel="noopener" href="https://medium.com/%E9%BA%A5%E5%85%8B%E7%9A%84%E5%8D%8A%E8%B7%AF%E5%87%BA%E5%AE%B6%E7%AD%86%E8%A8%98/%E7%AD%86%E8%A8%98-%E9%80%8F%E9%81%8E-jwt-%E5%AF%A6%E4%BD%9C%E9%A9%97%E8%AD%89%E6%A9%9F%E5%88%B6-2e64d72594f8" >這篇 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>簡單的講就是，網站會產生一個token去驗證身分，token分成三個部分</p>
+<h2 id="JAuth"><a href="#JAuth" class="headerlink" title="JAuth"></a>JAuth</h2><p>這題主要在說JWT的驗證機制，詳細可以看<a class="link"   target="_blank" rel="noopener" href="https://medium.com/%E9%BA%A5%E5%85%8B%E7%9A%84%E5%8D%8A%E8%B7%AF%E5%87%BA%E5%AE%B6%E7%AD%86%E8%A8%98/%E7%AD%86%E8%A8%98-%E9%80%8F%E9%81%8E-jwt-%E5%AF%A6%E4%BD%9C%E9%A9%97%E8%AD%89%E6%A9%9F%E5%88%B6-2e64d72594f8" >這篇<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>簡單的講就是，網站會產生一個token去驗證身分，token分成三個部分</p>
 <ol>
 <li>header</li>
 <li>payload</li>
-<li>Signing key<br>我用預設的test&#x2F;Test123!登入會給我一個token，我要拿去解析JWT token的網站把自己偽造成admin就可以登入了，先把預設帳號的token拿去解析，我用的是<a class="link"   target="_blank" rel="noopener" href="https://token.dev/" >這個網站 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><img  
+<li>Signing key<br>我用預設的test&#x2F;Test123!登入會給我一個token，我要拿去解析JWT token的網站把自己偽造成admin就可以登入了，先把預設帳號的token拿去解析，我用的是<a class="link"   target="_blank" rel="noopener" href="https://token.dev/" >這個網站<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="https://hackmd.io/_uploads/Hkqbv1FrT.png"
@@ -739,7 +846,7 @@
                      data-src="https://hackmd.io/_uploads/ryExpJFBp.png"
                       alt="image"
                 ><br>用這個可以一個一個對照出來，或是你想寫一個parser也可以<br>我寫的parser:</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    string ans;</span><br><span class="line">    <span class="keyword">while</span>(cin&gt;&gt;a)&#123;</span><br><span class="line">        ans+=<span class="built_in">char</span>(a<span class="number">+96</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;ans&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    string ans;</span><br><span class="line">    <span class="keyword">while</span>(cin&gt;&gt;a)&#123;</span><br><span class="line">        ans+=<span class="built_in">char</span>(a<span class="number">+96</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;ans&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>:::spoiler flag<br>flag:picoCTF{thenumbersmason}<br>:::</p>
 <h2 id="2Warm"><a href="#2Warm" class="headerlink" title="2Warm"></a>2Warm</h2><p>:::spoiler flag<br>flag:picoCTF{101010}<br>:::</p>
 <h2 id="where-are-the-robots"><a href="#where-are-the-robots" class="headerlink" title="where are the robots"></a>where are the robots</h2><p>robots.txt<br>在網址後面加上robots.txt可以看到一些目錄<br><img  
@@ -754,7 +861,7 @@
                       alt="image"
                 ><br>:::spoiler flag<br>flag:picoCTF{ca1cu1at1ng_Mach1n3s_1bb4c}<br>:::</p>
 <h2 id="vault-door-1"><a href="#vault-door-1" class="headerlink" title="vault-door-1"></a>vault-door-1</h2><p>用記事本打開就能看到flag了，寫一個parser去產出flag就可以了(或是手動也行)</p>
-<h2 id="what’s-a-net-cat"><a href="#what’s-a-net-cat" class="headerlink" title="what’s a net cat?"></a>what’s a net cat?</h2><p>就是用nc連過去就可以了<br>用法：<code>nc ip port</code><br><a class="link"   target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/linux-utility-netcat-examples/" >ref <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="what’s-a-net-cat"><a href="#what’s-a-net-cat" class="headerlink" title="what’s a net cat?"></a>what’s a net cat?</h2><p>就是用nc連過去就可以了<br>用法：<code>nc ip port</code><br><a class="link"   target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/linux-utility-netcat-examples/" >ref<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
 <p>這題就是<code>nc jupiter.challenges.picoctf.org 41120</code><br>flag就噴出來了<br><img  
                      lazyload
                      src="/images/loading.svg"
@@ -772,7 +879,7 @@
                      src="/images/loading.svg"
                      data-src="https://hackmd.io/_uploads/HkMumEgLT.png"
                       alt="image"
-                ><br><a class="link"   target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/%E4%B8%80%E6%AC%A1%E6%80%A7%E5%AF%86%E7%A2%BC%E6%9C%AC" >ref <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>對照下來就能拿到flag了<br>可以用<a class="link"   target="_blank" rel="noopener" href="https://www.dcode.fr/vigenere-cipher" >工具 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>秒解<br><img  
+                ><br><a class="link"   target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/%E4%B8%80%E6%AC%A1%E6%80%A7%E5%AF%86%E7%A2%BC%E6%9C%AC" >ref<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>對照下來就能拿到flag了<br>可以用<a class="link"   target="_blank" rel="noopener" href="https://www.dcode.fr/vigenere-cipher" >工具<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>秒解<br><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="https://hackmd.io/_uploads/BJPpk6WPp.png"
@@ -806,11 +913,11 @@
         font-weight: bold;
     }
 </style>
-        </div>
+		</div>
 
-        
-            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
-                <div class="article-copyright-info-container">
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
     <ul>
         <li><strong>Title:</strong> pico</li>
         <li><strong>Author:</strong> Troy</li>
@@ -838,89 +945,77 @@
     </ul>
 </div>
 
-            </div>
-        
+		</div>
+		
 
-        
-            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
-                
-                    <li class="tag-item mx-0.5">
-                        <a href="/tags/pico/">#pico</a>&nbsp;
-                    </li>
-                
-            </ul>
-        
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/pico/">#pico</a>&nbsp;
+			</li>
+			
+		</ul>
+		
 
-        
+		
 
-        
-            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
-                
-                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="prev"
-                        rel="prev"
-                        href="/2024/12/25/Bugku/"
-                        >
-                            <span class="left arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">Bugku</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
-                
-                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="next"
-                        rel="next"
-                        href="/2024/12/25/AI4Kid-%E8%AA%8D%E8%AD%98%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7/"
-                        >
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">AI4Kid 認識人工智慧</span>
-                                <span class="post-nav-item">Next posts</span>
-                            </span>
-                            <span class="right arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </span>
-                        </a>
-                    </div>
-                
-            </div>
-        
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2024/12/25/Bugku/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">Bugku</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2024/12/25/AI4Kid-%E8%AA%8D%E8%AD%98%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">AI4Kid 認識人工智慧</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
 
 
-        
-    </div>
+		
+	</div>
 
-    
-        <div class="toc-content-container">
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <div class="toc-title">On this page</div>
-        <div class="page-title">pico</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#picoGym-Exclusive"><span class="nav-text">picoGym Exclusive</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#First-Find"><span class="nav-text">First Find</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Big-Zip"><span class="nav-text">Big Zip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ASCII-FTW"><span class="nav-text">ASCII FTW</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ASCII-Numbers"><span class="nav-text">ASCII Numbers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bit-O-Asm-1"><span class="nav-text">Bit-O-Asm-1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bit-O-Asm-2"><span class="nav-text">Bit-O-Asm-2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bit-O-Asm-3"><span class="nav-text">Bit-O-Asm-3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bit-O-Asm-4"><span class="nav-text">Bit-O-Asm-4</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8D%E6%96%BC-signed-integer-%E7%9A%84%E6%AF%94%E5%B0%8D%EF%BC%8C%E5%89%87%E6%9C%83%E4%BD%BF%E7%94%A8%E5%88%B0-ZF-zero-flag-%E3%80%81OF-overflow-flag-%E8%88%87-SF-sign-flag-%E4%B8%89%E5%80%8B-flag%EF%BC%8C%E4%B9%9F%E6%98%AF%E6%9C%83%E6%9C%89%E4%B8%89%E7%A8%AE%E6%83%85%E6%B3%81%EF%BC%9A1-vleft-vright-%E7%9B%B8%E6%B8%9B%E5%BE%8C%E7%B5%90%E6%9E%9C%E7%82%BA-0%EF%BC%8C%E5%9B%A0%E6%AD%A4-ZF-1%EF%BC%9B%E4%B8%8D%E6%9C%83%E6%9C%89%E5%80%9F%E4%BD%8D%E7%9A%84%E6%83%85%E5%BD%A2%EF%BC%8C%E5%9B%A0%E6%AD%A4-CF-0%EF%BC%9B%E7%B5%90%E6%9E%9C%E4%B8%8D%E7%82%BA%E8%B2%A0%EF%BC%8C%E5%9B%A0%E6%AD%A4-SF-02-vleft-vright-%E7%9B%B8%E6%B8%9B%E5%BE%8C%E7%B5%90%E6%9E%9C%E5%A4%A7%E6%96%BC-0%EF%BC%8C%E5%9B%A0%E6%AD%A4-ZF-0%EF%BC%9B%E4%B8%94-CF-SF3-vleft-vright-%E7%9B%B8%E6%B8%9B%E5%BE%8C%E7%B5%90%E6%9E%9C%E5%B0%8F%E6%96%BC-0%EF%BC%8C%E5%9B%A0%E6%AD%A4-ZF-0%EF%BC%9B%E4%B8%94-CFSF"><span class="nav-text">對於 signed integer 的比對，則會使用到 ZF(zero flag)、OF(overflow flag) 與 SF(sign flag) 三個 flag，也是會有三種情況：1. vleft &#x3D; vright     相減後結果為 0，因此 ZF&#x3D;1；不會有借位的情形，因此 CF&#x3D;0；結果不為負，因此 SF&#x3D;02. vleft &gt; vright     相減後結果大於 0，因此 ZF&#x3D;0；且 CF&#x3D;SF3. vleft &lt; vright     相減後結果小於 0，因此 ZF&#x3D;0；且 CF&lt;&gt;SF
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">pico</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#picoGym-Exclusive"><span class="nav-text">picoGym Exclusive</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#First-Find"><span class="nav-text">First Find</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Big-Zip"><span class="nav-text">Big Zip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ASCII-FTW"><span class="nav-text">ASCII FTW</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ASCII-Numbers"><span class="nav-text">ASCII Numbers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bit-O-Asm-1"><span class="nav-text">Bit-O-Asm-1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bit-O-Asm-2"><span class="nav-text">Bit-O-Asm-2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bit-O-Asm-3"><span class="nav-text">Bit-O-Asm-3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bit-O-Asm-4"><span class="nav-text">Bit-O-Asm-4</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8D%E6%96%BC-signed-integer-%E7%9A%84%E6%AF%94%E5%B0%8D%EF%BC%8C%E5%89%87%E6%9C%83%E4%BD%BF%E7%94%A8%E5%88%B0-ZF-zero-flag-%E3%80%81OF-overflow-flag-%E8%88%87-SF-sign-flag-%E4%B8%89%E5%80%8B-flag%EF%BC%8C%E4%B9%9F%E6%98%AF%E6%9C%83%E6%9C%89%E4%B8%89%E7%A8%AE%E6%83%85%E6%B3%81%EF%BC%9A1-vleft-vright-%E7%9B%B8%E6%B8%9B%E5%BE%8C%E7%B5%90%E6%9E%9C%E7%82%BA-0%EF%BC%8C%E5%9B%A0%E6%AD%A4-ZF-1%EF%BC%9B%E4%B8%8D%E6%9C%83%E6%9C%89%E5%80%9F%E4%BD%8D%E7%9A%84%E6%83%85%E5%BD%A2%EF%BC%8C%E5%9B%A0%E6%AD%A4-CF-0%EF%BC%9B%E7%B5%90%E6%9E%9C%E4%B8%8D%E7%82%BA%E8%B2%A0%EF%BC%8C%E5%9B%A0%E6%AD%A4-SF-02-vleft-vright-%E7%9B%B8%E6%B8%9B%E5%BE%8C%E7%B5%90%E6%9E%9C%E5%A4%A7%E6%96%BC-0%EF%BC%8C%E5%9B%A0%E6%AD%A4-ZF-0%EF%BC%9B%E4%B8%94-CF-SF3-vleft-vright-%E7%9B%B8%E6%B8%9B%E5%BE%8C%E7%B5%90%E6%9E%9C%E5%B0%8F%E6%96%BC-0%EF%BC%8C%E5%9B%A0%E6%AD%A4-ZF-0%EF%BC%9B%E4%B8%94-CFSF"><span class="nav-text">對於 signed integer 的比對，則會使用到 ZF(zero flag)、OF(overflow flag) 與 SF(sign flag) 三個 flag，也是會有三種情況：1. vleft &#x3D; vright     相減後結果為 0，因此 ZF&#x3D;1；不會有借位的情形，因此 CF&#x3D;0；結果不為負，因此 SF&#x3D;02. vleft &gt; vright     相減後結果大於 0，因此 ZF&#x3D;0；且 CF&#x3D;SF3. vleft &lt; vright     相減後結果小於 0，因此 ZF&#x3D;0；且 CF&lt;&gt;SF
      </span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GDB-baby-step-1"><span class="nav-text">GDB baby step 1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GDB-baby-step-2"><span class="nav-text">GDB baby step 2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GDB-baby-step-3"><span class="nav-text">GDB baby step 3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GDB-baby-step-4"><span class="nav-text">GDB baby step 4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Local-Target"><span class="nav-text">Local Target</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Picker-I"><span class="nav-text">Picker I</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Picker-II"><span class="nav-text">Picker II</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Picker-III"><span class="nav-text">Picker III</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Picker-IV"><span class="nav-text">Picker IV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WPA-ing-Out"><span class="nav-text">WPA-ing Out</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JAuth"><span class="nav-text">JAuth</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#picoCTF-2019"><span class="nav-text">picoCTF 2019</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#vault-door-training"><span class="nav-text">vault-door-training</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Insp3ct0r"><span class="nav-text">Insp3ct0r</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lets-Warm-Up"><span class="nav-text">Lets Warm Up</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Glory-of-the-Garden"><span class="nav-text">Glory of the Garden</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Warmed-Up"><span class="nav-text">Warmed Up</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Numbers"><span class="nav-text">The Numbers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2Warm"><span class="nav-text">2Warm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#where-are-the-robots"><span class="nav-text">where are the robots</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vault-door-1"><span class="nav-text">vault-door-1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what%E2%80%99s-a-net-cat"><span class="nav-text">what’s a net cat?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#strings-it"><span class="nav-text">strings it</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Easy1"><span class="nav-text">Easy1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#logon"><span class="nav-text">logon</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#picoCTF-2020-Mini-Competition"><span class="nav-text">picoCTF 2020 Mini-Competition</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#picoCTF2021"><span class="nav-text">picoCTF2021</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#picoMini-by-redpwn"><span class="nav-text">picoMini by redpwn</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Beginner-picoMini-2022"><span class="nav-text">Beginner picoMini 2022</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#picoCTF-2022"><span class="nav-text">picoCTF 2022</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#picoCTF-2023"><span class="nav-text">picoCTF 2023</span></a></li></ol>
 
-    </div>
+	</div>
 </div>
-        </div>
-    
+	</div>
+	
 </div>
+			</div>
 
+			
+		</div>
 
-
-                
-
-            </div>
-
-            
-
-        </div>
-
-        <div class="main-content-footer">
-            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
     <div class="info-container py-3 text-center">
         
         <div class="text-center">
@@ -929,7 +1024,7 @@
               <span>2022</span>
               -
             
-            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Tr0y2ooo</a>
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Tr0y2ooo</a>
             
                 
                 <p class="post-count space-x-0.5">
@@ -959,7 +1054,7 @@
         
         <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
             <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
-            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.7.3</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
         </div>
         
         
@@ -988,91 +1083,88 @@
         
     </div>  
 </footer>
-        </div>
-    </div>
+		</div>
+	</div>
 
-    
-        <div class="post-tools">
-            <div class="post-tools-container">
-    <ul class="article-tools-list">
-        <!-- TOC aside toggle -->
-        
-            <li class="right-bottom-tools page-aside-toggle">
-                <i class="fa-regular fa-outdent"></i>
-            </li>
-        
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
 
-        <!-- go comment -->
-        
-    </ul>
+		<!-- go comment -->
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
 </div>
 
-        </div>
-    
-
-    <div class="right-side-tools-container">
-        <div class="side-tools-container">
-    <ul class="hidden-tools-list">
-        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
-            <i class="fa-regular fa-magnifying-glass-plus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
-            <i class="fa-regular fa-magnifying-glass-minus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
-            <i class="fa-regular fa-moon"></i>
-        </li>
-
-        <!-- rss -->
-        
-
-        
-
-        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
-            <i class="fa-regular fa-arrow-down"></i>
-        </li>
-    </ul>
-
-    <ul class="visible-tools-list">
-        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
-            <i class="fa-regular fa-cog fa-spin"></i>
-        </li>
-        
-            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
-                <i class="arrow-up fas fa-arrow-up"></i>
-                <span class="percent"></span>
-            </li>
-        
-        
-    </ul>
-</div>
-
-    </div>
-
-    <div class="image-viewer-container">
-    <img src="">
-</div>
-
-
-    
+	
 
 </main>
 
 
-    
-<script src="/js/libs/Swup.min.js"></script>
 
-<script src="/js/libs/SwupSlideTheme.min.js"></script>
+<script src="/js/build/libs/Swup.min.js"></script>
 
-<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
 
-<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
 
-<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
 
-<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
 
 <script>
     const swup = new Swup({
@@ -1096,44 +1188,42 @@
 
 
 
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
 
+<script src="/js/build/utils.js" type="module"></script>
 
+<script src="/js/build/main.js" type="module"></script>
 
-<script src="/js/tools/imageViewer.js" type="module"></script>
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
 
-<script src="/js/utils.js" type="module"></script>
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
 
-<script src="/js/main.js" type="module"></script>
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
 
-<script src="/js/layouts/navbarShrink.js" type="module"></script>
-
-<script src="/js/tools/scrollTopBottom.js" type="module"></script>
-
-<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
-
-<script src="/js/layouts/categoryList.js" type="module"></script>
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
 
 
 
 
 
     
-<script src="/js/tools/codeBlock.js" type="module"></script>
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
 
 
 
 
     
-<script src="/js/layouts/lazyload.js" type="module"></script>
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
 
 
 
 
     
-<script src="/js/tools/runtime.js"></script>
+<script src="/js/build/tools/runtime.js"></script>
 
     
-<script src="/js/libs/odometer.min.js"></script>
+<script src="/js/build/libs/odometer.min.js"></script>
 
     
 <link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
@@ -1142,10 +1232,10 @@
 
 
   
-<script src="/js/libs/Typed.min.js"></script>
+<script src="/js/build/libs/Typed.min.js"></script>
 
   
-<script src="/js/plugins/typed.js" type="module"></script>
+<script src="/js/build/plugins/typed.js" type="module"></script>
 
 
 
@@ -1155,37 +1245,41 @@
 
 
     
-<script src="/js/libs/anime.min.js"></script>
+<script src="/js/build/libs/anime.min.js"></script>
 
 
 
 
 
     
-<script src="/js/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
 
-<script src="/js/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
 
-<script src="/js/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
-
-
-
-
-<script src="/js/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
-
-
-<script src="/js/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
 
 
 
 
-    <div id="aplayer"></div>
-
-<script src="/js/libs/APlayer.min.js"></script>
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
 
 
-<script src="/js/plugins/aplayer.js"></script>
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
 
 
+
+
+
+	
+	<div id="aplayer"></div>
+
+<script src="/js/build/libs/APlayer.min.js"></script>
+
+
+<script src="/js/build/plugins/aplayer.js"></script>
+
+
+	
 </body>
+
 </html>
