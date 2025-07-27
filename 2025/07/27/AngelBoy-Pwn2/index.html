@@ -123,7 +123,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2024/11/20/2024神盾杯/"/>
+    <link rel="canonical" href="http://example.com/2025/07/27/angelboy-pwn2/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -131,21 +131,18 @@
     
     
         
-        <meta name="description" content="2024神盾杯前言今年的神盾杯分初賽跟決賽，初賽是Jeopardy；決賽是純紅隊做滲透，初賽剛好是中秋節，大家在外面烤肉我在房間裡面打CTF~   這次隊員有我、淑芬、淑芬女友、兩個淑芬朋友，蠻幸運被C到決賽，因為初賽Pwn沒打出來，覺得很愧疚，所以到比賽前一天+坐客運回台南的路上我都還在看AD的東西，可惜決賽要打AD要先打完前面幾個關卡，比較沒機會用到，不過決賽前面關卡我有提供很多資訊(應該吧X">
+        <meta name="description" content="有問題可以提醒我修正Discord：台女#4240PWN1PWN2 tags: Pwn AngelboyAngelBoy_Pwn Video2環境和Labs簡報 ROP 透過ret去執行其他含有ret的程式碼片段(gadget)  ROP chain由眾多ROP gadget組成，可以呼叫System call達成任意代碼執行，基本上就是用ROP Chain串出shellcode的效果。  Gad">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2024神盾杯">
-<meta property="og:url" content="http://example.com/2024/11/20/2024%E7%A5%9E%E7%9B%BE%E6%9D%AF/index.html">
+<meta property="og:title" content="AngelBoy Pwn2">
+<meta property="og:url" content="http://example.com/2025/07/27/AngelBoy-Pwn2/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="2024神盾杯前言今年的神盾杯分初賽跟決賽，初賽是Jeopardy；決賽是純紅隊做滲透，初賽剛好是中秋節，大家在外面烤肉我在房間裡面打CTF~   這次隊員有我、淑芬、淑芬女友、兩個淑芬朋友，蠻幸運被C到決賽，因為初賽Pwn沒打出來，覺得很愧疚，所以到比賽前一天+坐客運回台南的路上我都還在看AD的東西，可惜決賽要打AD要先打完前面幾個關卡，比較沒機會用到，不過決賽前面關卡我有提供很多資訊(應該吧X">
+<meta property="og:description" content="有問題可以提醒我修正Discord：台女#4240PWN1PWN2 tags: Pwn AngelboyAngelBoy_Pwn Video2環境和Labs簡報 ROP 透過ret去執行其他含有ret的程式碼片段(gadget)  ROP chain由眾多ROP gadget組成，可以呼叫System call達成任意代碼執行，基本上就是用ROP Chain串出shellcode的效果。  Gad">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cpasted-6.png%5C">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cpasted-7.png%5C">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cpasted-8.png%5C">
-<meta property="article:published_time" content="2024-11-20T11:54:00.000Z">
-<meta property="article:modified_time" content="2024-11-20T17:02:53.685Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:published_time" content="2025-07-27T08:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-27T08:26:24.205Z">
+<meta property="article:author" content="Troy">
+<meta property="article:tag" content="pwn">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/%5Cimages%5Cpasted-6.png%5C">
     
     
     <!--- Icon Part-->
@@ -157,7 +154,7 @@
     
     <title>
         
-            2024神盾杯 | Tr0y2ooo in the house
+            AngelBoy Pwn2 | Tr0y2ooo in the house
         
     </title>
 
@@ -521,7 +518,7 @@
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">2024神盾杯</h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">AngelBoy Pwn2</h1>
 			</div>
 			
 		</div>
@@ -533,7 +530,7 @@
 			</div>
 			<div class="info flex flex-col justify-between">
 				<div class="author flex items-center">
-					<span class="name text-default-text-color text-lg font-semibold">John Doe</span>
+					<span class="name text-default-text-color text-lg font-semibold">Troy</span>
 					
 					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
 					
@@ -542,20 +539,47 @@
 					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2024-11-20 19:54</span>
-        <span class="mobile">2024-11-20 19:54</span>
+        <span class="desktop">2025-07-27 16:00</span>
+        <span class="mobile">2025-07-27 16:00</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-11-21 01:02:53</span>
-            <span class="mobile">2024-11-21 01:02:53</span>
+            <span class="desktop">2025-07-27 16:26:24</span>
+            <span class="mobile">2025-07-27 16:26:24</span>
             <span class="hover-info">Updated</span>
         </span>
     
 
     
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/ctf/">ctf</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/pwn/">pwn</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
@@ -577,61 +601,89 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<h1 id="2024神盾杯"><a href="#2024神盾杯" class="headerlink" title="2024神盾杯"></a>2024神盾杯</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今年的神盾杯分初賽跟決賽，初賽是Jeopardy；決賽是純紅隊做滲透，初賽剛好是中秋節，大家在外面烤肉我在房間裡面打CTF~  </p>
-<p>這次隊員有我、淑芬、淑芬女友、兩個淑芬朋友，蠻幸運被C到決賽，因為初賽Pwn沒打出來，覺得很愧疚，所以到比賽前一天+坐客運回台南的路上我都還在看AD的東西，可惜決賽要打AD要先打完前面幾個關卡，比較沒機會用到，不過決賽前面關卡我有提供很多資訊(應該吧XD)，無論如何這場比賽讓我學到很多，過程也很好玩，點心也讚讚。  </p>
-<p><img src="/%5Cimages%5Cpasted-6.png%5C" alt="upload successful"></p>
-<h2 id="初賽"><a href="#初賽" class="headerlink" title="初賽"></a>初賽</h2><p>首先是初賽，分成4個categories</p>
+			<p>有問題可以提醒我修正<br>Discord：台女#4240<br><a class="link"   target="_blank" rel="noopener" href="https://hackmd.io/@3C-Tim/Pwn1" >PWN1<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://hackmd.io/@3C-Tim/Pwn2" >PWN2<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<h6 id="tags-Pwn-Angelboy"><a href="#tags-Pwn-Angelboy" class="headerlink" title="tags: Pwn Angelboy"></a>tags: <code>Pwn</code> <code>Angelboy</code></h6><h1 id="AngelBoy-Pwn-Video2"><a href="#AngelBoy-Pwn-Video2" class="headerlink" title="AngelBoy_Pwn Video2"></a>AngelBoy_Pwn Video2</h1><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/scwuaptx/HITCON-Training" >環境和Labs<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://www.slideshare.net/AngelBoy1/linux-binary-exploitation-basic-knowledge" >簡報<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<h2 id="ROP"><a href="#ROP" class="headerlink" title="ROP"></a>ROP</h2><ul>
+<li>透過ret去執行其他含有ret的程式碼片段(gadget)</li>
+</ul>
+<h3 id="ROP-chain"><a href="#ROP-chain" class="headerlink" title="ROP chain"></a>ROP chain</h3><p>由眾多ROP gadget組成，可以呼叫System call達成任意代碼執行，基本上就是用ROP Chain串出shellcode的效果。</p>
 <ul>
-<li>Web<ul>
-<li>secret in frame 1</li>
-<li>secret in frame 2</li>
-<li>secret in frame 3</li>
-<li>miku</li>
+<li><p>Gadget</p>
+<ul>
+<li>read&#x2F;write register&#x2F;memory<ul>
+<li>pop eax;pop ecx;ret</li>
+<li>mov [eax],ecx;ret</li>
 </ul>
 </li>
-<li>Pwn<ul>
-<li>basic Pwn</li>
+<li>system call<ul>
+<li>int 0x80&#x2F;sysenter</li>
 </ul>
 </li>
-<li>Misc<ul>
-<li>Just play a game</li>
-<li>choose E</li>
-<li>cHECk in tEXt</li>
-</ul>
-</li>
-<li>Reverse<ul>
-<li>Reverse-calculator</li>
-<li>BasicRev</li>
-<li>Eazy Jail</li>
+<li>change esp(改變stack位置的gadget)<ul>
+<li>pop esp;ret</li>
+<li>leave;ret</li>
 </ul>
 </li>
 </ul>
-<p>原本我想說初賽Pwn應該串個ROP chain或是一些很裸的題就能打到flag了，但是看了1個小時後我知道我錯了，默默地打開misc看secret in frame1，題目是一個網站，這個網站把peko的影片切割成一禎一禎的，所以一個幾十分鐘的影片就變成幾千張圖片，網址可以跳到某一禎，flag藏在某一禎的圖片裡面，有點忘記我的想法了，我當時應該是想把所有圖片抓下來然後在資料夾裡面一張一張找，後來想想好像可以把圖片串回影片，到這個<a class="link"   target="_blank" rel="noopener" href="https://www.video2edit.com/compare-video" >網站<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>比對，後來隊友的神奇腳本解出來了，frame2好像也同一個腳本解開了。</p>
-<p>開始看肉搜OSINT題，這題超級搞，好像要調查一個名字叫做craig的人，提示是去翻社群媒體，幹我就不會用IG，我去翻神盾IG、FB每個貼文，然後找到一個IG帳號按讚神盾IG貼文，很玄喔，他只按一篇文其他都沒按，原本以為繼續蒐集資料應該可以解出來，他的IG頁面還放自己的網站，真的超級可疑的拉，翻透他的blog，各種教學都看了，F12也看透透了</p>
-<p><img src="/%5Cimages%5Cpasted-7.png%5C" alt="upload successful"></p>
-<p>我幾乎把所有時間都砸在這題上了，結果這個人是真的，正確的解法是到IG的已標註中找到craig，然後到Google評論寶可夢中心找craig的評論</p>
-<p><img src="/%5Cimages%5Cpasted-8.png%5C" alt="upload successful"></p>
-<p>其他都是隊友的神奇腳本、神奇日文、神奇數學過了，我就這樣混到決賽了~</p>
-<h2 id="決賽"><a href="#決賽" class="headerlink" title="決賽"></a>決賽</h2><p>決賽在台南歸仁，到了之後看到很多大神，一開始主辦單位先給環境，環境是一條實體網路線還有WiFi，一開始好像很多人網路都設定不好，好像是兩個網路都有預設gateway，所以要去設定他的route，不然賽後出題者也有給一個解法就是開虛擬機，虛擬機接一張網卡，本機接一張就不會有搶gateway的問題了，還好我們有中央網管淑芬幫我們設定好網路之後大概耗了半小時才算是開始</p>
-
+</li>
+<li><p>Writr to register</p>
+<ul>
+<li>pop [reg];ret</li>
+<li>mov [reg],[reg];ret</li>
+<li>…</li>
+</ul>
+</li>
+<li><p>Write to memory</p>
+<ul>
+<li>mov [reg],reg (前者register放reference，也就是要修改的address位址;後者放要修改的值)(mov eax,ebx)(eax&#x3D;0x5269123;ebx&#x3D;0xdeadbeef)</li>
+<li>mov [reg+xx],reg</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<h4 id="execve-bin-sh-NULL-NULL"><a href="#execve-bin-sh-NULL-NULL" class="headerlink" title="execve(&#x2F;bin&#x2F;sh,NULL,NULL)"></a>execve(&#x2F;bin&#x2F;sh,NULL,NULL)</h4><ul>
+<li>Write to memory<br>由於&#x2F;bin&#x2F;sh有7個bytes，在32位元的情況下無法直接寫到記憶體<br>因此我們會分兩次寫進去：<br>:::info<br>0x8049a80<br>&#x2F;bin</li>
+</ul>
+<p>0x8049a84<br>&#x2F;sh\x00<br>:::</p>
+<ul>
+<li>Write to register<br>eax &#x3D; 0xb<br>ebx &#x3D; address of “&#x2F;bin&#x2F;sh”<br>ecx &#x3D; 0<br>edx &#x3D; 0<br>int 0x80<br>execve的system call 是0xb<br>然後ebx放”&#x2F;bin&#x2F;sh”的address<br>最後再做int 0x80就可以成功執行execve(&#x2F;bin&#x2F;sh,NULL,NULL)了</li>
+</ul>
+<h2 id="find-gadget"><a href="#find-gadget" class="headerlink" title="find gadget"></a>find gadget</h2><p>ROPgadget –binary [binary]<br>ROPgadget –ropchain –binary [binary]<br>通常會找很長的chain，需要自己找比較短的</p>
+<h2 id="ROP-bypass-ASLR"><a href="#ROP-bypass-ASLR" class="headerlink" title="ROP bypass ASLR"></a>ROP bypass ASLR</h2><h2 id="stack-migration"><a href="#stack-migration" class="headerlink" title="stack migration"></a>stack migration</h2><!-- CSS -->
+<style>
+    .navbar-brand:before {
+        content: 'Magic_Chihua × ' !important;
+        padding-left: 2em;
+        background-image: url(https://i.imgur.com/BWXp8py.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+    .navbar-brand > .fa-file-text {
+        display: none;
+    }
+    .red{
+        color:#F00;
+        font-weight: bold;
+    }
+</style>
 		</div>
 
 		
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> 2024神盾杯</li>
-        <li><strong>Author:</strong> John Doe</li>
+        <li><strong>Title:</strong> AngelBoy Pwn2</li>
+        <li><strong>Author:</strong> Troy</li>
         <li><strong>Created at
-                :</strong> 2024-11-20 19:54:00</li>
+                :</strong> 2025-07-27 16:00:00</li>
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-11-21 01:02:53
+                    :</strong> 2025-07-27 16:26:24
             </li>
         
         <li>
-            <strong>Link:</strong> https://tr0y2ooo.github.io/2024/11/20/2024神盾杯/
+            <strong>Link:</strong> https://tr0y2ooo.github.io/2025/07/27/AngelBoy-Pwn2/
         </li>
         <li>
             <strong>
@@ -650,29 +702,25 @@
 		
 
 		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/pwn/">#pwn</a>&nbsp;
+			</li>
+			
+		</ul>
+		
 
 		
 
 		
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
-			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2024/12/03/SIP-server/">
-					<span class="left arrow-icon flex justify-center items-center">
-						<i class="fa-solid fa-chevron-left"></i>
-					</span>
-					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">SIP server</span>
-						<span class="post-nav-item">Prev posts</span>
-					</span>
-				</a>
-			</div>
-			
 			
 			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="next" rel="next" href="/2024/11/20/ngelBoy-Pwn1/">
+				<a class="next" rel="next" href="/2024/12/25/%E8%87%AA%E5%B7%B1%E5%87%BA%E7%9A%84%E7%AB%B6%E7%A8%8B%E9%A1%8C%E7%9B%AE/">
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">AngelBoy Pwn1</span>
+						<span class="post-nav-title-item truncate max-w-48">自己出的競程題目</span>
 						<span class="post-nav-item">Next posts</span>
 					</span>
 					<span class="right arrow-icon flex justify-center items-center">
@@ -693,8 +741,8 @@
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
-		<div class="page-title">2024神盾杯</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2024%E7%A5%9E%E7%9B%BE%E6%9D%AF"><span class="nav-text">2024神盾杯</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E8%B3%BD"><span class="nav-text">初賽</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B1%BA%E8%B3%BD"><span class="nav-text">決賽</span></a></li></ol></li></ol>
+		<div class="page-title">AngelBoy Pwn2</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AngelBoy-Pwn-Video2"><span class="nav-text">AngelBoy_Pwn Video2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ROP"><span class="nav-text">ROP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ROP-chain"><span class="nav-text">ROP chain</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#find-gadget"><span class="nav-text">find gadget</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ROP-bypass-ASLR"><span class="nav-text">ROP bypass ASLR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stack-migration"><span class="nav-text">stack migration</span></a></li></ol></li></ol>
 
 	</div>
 </div>
